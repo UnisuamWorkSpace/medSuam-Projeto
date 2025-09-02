@@ -285,6 +285,7 @@ h1 {
 footer {
     display:flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap:40px;
     padding-top:40px;
     box-sizing: border-box;
