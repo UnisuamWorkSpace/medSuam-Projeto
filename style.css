@@ -1,5 +1,7 @@
 :root {
     --padrao: rgba(92, 184, 150, 0.957);
+    --cianoClaro: rgba(96, 225, 178, 0.957);
+    --azulEscuro: #166391;
 }
 
 body, html {
@@ -28,12 +30,12 @@ a {
     margin-left: 5px;
 }
 
-#cadastrarLink a {
+.cadastrarLink a {
     color:white;
 
 }
 
-#cadastrarLink {
+.cadastrarLink {
     background-color: rgba(92, 184, 150, 0.957);
     padding: 5px 15px;
     border-radius: 25px;
@@ -43,7 +45,7 @@ a {
     cursor: pointer;
 }
 
-#cadastrarLink:hover  {
+.cadastrarLink:hover  {
     background-color: rgba(96, 225, 178, 0.957);
     transform: scale(1.1); 
 }
@@ -92,7 +94,10 @@ nav {
    
     min-height: 70vh;  
     height: auto;
-    background-image: linear-gradient(to bottom right, #1E90FF, #00BFFF, #00FFFF);
+    background-image: url("./images/ChatGPT\ Image\ 1\ de\ set.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,7 +118,7 @@ nav {
 }
 
 h1 span {
-    color:  rgba(96, 225, 178, 0.957);
+    color:  var(--azulEscuro);
 }
 
 .sloganCards {
@@ -136,6 +141,11 @@ h1 span {
     text-align: left;
     transition: transform 0.3s ease; 
     cursor: pointer;
+}
+
+.sloganCard i {
+    color: var(--azulEscuro);
+    font-size: larger;
 }
 
 .sloganCard:hover {
@@ -167,6 +177,7 @@ h1 {
 
 #labelMenu {
     display:none;
+    cursor: pointer;
 }
 
 .menuContainer {
@@ -231,7 +242,7 @@ h1 {
     .navContent-container .navContent {
         display:none;
     }
-    #cadastrarLink {
+    .cadastrarLink {
         display:none;
     }
 
@@ -293,7 +304,8 @@ footer {
     gap:40px;
     padding-top:40px;
     box-sizing: border-box;
-    box-shadow: 0px 10px 5px #e5e4e4 inset;
+   /*  box-shadow: 0px 10px 5px #e5e4e4 inset; */
+   border-top:1px solid #8e8d8d;
 }
 
 .footerLinks {
@@ -329,3 +341,95 @@ footer {
 .copyRight {
     font-size:19px;
 }
+
+.especialidadeCard {
+    display:flex;
+    flex-direction: column;
+    gap:20px;
+    border:solid 1px gainsboro;
+    border-radius: 15px;
+    padding: 50px 40px 30px 20px;
+    transition: transform 0.3s ease; 
+}
+
+.especialidadeCard:hover {
+    transform: translateY(-10px);
+}
+
+.especialidadeCard i {
+    color: var(--azulEscuro);
+    font-size: larger;
+}
+
+.especialidadeCardContainer {
+    display:grid;
+    gap:10px;
+    grid-template-columns: repeat(auto-fit,230px);
+    justify-content: center;
+    align-items: center;
+}
+
+.especialidadesTitulo {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    text-align: center;
+    margin: 50px 0 30px 0;
+}
+
+.especialidadesTitulo h2 {
+    margin:0;
+    padding:0;
+    font-size: 40px;
+}
+
+.especialidadesTitulo p {
+    padding:0;
+    margin:0;
+    font-size: 20px;
+}
+
+.diferencialImg {
+    background-color: var(--azulEscuro);
+    height:600px;
+    width:600px;
+    border-radius: 25px;
+}
+
+.diferencial {
+    height:600px;
+    width:600px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    padding:0 30px 0 30px;
+    justify-content: center;
+}
+
+.diferencialBtn {
+    align-self: flex-start;
+    padding: 20px 40px 20px 40px;
+    background-color: var(--azulEscuro);
+}
+
+.diferencialBtn a {
+    font-size: 25px;
+}
+
+.diferencialBg {
+    background: linear-gradient(135deg, #000000, #1c1c1c, #2b0f3d);
+    color:white;
+    padding: 20px 50px;
+    border-radius: 20px;
+}
+
+
+.diferencialContainer {
+    display:flex;
+    justify-content: center;
+    margin: 80px 0 50px 0;
+}
+
+
