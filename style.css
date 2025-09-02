@@ -273,6 +273,10 @@ h1 {
 
 @media (max-width: 725px) {
   
+    footer{
+        flex-wrap: nowrap;
+        flex-direction: column;
+    }
     .descriptionContainer span {
         display: none;
     }
