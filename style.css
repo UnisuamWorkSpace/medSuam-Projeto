@@ -373,7 +373,7 @@ footer {
 .especialidadeCardContainer {
     display:grid;
     gap:10px;
-    grid-template-columns: repeat(auto-fit,230px);
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     justify-content: center;
     align-items: center;
 }
@@ -447,3 +447,17 @@ footer {
     box-sizing: border-box;
 }
  
+.diferencialImg, .diferencial {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+}
+
+.diferencialContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 80px 20px 50px 20px;
+    box-sizing: border-box;
+}
