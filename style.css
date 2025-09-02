@@ -1,0 +1,326 @@
+:root {
+    --padrao: rgba(92, 184, 150, 0.957);
+}
+
+body, html {
+    font-size: 25px;
+    font-family: "Roboto", sans-serif;
+    padding: 0;
+    margin: 0;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.logo {
+    height:60px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.navContent:hover *{
+    color: rgba(92, 184, 150, 0.957);
+}
+
+#entrarLink {
+    margin-left: 5px;
+}
+
+#cadastrarLink a {
+    color:white;
+
+}
+
+#cadastrarLink {
+    background-color: rgba(92, 184, 150, 0.957);
+    padding: 5px 15px;
+    border-radius: 25px;
+    display: inline-block;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    transform-origin: center center;
+    cursor: pointer;
+}
+
+#cadastrarLink:hover  {
+    background-color: rgba(96, 225, 178, 0.957);
+    transform: scale(1.1); 
+}
+
+nav {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    position:relative;
+    box-shadow: 0px 2px 5px #8e8d8d ;
+}
+
+.navContent-container {
+    display:flex;
+    align-items: center;
+    gap: 15px;
+    
+}
+
+.navContent {
+  position: relative;
+  display: inline-block;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.navContent ::after {
+  content: '';
+  position: absolute;
+  left: 50%;              
+  bottom: -5%;
+  width: 0%;              
+  height: 0.5px;            
+  background-color: rgba(96, 225, 178, 0.957);
+  transform: translateX(-50%); 
+  transition: width 0.3s ease; 
+}
+
+.navContent :hover::after {
+  width: 100%;            
+}
+
+.slogan {
+   
+    min-height: 70vh;  
+    height: auto;
+    background-image: linear-gradient(to bottom right, #1E90FF, #00BFFF, #00FFFF);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slogan-container {
+    max-width:700px;
+    text-align: justify;
+    color:  white;
+    display: flex;
+    flex-wrap: wrap;
+    gap:13px;
+}
+
+.slogan-container * {
+    margin:0;
+    padding:0;
+}
+
+h1 span {
+    color:  rgba(96, 225, 178, 0.957);
+}
+
+.sloganCards {
+    display:flex;
+    flex-wrap: wrap;
+    gap:20px;
+    justify-content: center; /* optional */
+}
+
+.sloganCard {
+    padding: 50px 15px;
+    width: 190px;
+    background-color: white;
+    border-radius: 25px;
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+    justify-content: center;
+    color:black;
+    text-align: left;
+    transition: transform 0.3s ease; 
+    cursor: pointer;
+}
+
+.sloganCard:hover {
+    transform: translateY(-10px);
+}
+
+/* .h1Container {
+    width:500px;
+} */
+
+h1 {
+    font-size: 40px;
+}
+
+.shadowDiv {
+    height: 240px;
+    width: 570px;
+}
+
+.cardTitle {
+    font-weight: bold;
+
+}
+
+.cardDescription {
+    font-size: 18px;
+   /*  text-align:justify; */
+}
+
+#labelMenu {
+    display:none;
+}
+
+.menuContainer {
+    height:100%;
+    background-color: white;
+    width:100%;
+    position:absolute;
+    top:100%;
+    right:-200%;
+    height:100vh;
+    z-index: 100;
+    transition: right 0.5s ease;
+    display:flex;
+    flex-direction: column;
+    padding: 10px 20px 0 20px;
+    box-sizing: border-box;
+}
+
+#menu {
+    display:none;
+}
+
+#menu:checked ~ .menuContainer {
+    right:0%;
+}
+
+#menu:checked ~  span {
+    display: none;
+}
+
+.menuContent {
+    border-bottom: 1px solid /* #ECECEC */ black;
+    padding: 5px 0 5px 0;
+    cursor: pointer;
+}
+
+.menuContent a { 
+    color: black;
+    display: block;
+}
+
+.menuContent:hover a  { 
+    color: rgba(96, 225, 178, 0.957);
+}
+
+.sloganCardsContainer {
+    .sloganCardsContainer {
+    display:flex;
+    flex-wrap: wrap;
+    gap:20px;
+    justify-content: center; /* optional */
+}
+}
+
+
+@media (max-width: 980px) {
+
+    #labelMenu {
+        display:inline-block;
+    }
+
+    .navContent-container .navContent {
+        display:none;
+    }
+    #cadastrarLink {
+        display:none;
+    }
+
+
+    .logo {
+
+        align-self: center;
+        margin: 0 auto; 
+    }
+    .labelMenu {
+        flex: 1;
+        align-self: flex-end;
+    }
+
+    .shadowDiv {
+        display:none;
+    }
+
+    .sloganCard {
+        width: 100%;
+    }
+
+    .descriptionContainer {
+        text-align: left;
+    }
+
+    .descriptionContainer span {
+        font-size: 25px;
+    }
+    h1 {
+        font-size: 30px;
+    }
+
+    h1 span {
+        font-size: 30px !important;
+    }
+
+}
+
+@media (max-width: 725px) {
+  
+    .descriptionContainer span {
+        display: none;
+    }
+
+    h1 span {
+        display:inline-block !important;
+    }
+}
+
+footer {
+    display:flex;
+    justify-content: center;
+    gap:40px;
+    padding-top:40px;
+    box-sizing: border-box;
+    box-shadow: 0px 10px 5px #e5e4e4 inset;
+}
+
+.footerLinks {
+    display:flex;
+    flex-direction: column;
+    margin-top: 13px;
+    align-items: center;
+}
+
+.footerLinks span {
+    color: var(--padrao);
+    margin-bottom: 5px;
+}
+
+.footerLinks a {
+    font-size: 21px;
+}
+
+.footerLinks ul {
+    margin:0;
+    padding:0;
+    list-style:none ;
+    text-align: center;
+}
+
+.copyRight {
+    display: flex;
+    justify-content: center;
+    
+    margin-top: 20px;
+}
+
+.copyRight {
+    font-size:19px;
+}
