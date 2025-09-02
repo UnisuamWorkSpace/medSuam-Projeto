@@ -101,6 +101,9 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0px 4px 8px #8e8d8d ;
+    padding: 30px 20px 30px 20px ;
+    box-sizing: border-box;
 }
 
 .slogan-container {
@@ -280,6 +283,14 @@ h1 {
         font-size: 30px !important;
     }
 
+    .diferencialImg {
+      display: none;
+    }
+
+    .diferencialBtn {
+        display:inline;
+    }
+
 }
 
 @media (max-width: 725px) {
@@ -380,7 +391,7 @@ footer {
 }
 
 .especialidadesTitulo h2 {
-    margin:0;
+    margin:0 0 20px 0;
     padding:0;
     font-size: 40px;
 }
@@ -394,8 +405,9 @@ footer {
 .diferencialImg {
     background-color: var(--azulEscuro);
     height:600px;
-    width:600px;
+    width:700px;
     border-radius: 25px;
+    border: 1px solid gainsboro;
 }
 
 .diferencial {
@@ -406,6 +418,7 @@ footer {
     align-items: center;
     padding:0 30px 0 30px;
     justify-content: center;
+    box-sizing: border-box;
 }
 
 .diferencialBtn {
@@ -423,13 +436,15 @@ footer {
     color:white;
     padding: 20px 50px;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 
 .diferencialContainer {
     display:flex;
     justify-content: center;
+    flex-wrap: wrap;
     margin: 80px 0 50px 0;
 }
-
-
+ 
