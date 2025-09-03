@@ -81,9 +81,10 @@ h1 {
 
 .recuperarSenhaContainer {
     display:flex;
-    justify-content: space-between;
-    margin-top: 10px;
-    color:whitesmoke
+    justify-content: flex-end;
+    margin-top: 15px;
+    color:whitesmoke;
+    margin-bottom: 20px;
 }
 
 .recuperarSenhaContainer a {
@@ -101,4 +102,22 @@ h1 {
     color: rgba(96, 225, 178, 0.957);
     border: solid 2px rgba(96, 225, 178, 0.957);
     transform: scale(1.1);
+}
+
+.criarConta {
+    display:flex;
+    justify-content:center;
+    color:whitesmoke;
+    gap:10px;
+    margin-top: 15px;
+}
+
+.criarConta a {
+    text-decoration: none;
+    color: darkblue;
+}
+
+.criarConta a:hover {
+    color: rgb(0, 238, 255);
+    text-decoration:underline;
 }

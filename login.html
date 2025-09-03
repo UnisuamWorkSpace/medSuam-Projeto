@@ -14,15 +14,19 @@
             <form id="loginForm" action="" method="post" >  
                 <div class="inputContainer">
                     
-                        <input class="inputStyle" type="text" id="emaillogin" name="email" placeholder="Email">
+                        <input class="inputStyle" type="text"  id="emaillogin" name="email" placeholder="Email" required>
                         <div class="senhaContainer">
-                        <input class="inputStyle" type="password" id="senhalogin" name="senha" placeholder="Senha">
+                        <input class="inputStyle" type="password" maxlength="10" id="senhalogin" name="senha" placeholder="Senha" required>
                         <img id="eyeSenhaLogin" class="eye-slash" onclick="mostrarSenha('senhalogin', 'eyeSenhaLogin')" src="./images/eye-slash.svg"/>
                         </div>
-                        <input id="enviarBtn" class="buttonStyle" type="submit" value="Enviar">
                         <div class="recuperarSenhaContainer">
-                            <span>Esqueceu a senha ?</span>
-                            <a href="#">Recuperar senha</a>
+
+                            <a href="#">Esqueceu a senha ?</a>
+                        </div>
+                        <input id="enviarBtn" class="buttonStyle" type="submit" value="Enviar">
+                        <div class="criarConta">
+                            <span>Não tem Conta ?</span>
+                            <a href="#">Criar conta</a>
                         </div>
                 </div>
             </form>
