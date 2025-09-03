@@ -27,11 +27,27 @@ h1 {
     text-align: center;
     display:block;
     padding: 10px 15px; 
-    background-color: rgba(252, 252, 252, 0.2); /* White background with 50% opacity */
+    background-color: rgba(252, 252, 252, 0.2); 
     border-radius: 4px;
     border: 1px solid rgba(252, 252, 252, 0.4);
     font-size: 18px;
     margin: 0 0 10px 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.senhaContainer {
+    position: relative;
+    max-width:280px;
+    box-sizing: border-box;
+}
+.eye-slash {
+    position:absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right:10px;
+    width: 22px;
+    cursor:pointer;
 }
 
 .inputStyle::placeholder {
@@ -41,16 +57,18 @@ h1 {
 }
 
 .buttonStyle {
-    width: 254px;
+    width: 280px;
     text-align: center;
     display:block;
     padding: 10px 15px; 
-    background-color: whitesmoke; /* White background with 50% opacity */
+    background-color: whitesmoke; 
     border-radius: 3px;
     color: var(--padrao);
     font-size: 18px;
     border:none;
     cursor:pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    transform-origin: center center;
 }
 
 .formContainer {
@@ -59,4 +77,28 @@ h1 {
     justify-content: center;
     align-items: center;
     height: 80vh;
+}
+
+.recuperarSenhaContainer {
+    display:flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    color:whitesmoke
+}
+
+.recuperarSenhaContainer a {
+    text-decoration: none;
+    color: darkblue;
+}
+
+.recuperarSenhaContainer a:hover {
+    color: rgb(0, 238, 255);
+    text-decoration:underline;
+}
+
+.enviarClick {
+    background-color: #166391;
+    color: rgba(96, 225, 178, 0.957);
+    border: solid 2px rgba(96, 225, 178, 0.957);
+    transform: scale(1.1);
 }

@@ -4,24 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="stylesheet" href="./css/login.css"/>
 </head>
 <body>
     <main>
         <div class="formContainer">
             <h1>Login</h1>
         
-            <form action="" method="post" >  
+            <form id="loginForm" action="" method="post" >  
                 <div class="inputContainer">
-                    <input class="inputStyle" type="text" id="senha" name="email" placeholder="Email">
-                    <input class="inputStyle" type="password" id="senha" name="senha" placeholder="Senha">
-                    <input class="buttonStyle" type="submit" value="Enviar">
+                    
+                        <input class="inputStyle" type="text" id="emaillogin" name="email" placeholder="Email">
+                        <div class="senhaContainer">
+                        <input class="inputStyle" type="password" id="senhalogin" name="senha" placeholder="Senha">
+                        <img id="eyeSenhaLogin" class="eye-slash" onclick="mostrarSenha('senhalogin', 'eyeSenhaLogin')" src="./images/eye-slash.svg"/>
+                        </div>
+                        <input id="enviarBtn" class="buttonStyle" type="submit" value="Enviar">
+                        <div class="recuperarSenhaContainer">
+                            <span>Esqueceu a senha ?</span>
+                            <a href="#">Recuperar senha</a>
+                        </div>
                 </div>
             </form>
         </div>
     </main>
-    
 
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./js/login.js"></script>
+
 </body>
 </html>
