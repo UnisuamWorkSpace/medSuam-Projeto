@@ -94,7 +94,7 @@ nav {
    
     min-height: 70vh;  
     height: auto;
-    background-image: url("./images/ChatGPT\ Image\ 1\ de\ set.jpg");
+    background-image: url("./images/ChatGPT\ Image\ 2\ de\ set.\ de\ 2025\,\ 21_34_00.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center; 
@@ -121,7 +121,7 @@ nav {
 }
 
 h1 span {
-    color:  var(--azulEscuro);
+    color:  var(--cianoClaro);
 }
 
 .sloganCards {
