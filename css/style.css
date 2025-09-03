@@ -94,7 +94,7 @@ nav {
    
     min-height: 70vh;  
     height: auto;
-    background-image: url("./images/ChatGPT\ Image\ 2\ de\ set.\ de\ 2025\,\ 21_34_00.png");
+    background-image: url("../images/ChatGPT\ Image\ 2\ de\ set.\ de\ 2025\,\ 21_34_00.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center; 
@@ -155,9 +155,9 @@ h1 span {
     transform: translateY(-10px);
 }
 
-/* .h1Container {
-    width:500px;
-} */
+.h1Container {
+    margin: 10px 0;
+}
 
 h1 {
     font-size: 40px;
@@ -233,6 +233,10 @@ h1 {
     gap:20px;
     justify-content: center; /* optional */
 }
+}
+
+.descriptionContainer {
+    margin-bottom: 10px;
 }
 
 
