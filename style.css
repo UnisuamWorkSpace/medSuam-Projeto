@@ -407,7 +407,7 @@ footer {
 .diferencialImg {
     background-color: var(--azulEscuro);
     height:600px;
-    width:700px;
+    max-width:700px;
     border-radius: 25px;
     border: 1px solid gainsboro;
 }
@@ -451,7 +451,7 @@ footer {
     box-sizing: border-box;
 }
  
-.diferencialImg, .diferencial {
+ .diferencial {
     width: 100%;
     max-width: 700px;
     height: auto;
