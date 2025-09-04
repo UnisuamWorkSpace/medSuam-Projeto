@@ -13,11 +13,36 @@ function mostrarSenha (id, imagem)  {
 
 }
 
+function validarEmail() {
+    const emailInput = document.getElementById('emaillogin');
+    const email = emailInput.value.trim();
+
+    // Regex simples para validar e-mail
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!regex.test(email)) {
+        $("#emailLoginSpan").text('Por favor, digite um e-mail válido.');
+        
+        return false;
+    }
+
+    $("#emailLoginSpan").text('');
+    return true;
+}
+
+
 const form = $('#loginForm').on("submit", (event) => {
 
 
     
-    event.preventDefault();
+    
+
+       if (!validarEmail()) {
+        event.preventDefault();
+        return false; 
+    }
+
+    
 
     
     const btn = $('#enviarBtn');
@@ -32,6 +57,7 @@ const form = $('#loginForm').on("submit", (event) => {
             btn.removeClass("enviarClick");
 
         }, 500); 
-    
+
+    $('#loginForm')[0].submit();
 });
 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/cadastroCliente.css"/>
+</head>
+<body>
+    <main>
+        <div class="formContainer">
+            <h1>Crie sua conta</h1>
+            <label class="labelStyle mainLabel">Informações pessoais - Necessário para Prescrição Digital</label>
+            <form id="clienteForm" action="" method="post" >  
+                <div class="inputContainer">
+                        <input class="inputStyle" type="text"  id="nomecliente" name="nomecliente" placeholder="Nome Completo" onkeyup="soLetras(event)" required>
+                        <input class="inputStyle noMarginBot" type="text"  id="cpfcliente" name="cpfcliente" placeholder="CPF" maxlength="14"  onkeyup="cpfMask(event)" required>
+                        <span  id="cpfSpan" class="spanStyle"></span>
+                        <input class="inputStyle" type="text"  id="celularcliente" name="celularcliente" placeholder="Celular" maxlength="15" onkeyup="phoneMask(event)" required>
+                        <select class="inputStyle" id="generocliente" required>
+                            <option value="" disabled selected>Sexo</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                        </select>
+                        <label class="labelStyle mainLabel">Data de Nascimento</label>
+                        <input class="inputStyle" type="date"  id="aniversariocliente" name="aniversariocliente"  onblur="validarDataNascimento()" required>
+                        <span  id="dateSpan" class="spanStyle"></span>
+
+                        <label class="labelStyle">Endereço</label>
+                        <input class="inputStyle" type="text"  id="cepcliente" name="cepcliente" placeholder="CEP" maxlength="9" onkeyup="cepMask(event)" onblur="consultarCep()" required>
+                        <span  id="cepSpan" class="spanStyle"></span>
+                        <input class="inputStyle" type="text"  id="ruacliente" name="ruacliente" placeholder="Rua" required>
+                        <input class="inputStyle" type="number"  id="numeroruacliente" name="numeroruacliente" placeholder="Número (opicional)" onkeyup="soNumeros(event)">
+                        <input class="inputStyle" type="text"  id="complementocliente" name="complementocliente" placeholder="Complemento (opicional)">
+                        <input class="inputStyle" type="text"  id="bairrocliente" name="bairrocliente" placeholder="Bairro" required>
+                        <input class="inputStyle" type="text"  id="cidadecliente" name="cidadecliente" placeholder="Cidade" onkeyup="soLetras(event)" required>
+                        <select id="estadocliente" class="inputStyle" name="estado" required>
+                            <option value="" disabled selected>UF</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                        <label class="labelStyle">Dados da conta</label>
+                        <input class="inputStyle" type="text"  id="emailcadastro" name="email" placeholder="Email" onblur="validarEmail()" required>
+                        <span  id="emailSpan" class="spanStyle"></span>
+                        <div class="senhaContainer">
+                        <input class="inputStyle" type="password" minlength="8" maxlength="12" id="senhaCadastro" name="senha" placeholder="Senha" required>
+                        <img id="eyeSenhaCadastro" class="eye-slash" onclick="mostrarSenha('senhaCadastro', 'eyeSenhaCadastro')" src="./images/eye-slash.svg"/>
+                        </div>
+                        <div class="senhaContainer">
+                        <input class="inputStyle" type="password" minlength="8" maxlength="12" id="senhaConfirmCadastro" name="senha" placeholder="Confirmar Senha" onblur="senhaIgual()" required>
+                        <img id="eyeSenhaConfirmCadastro" class="eye-slash" onclick="mostrarSenha('senhaConfirmCadastro', 'eyeSenhaConfirmCadastro')" src="./images/eye-slash.svg"/>
+                        </div>
+                        <span  id="senhaConfirmSpan" class="spanStyle"></span>
+          
+                        <input id="enviarBtn" class="buttonStyle" type="submit" value="Enviar">
+                        <div class="criarConta">
+                            <span>Já tem Conta ?</span>
+                            <a href="./login.html">Entrar</a>
+                        </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./js/cadastroCliente.js"></script>
+
+</body>
+</html>

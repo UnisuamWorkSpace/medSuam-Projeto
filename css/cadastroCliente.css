@@ -34,6 +34,21 @@ h1 {
     margin: 0 0 10px 0;
     width: 100%;
     box-sizing: border-box;
+    color: gray;
+}
+
+select {
+    font-size: 18px ;
+    text-align:  center;
+    text-align-last: center;
+    padding:0;
+    margin:0;
+}
+ option {
+    background-color: whitesmoke;
+    
+    font-size: 18px;
+    padding:0;
 }
 
 .senhaContainer {
@@ -76,7 +91,8 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    min-height: 80vh;  /* cresce além da tela quando necessário */
+    padding: 20px;  
 }
 
 .recuperarSenhaContainer {
@@ -120,6 +136,18 @@ h1 {
 .criarConta a:hover {
     color: rgb(0, 238, 255);
     text-decoration:underline;
+}
+
+.labelStyle {
+    color:whitesmoke;
+    margin: 0 0 5px 0;
+    font-size: 20px;
+    display:block;
+}
+
+.mainLabel {
+    max-width: 288px;
+    font-size: 16px;
 }
 
 .spanStyle {

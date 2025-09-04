@@ -14,9 +14,10 @@
             <form id="loginForm" action="" method="post" >  
                 <div class="inputContainer">
                     
-                        <input class="inputStyle" type="text"  id="emaillogin" name="email" placeholder="Email" required>
+                        <input class="inputStyle noMarginBot " type="text"  id="emaillogin" name="email" placeholder="Email" onblur="validarEmail()" required>
+                        <span  id="emailLoginSpan" class="spanStyle"></span>
                         <div class="senhaContainer">
-                        <input class="inputStyle" type="password" maxlength="10" id="senhalogin" name="senha" placeholder="Senha" required>
+                        <input class="inputStyle" type="password" minlength="8" maxlength="12" id="senhalogin" name="senha" placeholder="Senha" required>
                         <img id="eyeSenhaLogin" class="eye-slash" onclick="mostrarSenha('senhalogin', 'eyeSenhaLogin')" src="./images/eye-slash.svg"/>
                         </div>
                         <div class="recuperarSenhaContainer">
@@ -26,7 +27,7 @@
                         <input id="enviarBtn" class="buttonStyle" type="submit" value="Enviar">
                         <div class="criarConta">
                             <span>Não tem Conta ?</span>
-                            <a href="#">Criar conta</a>
+                            <a href="./cadastroCliente.html">Criar conta</a>
                         </div>
                 </div>
             </form>
