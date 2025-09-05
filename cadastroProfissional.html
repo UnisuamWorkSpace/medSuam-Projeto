@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/cadastroProfissional.css"/>
+</head>
+<body>
+    <main>
+        <div class="formContainer">
+            <h1>Você é um profissional da saúde? Utilize nossa plataforma!</h1>
+
+            <label class="labelStyle mainLabel">Preencha o formulário abaixo para nós entrarmos em contato com instruções.</label>
+        
+            <form id="profissionalForm" action="" method="post" >  
+                <div class="inputContainer">
+                    <input class="inputStyle" type="text"  id="nomeProfissional" name="nomeProfissonal" placeholder="Nome Completo" onkeyup="soLetras(event)" required>
+                    <input class="inputStyle noMarginBot " type="text"  id="emailProfissional" name="emailProfissinal" placeholder="Email" onblur="validarEmail()" required>
+                    <span  id="emailProfissionalSpan" class="spanStyle"></span>
+                    <input class="inputStyle noMarginBot" type="text"  id="cpfProfissional" name="cpfProfissional" placeholder="CPF" maxlength="14"  onkeyup="cpfMask(event)" required>
+                    <span  id="cpfProfissionalSpan" class="spanStyle"></span>
+                    <input class="inputStyle" type="text"  id="celularcliente" name="celularcliente" placeholder="Celular" maxlength="15" onkeyup="phoneMask(event)" required>
+                    <input id="documentoprofissional" class="inputStyle" type="text" placeholder="CRM / CRP / CRN ou CRMV" required>
+                    
+                    <select id="estadoprofissional" class="inputStyle" name="estadoprofissional" required>
+                        <option value="" disabled selected>Estado do Conselho Emissor</option>
+                        <option value="AC">Acre</option>
+                        <option value="AL">Alagoas</option>
+                        <option value="AP">Amapá</option>
+                        <option value="AM">Amazonas</option>
+                        <option value="BA">Bahia</option>
+                        <option value="CE">Ceará</option>
+                        <option value="DF">Distrito Federal</option>
+                        <option value="ES">Espírito Santo</option>
+                        <option value="GO">Goiás</option>
+                        <option value="MA">Maranhão</option>
+                        <option value="MT">Mato Grosso</option>
+                        <option value="MS">Mato Grosso do Sul</option>
+                        <option value="MG">Minas Gerais</option>
+                        <option value="PA">Pará</option>
+                        <option value="PB">Paraíba</option>
+                        <option value="PR">Paraná</option>
+                        <option value="PE">Pernambuco</option>
+                        <option value="PI">Piauí</option>
+                        <option value="RJ">Rio de Janeiro</option>
+                        <option value="RN">Rio Grande do Norte</option>
+                        <option value="RS">Rio Grande do Sul</option>
+                        <option value="RO">Rondônia</option>
+                        <option value="RR">Roraima</option>
+                        <option value="SC">Santa Catarina</option>
+                        <option value="SP">São Paulo</option>
+                        <option value="SE">Sergipe</option>
+                        <option value="TO">Tocantins</option>
+                    </select>
+
+                    <select name="especialidadeProfissional" id="especialidadeProfissional" class="inputStyle" required>
+                        <option value="" disabled selected>Especialidade (deve possuir RQE)</option>
+                        <option value="Acupuntura">Acupuntura</option>
+                        <option value="AlergiaEImunologia">Alergia e imunologia</option>
+                        <option value="Anestesiologia">Anestesiologia</option>
+                        <option value="Angiologia">Angiologia</option>
+                        <option value="Audiologia">Audiologia</option>
+                        <option value="Cardiologia">Cardiologia</option>
+                        <option value="Cardiopediatria">Cardiopediatria</option>
+                        <option value="CirurgiaCardiovascular">Cirurgia cardiovascular</option>
+                        <option value="CirurgiaDaMao">Cirurgia da mão</option>
+                        <option value="CirurgiaDeCabeçaEPescoço">Cirurgia de cabeça e pescoço</option>
+                        <option value="CirurgiaDoAparelhoDigestivo">Cirurgia do aparelho digestivo</option>
+                        <option value="CirurgiaGeral">Cirurgia geral</option>
+                        <option value="CirurgiaOncologica">Cirurgia oncológica</option>
+                        <option value="CirurgiaPediatrica">Cirurgia pediátrica</option>
+                        <option value="CirurgiaPlastica">Cirurgia plástica</option>
+                        <option value="CirurgiaToracica">Cirurgia torácica</option>
+                        <option value="CirurgiaVascular">Cirurgia vascular</option>
+                        <option value="ClinicaGeral">Clínica geral</option>
+                        <option value="ClinicaMedica">Clínica médica</option>
+                        <option value="Coloproctologia">Coloproctologia</option>
+                        <option value="Dermatologia">Dermatologia</option>
+                        <option value="EndocrinologiaEMetabologia">Endocrinologia e metabologia</option>
+                        <option value="Endocrinopediatria">Endocrinopediatria</option>
+                        <option value="Endoscopia">Endoscopia</option>
+                        <option value="Fisiatria">Fisiatria</option>
+                        <option value="Fisioterapia">Fisioterapia</option>
+                        <option value="Fonoaudiologia">Fonoaudiologia</option>
+                        <option value="Gastroenterologia">Gastroenterologia</option>
+                        <option value="Gastropediatria">Gastropediatria</option>
+                        <option value="GenéticaMedica">Genética médica</option>
+                        <option value="Geriatria">Geriatria</option>
+                        <option value="GinecologiaEObstetricia">Ginecologia e obstetrícia</option>
+                        <option value="HematologiaEHemoterapia">Hematologia e hemoterapia</option>
+                        <option value="Homeopatia">Homeopatia</option>
+                        <option value="Infectologia">Infectologia</option>
+                        <option value="Mastologia">Mastologia</option>
+                        <option value="MedicinaDeEmergencia">Medicina de emergência</option>
+                        <option value="MedicinaDeFamiliaEComunidade">Medicina de família e comunidade</option>
+                        <option value="MedicinaDeTrafego">Medicina de tráfego</option>
+                        <option value="MedicinaDoSono">Medicina do Sono</option>
+                        <option value="MedicinaDoTrabalho">Medicina do trabalho</option>
+                        <option value="MedicinaEsportiva">Medicina esportiva</option>
+                        <option value="MedicinaFisicaEReabilitacao">Medicina física e reabilitação</option>
+                        <option value="MedicinaIntensiva">Medicina intensiva</option>
+                        <option value="MedicinaLegalEPericiaMedica">Medicina legal e perícia médica</option>
+                        <option value="MedicinaNuclear">Medicina nuclear</option>
+                        <option value="MedicinaPreventivaESocial">Medicina preventiva e social</option>
+                        <option value="Nefrologia">Nefrologia</option>
+                        <option value="Neurocirurgia">Neurocirurgia</option>
+                        <option value="Neurologia">Neurologia</option>
+                        <option value="Neuropediatria">Neuropediatria</option>
+                        <option value="Nutrologia">Nutrologia</option>
+                        <option value="Odontologia">Odontologia</option>
+                        <option value="Oftalmologia">Oftalmologia</option>
+                        <option value="OncologiaClinica">Oncologia clínica</option>
+                        <option value="OrtopediaETraumatologia">Ortopedia e traumatologia</option>
+                        <option value="Otorrinolaringologia">Otorrinolaringologia</option>
+                        <option value="Patologia">Patologia</option>
+                        <option value="PatologiaClínicaOUMedicinaLaboratorial">Patologia clínica/medicina laboratorial</option>
+                        <option value="Pediatria">Pediatria</option>
+                        <option value="Pneumologia">Pneumologia</option>
+                        <option value="Pneumopediatria">Pneumopediatria</option>
+                        <option value="PrescritorDeCBD">Prescritor de CBD</option>
+                        <option value="Psicologia">Psicologia</option>
+                        <option value="Psiquiatria">Psiquiatria</option>
+                        <option value="RadiologiaEDiagnósticoPorImagem">Radiologia e diagnóstico por imagem</option>
+                        <option value="Radioterapia">Radioterapia</option>
+                        <option value="Reumatologia">Reumatologia</option>
+                        <option value="SaudeMental">Saúde Mental</option>
+                        <option value="Urologia">Urologia</option>
+                        <option value="Veterinaria">Veterinária</option>
+                        <option value="outro">Outro</option>
+                    </select>
+     
+                    <input id="enviarBtn" class="buttonStyle" type="submit" value="Enviar">
+                        
+                </div>
+            </form>
+        </div>
+        
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./js/cadastroProfissional.js"></script>
+
+</body>
+</html>

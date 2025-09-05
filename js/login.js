@@ -30,21 +30,13 @@ function validarEmail() {
     return true;
 }
 
+const form = $('#loginForm').on("submit", (event) => {  
 
-const form = $('#loginForm').on("submit", (event) => {
-
-
-    
-    
-
-       if (!validarEmail()) {
+    if (!validarEmail()) {
         event.preventDefault();
         return false; 
     }
-
-    
-
-    
+   
     const btn = $('#enviarBtn');
         
         btn.addClass("enviarClick")
