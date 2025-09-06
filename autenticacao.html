@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/autenticacao.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+<body>
+    <main>
+        <div class="formContainer">
+            <h1>Autenticação</h1>
+            <label class="labelStyle mainLabel">Insira o código de 6 dígitos enviado para o seu E-mail para continuar.</label>
+        
+            <form id="autenticacaoForm" action="" method="post" >          
+                
+                <div class="senhaContainer">
+                    <input class="inputStyle" type="password" minlength="6" maxlength="6" id="codigo" name="senha" placeholder="Insira o código aqui !"  required>
+                    <img id="eyeCodigo" class="eye-slash" onclick="mostrarSenha('codigo', 'eyeCodigo')" src="./images/eye-slash.svg"/>
+                </div>
+                <input id="enviarBtn" class="buttonStyle" type="submit" value="Enviar">
+
+                <div class="voltarLink">
+                    <a href="./index.html"><i class="fa-solid fa-angle-left"></i></a>
+                    <a href="./index.html">Voltar para o site</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="./js/autenticacao.js"></script>
+
+</body>
+</html>

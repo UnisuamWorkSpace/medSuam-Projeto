@@ -14,40 +14,38 @@ function mostrarSenha (id, imagem)  {
 }
 
 function validarEmail() {
-    const emailInput = document.getElementById('emaillogin');
+    const emailInput = document.getElementById('emailCollect');
     const email = emailInput.value.trim();
     
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!regex.test(email)) {
-        $("#emailLoginSpan").text('Por favor, digite um e-mail válido.');
+        $("#emailCollectSpan").text('Por favor, digite um e-mail válido.');
         
         return false;
     }
 
-    $("#emailLoginSpan").text('');
+    $("#emailCollectSpan").text('');
     return true;
 }
 
-const form = $('#loginForm').on("submit", (event) => {  
+const form = $('#emailCollectForm');
 
-    event.preventDefault();
-
-    if (!validarEmail()) {
+form.on("submit", (event) => {
         event.preventDefault();
+        if (!validarEmail()) {
+        
         return false; 
     }
-   
-    const btn = $('#enviarBtn');
-        
-        btn.addClass("enviarClick")
-    
-        setTimeout ( () => {
-            btn.removeClass("enviarClick");
-            window.location.replace("./autenticacao.html");
-        }, 500); 
 
-    
-    
-    
+    const btn = $('#enviarBtn');
+    btn.addClass("enviarClick");
+
+    setTimeout(() => {
+        btn.removeClass("enviarClick");
+        window.location.replace("./reset.html");
+    }, 500);
+
+   
+
 });

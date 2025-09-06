@@ -51,7 +51,7 @@ h1 {
 }
 
 .inputStyle::placeholder {
-    color: gray;
+    color: rgba(255, 245, 245, 0.774);
     font-size: medium;    
     font-weight: 500;
 }
