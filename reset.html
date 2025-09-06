@@ -19,7 +19,7 @@
             <form id="resetForm" action="" method="post" >          
                 
                 <div class="senhaContainer">
-                    <input class="inputStyle" type="password" minlength="8" maxlength="12" id="senhaReset" name="senha" placeholder="Nova Senha"  required>
+                    <input class="inputStyle" type="password" minlength="8" maxlength="12" id="senhaReset" name="senha" placeholder="Nova Senha" onblur="mimimoCaracter()" required>
                     <img id="eyeReset" class="eye-slash" onclick="mostrarSenha('senhaReset', 'eyeReset')" src="./images/eye-slash.svg"/>
                 </div>
                 <div class="senhaContainer">

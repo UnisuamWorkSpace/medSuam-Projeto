@@ -13,17 +13,25 @@ function mostrarSenha (id, imagem)  {
 
 }
 
-function senhaIgual() {
+ function mimimoCaracter () {
     const senha = $("#senhaReset").val();
     const senhaConfirm = $("#senhaResetConfirm").val();
-
-    if(senha.length >= 8 && senhaConfirm.length >= 8) {
+    
+     if(senha.length >= 8 && senhaConfirm.length >= 8) {
         $("#infoSpan").css("color", "green");
         $("#infoSpan").html('<i class="fas fa-check"></i> Pelo menos 8 caracteres');
     }else {
         $("#infoSpan").css("color", "red");
         $("#infoSpan").html('<i class="fa-solid fa-xmark"></i> Pelo menos 8 caracteres');
     }
+
+ }
+
+function senhaIgual() {
+    const senha = $("#senhaReset").val();
+    const senhaConfirm = $("#senhaResetConfirm").val();
+
+    mimimoCaracter();
 
     if (senha !== senhaConfirm) {
         $("#resetSpan").text("As senhas devem ser iguais !");

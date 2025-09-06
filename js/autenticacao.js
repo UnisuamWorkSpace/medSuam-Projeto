@@ -15,15 +15,15 @@ function mostrarSenha (id, imagem)  {
 
 const form = $('#autenticacaoForm');
 
-form.on("submit", () => {
-    
+form.on("submit", (event) => {
+    event.preventDefault();
 
     const btn = $('#enviarBtn');
     btn.addClass("enviarClick");
 
     setTimeout(() => {
         btn.removeClass("enviarClick");
-        
+        $("#autenticacaoForm")[0].submit();
     }, 500);
 
 });
