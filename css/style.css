@@ -54,6 +54,34 @@ a {
     transform: scale(1.1); 
 }
 
+#labelMenu * {
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+}
+
+#labelMenu .menuIcon {
+  transform: scale(1);
+  opacity: 1;
+   
+}
+
+#labelMenu .closeIcon {
+  transform: scale(0);
+  opacity: 0;
+}
+
+#menu:checked ~ #labelMenu .menuIcon {
+  transform: scale(0);
+  opacity: 0;
+  
+}
+
+#menu:checked ~ #labelMenu .closeIcon {
+  transform: scale(1);
+  opacity: 1;
+   
+}
+
 nav {
     display:flex;
     justify-content: space-between;
