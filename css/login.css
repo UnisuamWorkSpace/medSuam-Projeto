@@ -131,3 +131,7 @@ h1 {
 .noMarginBot {
     margin-bottom: 0;
 }
+
+.logoForm {
+    height:70px;
+}

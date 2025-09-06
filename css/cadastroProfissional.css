@@ -165,3 +165,7 @@ select {
 h1 {
     text-align: center;
 }
+
+.logoForm {
+    height:70px;
+}

@@ -192,3 +192,7 @@ form {
     text-decoration:solid;
     color: darkblue;    
 }
+
+.logoForm {
+    height:60px;
+}
