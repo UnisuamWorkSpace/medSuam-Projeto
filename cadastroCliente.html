@@ -14,7 +14,7 @@
             <label class="labelStyle mainLabel">Informações pessoais - Necessário para Prescrição Digital</label>
             <form id="clienteForm" action="" method="post" >  
                 <div class="inputContainer">
-                        <input class="inputStyle" type="text"  id="nomecliente" name="nomecliente" placeholder="Nome Completo" onkeyup="soLetras(event)" required>
+                        <input class="inputStyle" type="text"  id="nomecliente" name="nomecliente" maxlength="70" placeholder="Nome Completo" onkeyup="soLetras(event)" required>
                         <input class="inputStyle noMarginBot" type="text"  id="cpfcliente" name="cpfcliente" placeholder="CPF" maxlength="14"  onkeyup="cpfMask(event)" required>
                         <span  id="cpfSpan" class="spanStyle"></span>
                         <input class="inputStyle" type="text"  id="celularcliente" name="celularcliente" placeholder="Celular" maxlength="15" onkeyup="phoneMask(event)" required>
@@ -24,7 +24,7 @@
                             <option value="feminino">Feminino</option>
                         </select>
                         <label class="labelStyle mainLabel">Data de Nascimento</label>
-                        <input class="inputStyle" type="date"  id="aniversariocliente" name="aniversariocliente"  onblur="validarDataNascimento()" required>
+                        <input class="inputStyle birthday" type="date"  id="aniversariocliente" name="aniversariocliente"  onblur="validarDataNascimento()" required>
                         <span  id="dateSpan" class="spanStyle"></span>
 
                         <label class="labelStyle">Endereço</label>

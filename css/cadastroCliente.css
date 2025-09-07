@@ -34,7 +34,7 @@ h1 {
     margin: 0 0 10px 0;
     width: 100%;
     box-sizing: border-box;
-    color: rgba(255, 245, 245, 0.774);
+    /* color: rgba(255, 245, 245, 0.774); */
 }
 
 select {
@@ -43,13 +43,30 @@ select {
     text-align-last: center;
     padding:0;
     margin:0;
+    color:whitesmoke;
 }
+
+
  option {
     color:black;
     
     font-size: 18px;
     padding:0;
 }
+
+select:valid {
+  color: black;
+}
+
+input.birthday {
+  color: whitesmoke; 
+}
+
+input.birthday:valid {
+  color: black; 
+}
+
+
 
 .senhaContainer {
     position: relative;

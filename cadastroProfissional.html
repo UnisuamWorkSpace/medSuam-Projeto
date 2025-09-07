@@ -16,7 +16,7 @@
         
             <form id="profissionalForm" action="" method="post" >  
                 <div class="inputContainer">
-                    <input class="inputStyle" type="text"  id="nomeProfissional" name="nomeProfissonal" placeholder="Nome Completo" onkeyup="soLetras(event)" required>
+                    <input class="inputStyle" type="text"  id="nomeProfissional" name="nomeProfissonal" maxlength="70" placeholder="Nome Completo" onkeyup="soLetras(event)" required>
                     <input class="inputStyle noMarginBot " type="text"  id="emailProfissional" name="emailProfissinal" placeholder="Email" onblur="validarEmail()" required>
                     <span  id="emailProfissionalSpan" class="spanStyle"></span>
                     <input class="inputStyle noMarginBot" type="text"  id="cpfProfissional" name="cpfProfissional" placeholder="CPF" maxlength="14"  onkeyup="cpfMask(event)" required>
