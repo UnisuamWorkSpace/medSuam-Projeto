@@ -53,7 +53,7 @@ select {
 
 .senhaContainer {
     position: relative;
-    max-width:280px;
+    max-width:100%;
     box-sizing: border-box;
 }
 .eye-slash {
@@ -72,7 +72,7 @@ select {
 }
 
 .buttonStyle {
-    width: 280px;
+    width: 100%;
     text-align: center;
     display:block;
     padding: 10px 15px; 
