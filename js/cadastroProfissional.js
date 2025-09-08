@@ -142,7 +142,5 @@ const form = $('#profissionalForm').on("submit", async (event) => {
             window.location.replace("./login.html");
         }, 500); 
 
-    $('#profissionalForm')[0].submit();
-
 });
 
