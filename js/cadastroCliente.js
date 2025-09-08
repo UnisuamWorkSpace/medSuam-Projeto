@@ -275,10 +275,11 @@ const form = $('#clienteForm').on("submit", async (event) => {
 
         setTimeout ( () => {
             btn.removeClass("enviarClick");
+            window.location.replace('./login.html');
 
         }, 500); 
 
-    $('#clienteForm')[0].submit();
+    
 
     
 });
