@@ -353,6 +353,7 @@ footer {
     padding-top:40px;
     box-sizing: border-box;
    border-top:1px solid #8e8d8d;
+   background-color: white;
 }
 
 .footerLinks {
@@ -502,4 +503,105 @@ footer {
     gap: 30px;
     padding: 80px 20px 50px 20px;
     box-sizing: border-box;
+}
+
+.acessibilityBtn {
+    height: 50px;
+    width:50px;
+    background-color: #000000;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position:fixed;
+    bottom:30px;
+    left:30px;
+    z-index: 10;
+    
+}
+
+.acessibilityBtn i {
+    color:black;
+    font-size: 52px;
+    cursor: pointer;
+    
+}
+
+.acessibility {
+    height:50px;
+    width: 50px;
+    border-radius: 25px;
+    position:absolute;
+    top:0;
+    left:0;
+    transition: left 0.5s ease;
+    z-index: -2;
+}
+
+#acesso:checked ~ .acessibility {
+    top:15px;
+    left:60px;
+    
+}
+
+.aumentarFonte {
+    height:50px;
+    width: 50px;
+    border-radius: 25px;
+    position:absolute;
+    bottom:0;
+    transition: bottom 0.5s ease;
+    z-index: -2;
+}
+
+#acesso{
+    display:none;
+}
+
+#acesso:checked ~ .aumentarFonte{
+    bottom:60px;
+}
+
+.diminuirFonte {
+    height:50px;
+    width: 50px;
+    border-radius: 25px;
+    position:absolute;
+    bottom:0;
+    left:0;
+    transition: bottom  0.5s ease;
+    z-index: -2;
+}
+
+#acesso:checked ~ .diminuirFonte{
+    bottom:45px;
+    left:60px;
+    
+}
+
+.center {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color:white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.acessibility i {
+    font-size: 35px;
+    color:white;
+
+
+}
+
+.fundo {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    position:absolute;
+    top:0;
+    background-color: white;
+    z-index: -1;
 }
