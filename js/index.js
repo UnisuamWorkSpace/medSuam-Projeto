@@ -40,3 +40,15 @@ function decreaseFont() {
 
   }
 }
+
+let isDark = false;
+
+function darkMode () {
+  if(isDark) {
+    $('body').removeClass("dark");
+    isDark = false;
+  }else {
+    $('body').addClass("dark");
+    isDark = true;
+  }
+}

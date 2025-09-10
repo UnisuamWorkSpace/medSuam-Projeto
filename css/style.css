@@ -139,7 +139,7 @@ nav {
 }
 
 .slogan-container {
-    max-width:700px;
+    max-width:710px;
     text-align: justify;
     color:  white;
     display: flex;
@@ -176,6 +176,7 @@ h1 span {
     text-align: left;
     transition: transform 0.3s ease; 
     cursor: pointer;
+    border: #8e8d8d 1px solid;
 }
 
 .sloganCard i {
@@ -604,4 +605,69 @@ footer {
     top:0;
     background-color: white;
     z-index: -1;
+}
+
+body.dark {
+    background-color: #000000;
+    color:white;
+}
+
+body.dark footer {
+    background-color: #000000;
+    color:white;
+}
+
+body.dark footer .footerLinks ul li a{
+    background-color: #000000;
+    color:white;
+}
+
+body.dark .sloganCard {
+    background-color: #000000;
+    color: white;
+    border:#8e8d8d 1px solid;
+}
+
+body.dark nav a {
+    color:white;
+}
+
+body.dark nav i {
+    color:white;
+}
+
+body.dark .menuContainer {
+    background-color: #000000;
+}
+
+body.dark .menuContent{
+    color:white;
+    border-bottom: whitesmoke 1px solid;
+}
+
+body.dark .center {
+    color:black;
+    background-color: whitesmoke;
+}
+
+body.dark .center {
+    color:black;
+    background-color: whitesmoke;
+}
+
+body.dark .acessibilityBtn {
+    color:black;
+    background-color: whitesmoke;
+}
+
+body.dark .acessibilityBtn i {
+    color:whitesmoke;
+}
+
+body.dark .fundo {
+    background-color:#000000;
+}
+
+body.dark .acessibility i{
+    color:#000000;
 }
