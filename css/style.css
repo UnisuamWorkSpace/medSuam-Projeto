@@ -474,7 +474,7 @@ footer {
 }
 
 .diferencialBg {
-    background: linear-gradient(135deg, #000000, #1c1c1c, #2b0f3d);
+    background: linear-gradient(135deg, #000000, #1c1c1c, #004268);
     color:white;
     padding: 20px 50px;
     border-radius: 20px;
@@ -670,4 +670,77 @@ body.dark .fundo {
 
 body.dark .acessibility i{
     color:#000000;
+}
+
+body.dark .sloganCard i {
+    color: var(--cianoClaro)
+}
+
+body.dark .especialidadeCard i{
+    color: var(--cianoClaro)
+
+}
+
+.diferencialBg{
+    position: relative;
+}
+
+@property --angle{
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.diferencialBg::after {
+    content:'';
+    position:absolute;
+    height:100%;
+    width:100%;
+    top:50%;
+    left:50%;
+    translate: -50% -50%;
+    z-index: -1;
+    padding:6px;
+    background-image: conic-gradient(from var(--angle), transparent 50%, var(--azulEscuro));
+    border-radius: 25px;
+    animation: 3s spin linear infinite;
+}
+
+@property --end{
+    syntax: '<angle>';
+    initial-value: 360deg;
+    inherits: false;
+}
+
+.diferencialBg::before {
+    content:'';
+    position:absolute;
+    height:100%;
+    width:100%;
+    top:50%;
+    left:50%;
+    translate: -50% -50%;
+    z-index: -1;
+    padding:6px;
+    background-image: conic-gradient(from var(--end), transparent 50%, var(--cianoClaro));
+    border-radius: 25px;
+    animation: 3s spinEnd linear infinite;
+    animation-delay: -1.5s;
+}
+
+@keyframes spinEnd {
+    from {
+        --end: 0deg;
+    }to {
+        --end: 360deg;
+    }
+}
+
+@keyframes spin {
+    from {
+        --angle: 0deg;
+    }to {
+        --angle: 360deg;
+    }
+    
 }
