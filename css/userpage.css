@@ -1,0 +1,97 @@
+body {
+    display:grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 1fr;
+    min-height: 100vh;
+    grid-template-areas: "sidebar main";
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+aside {
+    grid-area: sidebar;
+    background-color: palevioletred;
+    width: 250px;
+    transition: 300ms ease-in-out;
+}
+
+main {
+    grid-area: main;
+}
+
+#sidebar {
+    display:none;
+}
+
+#sidebar:checked ~ aside {
+    width: 60px;
+}
+
+
+
+label {
+    width: 35px;
+    height:5px;
+    background-color:black;
+    position: absolute;
+    transition: 600ms ease;
+    margin-top: 20px;
+    cursor:pointer;
+}
+
+label::before, label::after {
+    content: '';
+    width: 35px;
+    height:5px;
+    background-color:black;
+    position: absolute;
+    transition: 600ms ease;
+}
+
+label::after {
+    
+    top:-11px;
+}
+
+label::before {
+    top: 11px;
+ 
+
+}
+
+#sidebar:checked ~ aside label::after {
+    background-color:red;
+    transform: rotate(45deg); 
+    top:0;
+}
+
+#sidebar:checked ~ aside label::before {
+    background-color:red;
+    transform: rotate(-45deg);
+    top:0; 
+} 
+
+#sidebar:checked ~ aside label {
+    background-color: transparent;
+}
+
+
+
+
+/* .menuIcon {
+    transition: 600ms ease;
+}
+
+
+
+#sidebar:checked ~ aside label .center {
+    background-color:white;
+    transform: rotate(160deg);   
+}
+
+#sidebar:checked ~ aside label .right {
+    background-color:white;
+    transform: rotate(-160deg);   
+    
+} */

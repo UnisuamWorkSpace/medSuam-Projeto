@@ -54,33 +54,52 @@ a {
     transform: scale(1.1); 
 }
 
-#labelMenu * {
-    transition: transform 0.3s ease;
-    transform-origin: center center;
+#labelMenu {
+    width: 35px;
+    height:5px;
+    background-color:black;
+    transition: 600ms ease;
+    position: relative;
+
 }
 
-#labelMenu .menuIcon {
-  transform: scale(1);
-  opacity: 1;
-   
+#labelMenu::before, #labelMenu::after {
+    content: '';
+    width: 35px;
+    height:5px;
+    background-color:black;
+    position: absolute;
+    transition: 600ms ease;
+    
 }
 
-#labelMenu .closeIcon {
-  transform: scale(0);
-  opacity: 0;
+#labelMenu::after {
+    
+    top:-11px;
 }
 
-#menu:checked ~ #labelMenu .menuIcon {
-  transform: scale(0);
-  opacity: 0;
-  
+#labelMenu::before {
+    top: 11px;
+ 
+
 }
 
-#menu:checked ~ #labelMenu .closeIcon {
-  transform: scale(1);
-  opacity: 1;
-   
+#menu:checked ~ #labelMenu::after {
+    background-color:red;
+    transform: rotate(45deg); 
+    top:0;
 }
+
+#menu:checked ~ #labelMenu::before {
+    background-color:red;
+    transform: rotate(-45deg);
+    top:0; 
+} 
+
+#menu:checked ~ #labelMenu {
+    background-color: transparent;
+}
+
 
 nav {
     display:flex;
@@ -224,7 +243,7 @@ h1 {
     right:-200%;
     height:100vh;
     z-index: 100;
-    transition: right 0.5s ease;
+    transition: right 600ms ease;
     display:flex;
     flex-direction: column;
     padding: 10px 20px 0 20px;
