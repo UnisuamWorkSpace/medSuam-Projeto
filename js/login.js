@@ -44,7 +44,7 @@ const form = $('#loginForm').on("submit", (event) => {
     
         setTimeout ( () => {
             btn.removeClass("enviarClick");
-            window.location.replace("./autenticacao.html");
+            window.location.replace('./autenticacao.html');
         }, 500); 
 
     

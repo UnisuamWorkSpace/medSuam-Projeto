@@ -23,7 +23,7 @@ form.on("submit", (event) => {
 
     setTimeout(() => {
         btn.removeClass("enviarClick");
-        $("#autenticacaoForm")[0].submit();
+        window.location.replace('./userpage.html');
     }, 500);
 
 });

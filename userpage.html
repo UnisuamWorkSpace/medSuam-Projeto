@@ -6,20 +6,31 @@
     <title>Document</title>
     <link rel="stylesheet" href="./css/userpage.css"/>  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-…(hash)…" crossorigin="anonymous" referrerpolicy="no-referrer" />
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 </head>
 <body>   
+    <input type="checkbox" id="acessibilidade">
     <input type="checkbox" id="sidebar">
     <aside>
+        <div class="acessibilidadeContainer">
+            <button class="darkMode acessibilityBtn" onclick="darkMode()">
+                <i class="fas fa-adjust"></i>
+            </button>
+            <button class="aumentarFonte acessibilityBtn"  onclick="increaseFont()">A+</button>
+            <button class="diminuirFonte acessibilityBtn" onclick="decreaseFont()">A -</button>
+        </div>
+        <div class="background">
         <ul>
             <li>
                 <div class="menuIconContainer">
-                <img class="logo" src="./images/Logo_medsuam-removebg-preview (1).png" alt="logo"/>
+                <a href="#"><img class="logo" src="./images/Logo_medsuam-removebg-preview (1).png" alt="logo"/></a>
                  <label for="sidebar" class="menuIcon">
                     <i class="fas fa-angle-double-left"></i>                                                                                                                    
-                    </label>
+                </label>
                 </div>
             </li>
             <li>
@@ -73,62 +84,177 @@
                     <span>Sair</span>
                 </a>
             </li>
-            
+            <li>
+                <label id="acessibilidadeLabel" class="linkLabel" for="acessibilidade">
+                    <i class="fa fa-universal-access"></i>
+                    <span>Acessibilidade</span>
+                </label>
+            </li>
         </ul>
-
+        </div>
         
         
     </aside>
     <main>
         <section id="cards">
             
-            <h1>Atalhos</h1>
+            <h1>Seus 
+                Atalhos</h1>
             <div class="cards">
+                
                 <div class="cardContainer">
-                    <i class="fa-solid fa-flask"></i>
-                    Pedidos Médicos
+                    <div class="cardContent">
+                        <i class="bi bi-file-text"></i>
+                        <span>Pedidos Médicos</span>
+                    </div>
+                </div>
+            
+                <div class="cardContainer">
+                     <div class="cardContent">
+                        <i class="bi bi-file-earmark-medical"></i>
+                        <span class="menor">Consultas, Prescrições, Atestados</span>
+                    </div>
                 </div>
                 <div class="cardContainer">
-                    <i class="fa-solid fa-flask"></i>
-                    <span>Consultas, Prescrições, Atestados</span>
+                    <div class="cardContent">
+                    <i class="bi bi-calendar2-week"></i>
+                        <span>Agendar Exames</span>
+                    </div>
                 </div>
                 <div class="cardContainer">
-                    <i class="fa-solid fa-flask"></i>
-                    Agendar Exames
+                    <div class="cardContent">
+                        <i class="bi bi-calendar-plus"></i>
+                        <span>Agendar Consultas</span>
+                    </div>
                 </div>
                 <div class="cardContainer">
-                    <i class="fa-solid fa-flask"></i>
-                    Agendar Consultas
+                    <div class="cardContent">
+                        <i class="fa-solid fa-flask"></i>
+                        <span>Resultados de exames</span>
+                    </div>
                 </div>
                 <div class="cardContainer">
-                    <i class="fa-solid fa-flask"></i>
-                    Resultados de exames
+                    <div class="cardContent">
+                        <i class="fas fa-syringe"></i>
+                        <span>Agendar Vacinas</span>
+                    </div>
                 </div>
                 <div class="cardContainer">
-                    <i class="fa-solid fa-flask"></i>
-                    Agendar Vacinas
+                    <div class="cardContent">
+                        <i class="bi bi-camera-video"></i>
+                        <span>Consulta online 24h</span>
+                    </div>
                 </div>
                 <div class="cardContainer">
-                    <i class="fa-solid fa-flask"></i>
-                    Consulta online 24h
+                    <div class="cardContent">
+                        <i class="bi bi-hospital"></i>
+                        <span>Meus Hospitais</span>
+                    </div>
                 </div>
                 <div class="cardContainer">
-                    <i class="fa-solid fa-flask"></i>
-                    Meus Hospitais
-                </div>
-                <div class="cardContainer">
-                    <i class="fa-solid fa-flask"></i>
-                    Minha Família
+                    <div class="cardContent">
+                        <i class="bi bi-people-fill"></i>
+                        <span>Minha Família</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="exames">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et fugit molestias, placeat molestiae fuga sequi quasi, reiciendis tenetur magnam, corrupti rem hic voluptates quaerat saepe commodi doloremque dolorum modi aperiam alias similique quia! Deleniti dolores odio, asperiores voluptatem sequi, excepturi doloremque illo quod ut dolor placeat non dicta veritatis laborum vel accusantium provident? Ipsa culpa maiores provident molestias nisi excepturi, necessitatibus debitis architecto in, quasi repudiandae laborum cumque quas mollitia quis, ab veniam temporibus similique pariatur! Excepturi ipsum accusantium itaque laboriosam voluptates illum consequatur maiores earum tempore ipsam, dolorum quis pariatur beatae. Laboriosam impedit explicabo assumenda recusandae reiciendis deserunt magni quibusdam tempore voluptatem reprehenderit quia officia eos, numquam rem similique aut excepturi voluptatibus velit sapiente asperiores ullam! Itaque consequuntur quam magnam quidem vitae beatae error quaerat natus. Error ex cupiditate magni doloribus quas minima inventore laborum veritatis repudiandae quis, esse voluptatum saepe, quo tempora aut, recusandae a. Sequi, adipisci voluptatibus et, aperiam pariatur quaerat necessitatibus doloremque recusandae nulla repudiandae, aut molestiae voluptatum nesciunt atque praesentium animi ea. Laudantium beatae ducimus, eveniet error possimus, dolorem neque maxime sunt sequi assumenda ad, ratione cupiditate corrupti incidunt nulla consectetur dicta commodi totam adipisci saepe nemo. Id amet illum hic laudantium magnam est et.
+        <section id="exames" class="twoGrid margin">
+            <div class="left">
+            <div class="cards ">
+                
+                <div class="cardContainer">
+                    <div class="cardContent">
+                        <i class="bi bi-file-text"></i>
+                        <span>Pedidos Médicos</span>
+                    </div>
+                </div>
+            
+                
+                <div class="cardContainer">
+                    <div class="cardContent">
+                    <i class="bi bi-calendar2-week"></i>
+                        <span>Agendar Exames</span>
+                    </div>
+                </div>
+  
+                <div class="cardContainer">
+                    <div class="cardContent">
+                        <i class="bi bi-share"></i>
+                        <span>Compartilhar todos os exames</span>
+                    </div>
+                </div>
+                <div class="cardContainer">
+                    <div class="cardContent">
+                        <i class="fas fa-syringe"></i>
+                        <span>Agendar Vacinas</span>
+                    </div>
+                </div>
+                   <div class="cardContainer">
+                    <div class="cardContent">
+                        <i class="bi bi-journal-medical"></i>
+                        <span>Acessos Médicos</span>
+                    </div>
+                </div>
+               
+            </div>
+
+            <div>
+                <h2>Resultados de Exames</h2>
+                <div class="alterPacientContainer">
+                    <button type="button" id="alterPacientBtn" class="alterPacientBtn">
+                        <strong>Nome</strong>
+                        <span>• Alterar</span>
+                        <i class="fa-solid fa-angle-down"></i>
+                    </button>
+                    <div class="pacienteContainer">
+                        <h3>Selecione um paciente</h3>
+                        <div class="paciente">
+                            <strong>Nome Completo</strong>
+                            <span>Você, idade</span>
+                        </div>
+                        <button type="button" class="dependenteBtn">
+                            <span>+Cadastrar Menor de Idade</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="resultadosContainer">
+                    <div class="left resultadosLeft">
+                        <span>Disponível</span>
+                    </div>
+                    <div class="topRight">
+                        <h3>Data do exame</h3>
+                        <span class="docName">Nome do Médico</span>
+                        <div class="gapBetween">
+                            <i class="bi bi-droplet"></i>
+                            <span>Exames laboratoriais</span>
+                        </div>
+                        <hr>
+                    </div>
+                    
+                    <div class="bottomRight spaceBetween">
+                        <a href="#">Compartilhar</a>
+                        <button type="button" class="mostrarResultadosBtn">
+                            Mostrar Resultados
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+            </div>
+
+            <div class="right">
+                <div class="resultadosEncontrados">
+                    <span>Nenhum resultado encontrado</span>
+                </div>    
+            </div>
         </section>
     </main>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="./js/userpage.js"></script>
+
 </body>
 </html>
