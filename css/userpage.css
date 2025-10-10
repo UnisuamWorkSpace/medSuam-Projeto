@@ -22,6 +22,7 @@ body {
 aside {
     grid-area: sidebar;
     background-color: white;
+    height:100%;
     width: 100%;
     transition: 300ms ease-in-out;
     padding: 20px 10px;
@@ -176,6 +177,7 @@ input[type=radio]:checked ~ label {
     transition: 600ms ease-in-out;
     box-sizing: border-box;
     overflow: visible; 
+    cursor: pointer;
 }
 
 
@@ -519,6 +521,19 @@ body.dark .background, body.dark aside, body.dark #acessibilidadeLabel, body.dar
     transition: 600ms ease-in-out;
 }
 
+body.dark .pacienteContainer {
+    background-color: #000;
+    color: white;
+}
+
+body.dark .paciente {
+    background-color: #1588ca;
+}
+
+body.dark .resultadosContainer {
+    border: 2px solid white;
+}
+
 .paciente {
     background-color: rgba(109, 141, 255, 0.12);
     border-radius: 15px;
@@ -561,8 +576,138 @@ button.showDropdown i {
     color: #000;
 }
 
+.showMenuContainer {
+    display:none;
+}
+
+#showMenu {
+    display:none;
+}
+
+#showMenu:checked ~ aside {
+    height:100%;
+    width:100%;
+}
+
+.showMenuContainer label i {
+    transition: 600ms ease;
+    font-size: 30px;
+}
+
+#showMenu:checked ~ aside li.showMenuContainer label i{
+    transform: rotate(180deg);
+}
+
+.hide {
+    display: none;
+}
+
+.centralizado {
+    text-align: center;
+}
+
+.show {
+    display:block;
+}
+
+.pacienteBox {
+    border: 1px solid #8e8d8d;
+    border-radius: 15px;
+    font-size: 18px;
+    position: relative;
+    padding: 20px;
+    max-width: 60%;
+}
+
+.pacienteBox h2 {
+    font-size: 19px;
+    margin: 0 0 10px 0;
+    padding:0;
+}
+
+.arrowRightIconContainer {
+    position: absolute;
+    right: 15px;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+.iconContainer i {
+    color: #8e8d8d;
+}
+
+.addPacienteContainer {
+    max-width: 60%;
+    align-items: center;
+    background-color: #1588ca;
+    padding: 20px;
+    border: none;
+    border-radius: 15px;
+    margin-top: 20px;
+}
+
+.addPacienteContainer i {
+    height:50px;
+    width:50px;
+    padding: 10px 12px;
+    border:none;
+    border-radius: 25px;
+    background-color: gainsboro;
+    text-align: center;
+    align-content: center;
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+#backToInicio {
+    background-color: transparent;
+    border:none;
+    cursor: pointer;
+    float:left;
+}
+
+#backToInicio i {
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.historyAcess {
+    background-color: transparent;
+    border: none;
+    color:blue;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.twoCards {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(126px, 126px));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+#consultas p {
+    font-size: 20px;
+}
+
+#consultas div.centralizado p {
+    font-size: 18px;
+
+}
+
 
 @media(max-width: 980px) {
+    .vacinasAlterPacientContainer{
+        display:flex;
+        justify-content: center;
+    }
+    .twoCards {
+        justify-content: center;
+    }
+
+    .showMenuContainer {
+        display:inline-block;
+    }
 
     body {
         display:grid;
@@ -571,7 +716,9 @@ button.showDropdown i {
         min-height: 100vh;
         grid-template-areas: "main main" "sidebar sidebar";
     }
+
    aside {
+    height:80px;
     width: 100%;
     margin:0;
     margin-top: 10px;
@@ -581,6 +728,7 @@ button.showDropdown i {
     border-right: none;
     border-top: 1px  #8e8d8d solid;
     z-index: 100;
+
    }
 
    .background {

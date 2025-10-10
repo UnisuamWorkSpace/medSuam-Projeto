@@ -15,6 +15,7 @@
 <body>   
     <input type="checkbox" id="acessibilidade">
     <input type="checkbox" id="sidebar">
+    <input type="checkbox" id="showMenu">
     <aside>
         <div class="acessibilidadeContainer">
             <button class="darkMode acessibilityBtn" onclick="darkMode()">
@@ -33,6 +34,11 @@
                 </label>
                 </div>
             </li>
+            <li class="showMenuContainer">
+                <label for="showMenu">
+                    <i class="fas fa-angle-double-up"></i> 
+                </label>
+            </li>
             <li>
                 <input type="radio" name="currentLink" id="linkInicio" class="radioInput">
                 <labeL class="linkLabel" for="linkInicio">
@@ -48,19 +54,21 @@
                 </label>
             </li>
             <li>
-                <input type="radio" name="currentLink" id="linkConsultas" class="radioInput">
-                <label class="linkLabel" for="linkConsultas">
-                    <i class="fa fa-stethoscope"></i>
-                     <a>Consultas</a>
-                </label>
-            </li>
-            <li>
                 <input type="radio" name="currentLink" id="linkVacinas" class="radioInput">
                 <label class="linkLabel" for="linkVacinas">
                     <i class="fas fa-syringe"></i>
-                    <a>Vacinas</a>
+                    <span>Vacinas</span>
                 </label>
             </li>
+            
+            <li>
+                <input type="radio" name="currentLink" id="linkConsultas" class="radioInput">
+                <label class="linkLabel" for="linkConsultas">
+                    <i class="fa fa-stethoscope"></i>
+                     <span>Consultas</span>
+                </label>
+            </li>
+          
             <li class="geralSpanContainer">
                 <span class="geralSpan">Geral</span>
             </li>
@@ -68,14 +76,14 @@
                 <input type="radio" name="currentLink" id="linkDados" class="radioInput">
                 <label class="linkLabel" for="linkDados">
                     <i class="fas fa-gear"></i>
-                    <a>Dados Cadastrais</a>
+                    <span>Dados Cadastrais</span>
                 </label>
             </li>
             <li>
                 <input type="radio" name="currentLink" id="linkTermos" class="radioInput">
                 <label class="linkLabel" for="linkTermos">
                 <i class="fas fa-book"></i>
-                <a>Termos</a>
+                <span>Termos</span>
                 </label>
             </li>
             <li class="sairContainer">
@@ -102,20 +110,20 @@
                 Atalhos</h1>
             <div class="cards">
                 
-                <div class="cardContainer">
-                    <div class="cardContent">
+                <div class="cardContainer pedidosMedicos">
+                    <div class="cardContent ">
                         <i class="bi bi-file-text"></i>
                         <span>Pedidos Médicos</span>
                     </div>
                 </div>
             
-                <div class="cardContainer">
+                <div class="cardContainer consultas_prescricoes_atestados">
                      <div class="cardContent">
                         <i class="bi bi-file-earmark-medical"></i>
                         <span class="menor">Consultas, Prescrições, Atestados</span>
                     </div>
                 </div>
-                <div class="cardContainer">
+                <div class="cardContainer agendarExames">
                     <div class="cardContent">
                     <i class="bi bi-calendar2-week"></i>
                         <span>Agendar Exames</span>
@@ -133,7 +141,7 @@
                         <span>Resultados de exames</span>
                     </div>
                 </div>
-                <div class="cardContainer">
+                <div class="cardContainer agendarVacina">
                     <div class="cardContent">
                         <i class="fas fa-syringe"></i>
                         <span>Agendar Vacinas</span>
@@ -158,21 +166,23 @@
                     </div>
                 </div>
             </div>
+            <div id="map" style="width: 100%; height: 400px;"></div>
+
         </section>
 
         <section id="exames" class="twoGrid margin">
             <div class="left">
-            <div class="cards ">
+            <div class="cards">
                 
-                <div class="cardContainer">
-                    <div class="cardContent">
+                <div class="cardContainer pedidosMedicos">
+                    <div class="cardContent ">
                         <i class="bi bi-file-text"></i>
                         <span>Pedidos Médicos</span>
                     </div>
                 </div>
             
                 
-                <div class="cardContainer">
+                <div class="cardContainer agendarExames">
                     <div class="cardContent">
                     <i class="bi bi-calendar2-week"></i>
                         <span>Agendar Exames</span>
@@ -185,22 +195,23 @@
                         <span>Compartilhar todos os exames</span>
                     </div>
                 </div>
-                <div class="cardContainer">
+                <div class="cardContainer agendarVacina">
                     <div class="cardContent">
-                        <i class="fas fa-syringe"></i>
+                        <i class="fas fa-syringe "></i>
                         <span>Agendar Vacinas</span>
                     </div>
                 </div>
-                   <div class="cardContainer">
+                <div class="cardContainer acessosMedicos">
                     <div class="cardContent">
                         <i class="bi bi-journal-medical"></i>
                         <span>Acessos Médicos</span>
                     </div>
                 </div>
-               
             </div>
 
-            <div>
+            
+
+            <div id="resultadosContainer" >
                 <h2>Resultados de Exames</h2>
                 <div class="alterPacientContainer">
                     <button type="button" id="alterPacientBtn" class="alterPacientBtn">
@@ -219,7 +230,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="resultadosContainer">
+                <div class="resultadosContainer ">
                     <div class="left resultadosLeft">
                         <span>Disponível</span>
                     </div>
@@ -250,6 +261,115 @@
                     <span>Nenhum resultado encontrado</span>
                 </div>    
             </div>
+    
+        </section>
+        <section id="vacinas" class="margin twoGrid"> 
+            <div class="left">
+            <h1>Seus Atalhos</h1>
+            <div class="twoCards">
+                
+                <div class="cardContainer pedidosMedicos">
+                    <div class="cardContent ">
+                        <i class="bi bi-file-text"></i>
+                        <span>Pedidos Médicos</span>
+                    </div>
+                </div>
+            
+                
+                <div class="cardContainer agendarExames">
+                    <div class="cardContent">
+                    <i class="bi bi-calendar2-week"></i>
+                        <span>Agendar Exames</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alterPacientContainer vacinasAlterPacientContainer">
+                <button type="button" id="alterPacientBtn2" class="alterPacientBtn">
+                    <strong>Nome</strong>
+                    <span>• Alterar</span>
+                    <i class="fa-solid fa-angle-down"></i>
+                </button>
+                <div class="pacienteContainer">
+                    <h3>Selecione um paciente</h3>
+                    <div class="paciente">
+                        <strong>Nome Completo</strong>
+                        <span>Você, idade</span>
+                    </div>
+                    <button type="button" class="dependenteBtn">
+                        <span>+Cadastrar Menor de Idade</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="centralizado">
+                <p>No momento, você não tem pedidos médicos disponíveis.</p>
+                <button type="button" class="dependenteBtn">
+                    <span>Agendar Vacina</span>
+                </button>
+            </div>
+            </div>
+
+            <div class="right">
+
+            </div>
+
+        </section>
+
+        <section id="consultas" class="margin twoGrid"> 
+            <div class="left">
+            <h1>Seus Atalhos</h1>
+            <div class="twoCards">
+                
+                <div class="cardContainer">
+                    <div class="cardContent ">
+                        <i class="bi bi-heart-pulse"></i>
+                        <span>Agendar Especialidade</span>
+                    </div>
+                </div>
+            
+                
+                <div class="cardContainer">
+                    <div class="cardContent">
+                        <i class="bi bi-camera-video"></i>
+                        <span>Consulta online 24h</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alterPacientContainer vacinasAlterPacientContainer">
+                <button type="button" id="alterPacientBtn3" class="alterPacientBtn">
+                    <strong>Nome</strong>
+                    <span>• Alterar</span>
+                    <i class="fa-solid fa-angle-down"></i>
+                </button>
+                <div class="pacienteContainer">
+                    <h3>Selecione um paciente</h3>
+                    <div class="paciente">
+                        <strong>Nome Completo</strong>
+                        <span>Você, idade</span>
+                    </div>
+                    <button type="button" class="dependenteBtn">
+                        <span>+Cadastrar Menor de Idade</span>
+                    </button>
+                </div>
+            </div>
+
+            <p>Consultas realizadas</p>
+
+            <div class="centralizado">
+                <p>Não encontrei um histórico de consultas do paciente selecionado.</p>
+            </div>
+            </div>
+
+            <div class="right centralizado">
+                <p>Nenhuma consulta selecionada</p>
+            </div>
+
+        </section>
+
+        <section id="dynamicSection" class="twoGrid margin">
+            
         </section>
     </main>
 
