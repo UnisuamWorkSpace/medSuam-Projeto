@@ -941,6 +941,10 @@ p.centralizado {
     background-color: rgb(246, 246, 246);
 }
 
+.dadosContainerContent button i {
+    color:black;
+}
+
 .noBorder {
     border: none;
 }
@@ -1011,7 +1015,7 @@ p.centralizado {
     .margin {
         margin: 20px 20px 20px 10px;
     }
-    
+
     #geral.twoGrid {
     margin:0 10px 0 10px;
     }
