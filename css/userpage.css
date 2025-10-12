@@ -912,6 +912,7 @@ p.centralizado {
 .dadosContainer {
     border: solid 1px black;
     border-radius: 15px;
+    max-width: 600px;
 }
 
 .dadosContainerContent {
@@ -949,6 +950,7 @@ p.centralizado {
     justify-content:center;
     gap: 10px;
     margin-bottom: 10px;
+    max-width: 600px;
 }
 
 .linksBar a {
