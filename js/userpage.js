@@ -1,42 +1,21 @@
-$("DOMContentLoaded", () => {
-    $("#linkInicio").click();
-  });
+$('.linkPage').on('click', (event) => {
+    
+  $(".hideableDiv").removeClass("hide");
+  $("#pedidosMedicos, #agendarExames, #agendarVacina, #acessosMedicos, #agendarEspecialidade, #consultaOnline").remove();
 
-$('.radioInput').on('click', (event) => {
-
-    var id = event.target.id;
-    $("section").removeClass("toggle");
-    $('.hideableDiv').removeClass("hide");
-    $("#pedidosMedicos, #agendarExames, #agendarVacina, #acessosMedicos").remove();
-
-    switch (id) {
-        case "linkInicio":
-            $("#cards").addClass("toggle");
-            break;
-        case "linkExames":
-            $("#exames").addClass("toggle");
-            break;
-        case "linkVacinas":
-            $("#vacinas").addClass("toggle");
-            break;
-        case "linkConsultas":
-          $("#consultas").addClass("toggle");
-        default:
-            break;
-    }
 });
 
 $('.cardContainer').on('click', (event) => {
-  var div = event.currentTarget;
-    $('section').removeClass("toggle");
-    $('#dynamicSection').addClass("toggle");
+  var button = event.currentTarget;
+    $('.hideableDiv').addClass("hide");
+    $(".dynamicSection").removeClass("hide");
     
   switch (true) {
-    case $(div).hasClass('pedidosMedicos'):
+    case $(button).hasClass('pedidosMedicos'):
        
-        $("#dynamicSection").append(`
-            <div id="pedidosMedicos" class="hide toggleableDiv">
-                <button id="backToInicio">
+        $(".dynamicSection").append(`
+            <div id="pedidosMedicos">
+                <button type=button class="backToInicio">
                   <i class="bi bi-arrow-left-circle"></i>
                 </button>
                 <h1>Pedidos Médicos</h1>
@@ -53,12 +32,12 @@ $('.cardContainer').on('click', (event) => {
                             <span>Você, idade</span>
                         </div>
                         <button type="button" class="dependenteBtn">
-                            <span>+Cadastrar Menor de Idade</span>
+                            <span>+Cadastrar paciente</span>
                         </button>
                     </div>
                 </div>
 
-                <div class="centralizado">
+                <div class="centralizado pedidosMedicosText">
                     <h2>Nenhum pedido médico encontrado</h2>
                     <p>No momento, você não tem pedidos médicos disponíveis.</p>
                 </div>
@@ -67,25 +46,24 @@ $('.cardContainer').on('click', (event) => {
           
         $('.toggleableDiv').removeClass("hide");  
       break;
-      case $(div).hasClass('agendarExames'):
-        $("#dynamicSection").append(`
-          <div id="agendarExames" class="hide toggleableDiv">
-            <button id="backToInicio">
+      case $(button).hasClass('agendarExames'):
+        $(".dynamicSection").append(`
+          <div id="agendarExames">
+            <button type=button class="backToInicio">
               <i class="bi bi-arrow-left-circle"></i>
             </button>
-            <h1>Escolha o Paciente</h1>
-            <div class="pacienteBox">
-              <h2>Nome do paciente</h2>
+            <h1 class="naoCentralizado">Escolha o Paciente</h1>
+            <button type="button" class="pacienteBox">
+              <h3>Nome do paciente</h3>
               <span>Você, idade</span>
               <div class="arrowRightIconContainer">
                 <i class="fa-solid fa-angle-right"></i>
               </div>
-
-            </div>
-            <div class="addPacienteContainer">
+            </button>
+            <button class="addPacienteContainer">
               <i class="bi bi-plus-lg"></i>
               <span>Adicionar Paciente</span>
-            </div>
+            </button>
           </div>
           
           `);
@@ -93,60 +71,148 @@ $('.cardContainer').on('click', (event) => {
 
       break;
 
-      case $(div).hasClass('agendarVacina'):
-      $("#dynamicSection").append(`
-        <div id="agendarVacina" class="hide toggleableDiv">
-          <button id="backToInicio">
+      case $(button).hasClass('agendarVacina'):
+      $(".dynamicSection").append(`
+        <div id="agendarVacina">
+          <button type=button class="backToInicio">
             <i class="bi bi-arrow-left-circle"></i>
           </button>
-          <h1>Escolha o Paciente</h1>
-          <div class="pacienteBox">
-          <h2>Nome do paciente</h2>
-          <span>Você, idade</span>
-          <div class="arrowRightIconContainer">
-            <i class="fa-solid fa-angle-right"></i>
-          </div>
-        </div>
-        <div class="addPacienteContainer">
+          <h1 class="naoCentralizado">Escolha o Paciente</h1>
+          <button type="button" class="pacienteBox">
+            <h3>Nome do paciente</h3>
+            <span>Você, idade</span>
+            <div class="arrowRightIconContainer">
+              <i class="fa-solid fa-angle-right"></i>
+            </div>
+          </button>
+        <button class="addPacienteContainer">
           <i class="bi bi-plus-lg"></i>
           <span>Adicionar Paciente</span>
-        </div>
+        </button>
         </div>
       `);
       $('.toggleableDiv').removeClass("hide"); 
       
       break;
 
-      case $(div).hasClass('acessosMedicos'): 
-      $("#dynamicSection").append(`
-        <div id="acessosMedicos" class="centralizado">
-          <button id="backToInicio">
+      case $(button).hasClass('acessosMedicos'): 
+      $(".dynamicSection").append(`
+        <div id="acessosMedicos">
+          <button type=button class="backToInicio">
             <i class="bi bi-arrow-left-circle"></i>
           </button>
-          <h2>Gerenciamento de autorizações</h2>
-          <p>Aqui você pode gerenciar e autorizar acesso do seu histórico completo de exames a profissionais de saúde da sua escolha.</p>
-          <button type="button" class="historyAcess">
-            <span>Autorizar acesso ao histórico</span>
-          </button>
+          <div class="centralizado">
+            <h2>Gerenciamento de autorizações</h2>
+            <p>Aqui você pode gerenciar e autorizar acesso do seu histórico completo de exames a profissionais de saúde da sua escolha.</p>
+            <button type="button" class="historyAcess">
+              <span>Autorizar acesso ao histórico</span>
+            </button>
+          </div>
         </div>
       
       `);
       $('.toggleableDiv').removeClass("hide"); 
       break;
 
-      case $(div).hasClass('consultas_prescricoes_atestados'):
-        $("#consultas").addClass("toggle");
+      case $(button).hasClass('consultas_prescricoes_atestados'):
+        window.location.replace('./pages/consultas.html');
       break; 
+      
+      case $(button).hasClass('agendarConsultas'):
+        window.location.replace('./pages/consultas.html');
+      break;
+
+      case $(button).hasClass('resultado_de_exames'):
+        window.location.replace('./pages/exames.html');
+      break;
+
+      case $(button).hasClass('agendarEspecialidade'):
+        $(".dynamicSection").append(`
+          <div id="agendarEspecialidade" class="agendarEspecialidadeContainer">
+            <div class="topContent">
+              <button type=button class="backToInicio">
+                <i class="bi bi-arrow-left-circle"></i>
+              </button>
+              <h1>Agendar consulta</h1>
+            </div>
+            <p>Por aqui, vou te ajudar a encontrar os melhores especialistas</p>
+            <h2>Para quem será o atendimento?</h2>
+            <button type="button" class="pacienteBox">
+              <h3>Nome do paciente</h3>
+              <span>Você, idade</span>
+              <div class="arrowRightIconContainer">
+                <i class="fa-solid fa-angle-right"></i>
+              </div>
+            </button>
+            <button class="addPacienteContainer">
+              <i class="bi bi-plus-lg"></i>
+              <span>Adicionar Paciente</span>
+            </button>
+          </div>  
+        `); 
+      break;
+
+      case $(button).hasClass('consultaOnline'):
+        $(".dynamicSection").append(`
+          <div id="consultaOnline">
+            <div class="topContent">
+              <button type=button class="backToInicio">
+                <i class="bi bi-arrow-left-circle"></i>
+              </button>
+              <h1>Tudo certo para consulta?</h1>
+            </div>
+
+            <span>Quem será consultado ?</span>
+            <div class="alterPacientContainer">
+              <button type="button" id="alterPacientBtn4" class="alterPacientBtn">
+                <strong>Nome</strong>
+                <span>• Alterar</span>
+                <i class="fa-solid fa-angle-down"></i>
+              </button>
+              <div class="pacienteContainer">
+                <h3>Selecione um paciente</h3>
+                <div class="paciente">
+                  <strong>Nome Completo</strong>
+                  <span>Você, idade</span>
+                </div>
+                <button type="button" class="dependenteBtn">
+                <span>+Cadastrar paciente</span>
+                </button>
+              </div>
+            </div>
+
+            <span>Como será o pagamento ?</span>
+            <div class="pagamentoCardsContainer">
+              <button type="button" class="pagamentoParticularCards">
+                <span class="styledSpan">Particular</span>
+                <strong>Cartão de crédito</strong>
+                <span>Valor</span>
+              </button>
+              <button type="button" class="pagamentoPlanoCards">
+                <i class="bi bi-plus"></i>
+                <span>Adicionar plano <br> de saúde</span>
+              </button>
+            </div>
+          </div>  
+        `);
+
+      case $(button).hasClass('compartilharExames'):
+        $('.hideableDiv').removeClass("hide");
+        $(".dynamicSection").addClass("hide");
+      break;
+
       default:
+        console.log("Botão não encontrado");
       break;
   }
   
 });
 
-$(document).on("click", "#backToInicio", () => {
-  $("#pedidosMedicos, #agendarExames, #agendarVacina, #acessosMedicos").remove();
+$(document).on("click", ".backToInicio", () => {
+  $("#pedidosMedicos, #agendarExames, #agendarVacina, #acessosMedicos, #agendarEspecialidade,#consultaOnline").remove();
   $("#linkInicio").click();
-  $("#dynamicSection").removeClass("toggle");
+  $("section").removeClass("hide");
+  $(".dynamicSection").addClass("hide");
 });
 
 $(document).on("click", ".alterPacientBtn", function() {
@@ -155,37 +221,12 @@ $(document).on("click", ".alterPacientBtn", function() {
   $(this).toggleClass("showDropdown");
 });
 
-/* $(".popUpMaker").on("click", (event) => {
-  let spanContent = $(event.currentTarget).find("span").html();
-  let h2 = "";
-
-  switch (spanContent) {
-    case "Agendar Exames":
-        h2 = "Tipo de agendamento";
-      break;
-  
-    default:
-      break;
-  }
-
-  const $section = $("#exames");
-  
-  const $div = $("<div>").addClass("popup");
-  const $h2 = $("<h2>").text("h2");
-  const $icon = $("<i>").addClass("bi bi-x-lg");
-
-  $div.append($h2, $icon);
-  $section.append($div);
-}); */
-
 window.addEventListener("resize", () => {
 
 if ($("#sidebar").is(":checked")  && window.innerWidth <= 980) {
     $("#sidebar").trigger("click");
 }
 });
-
-
 
   let baseFontSize = 25;   
 
@@ -199,11 +240,9 @@ function increaseFont() {
     document.body.style.fontSize = (baseFontSize + currentIncrease) + "px";
     $("span:not(.h1Span)").css("font-size", (baseFontSize + currentIncrease) + "px");
     $("p").css("font-size", (baseFontSize + currentIncrease) + "px");
-    $("a").css("font-size", (baseFontSize + currentIncrease) + "px");
-    
-
-  
+    $("a").css("font-size", (baseFontSize + currentIncrease) + "px");  
   }
+  
 }
 
 function decreaseFont() {
@@ -213,20 +252,23 @@ function decreaseFont() {
     $("span:not(.h1Span)").css("font-size", (baseFontSize + currentIncrease) + "px");
     $("p").css("font-size", (baseFontSize + currentIncrease) + "px");
     $("a").css("font-size", (baseFontSize + currentIncrease) + "px");
-
-
   }
 }
 
-let isDark = false;
+let isDark = JSON.parse(localStorage.getItem("isDark")) || false;
+
+if(isDark) {
+  $('html').addClass("dark");
+}
 
 function darkMode () {
   if(isDark) {
-    $('body').removeClass("dark");
+    $('html').removeClass("dark");
     isDark = false;
   }else {
-    $('body').addClass("dark");
+    $('html').addClass("dark");
     isDark = true;
   }
+  localStorage.setItem("isDark", JSON.stringify(isDark));
 }
 

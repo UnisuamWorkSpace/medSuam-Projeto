@@ -49,33 +49,36 @@ main {
     height: 50px;
 }
 
-aside ul li label {
-    white-space: nowrap;   /* prevent wrapping */
-    display: flex;         /* keep icon + text aligned horizontally */
-    align-items: center;   /* vertically center them */
-    gap: 10px;             /* space between icon and text */
+aside ul li a, aside ul li label {
+    white-space: nowrap;   
+    display: flex;         
+    gap:5px;
+    align-items: center;  
     cursor: pointer;
     position: relative;
+    text-decoration: none;
+    color:black;
 }
 
-.linkLabel::after {
+.currentPage {
+    color: var(--padrao)
+}
+
+.linkPage::after {
     content:'';
     position:absolute;
     width:0px;
     height:3px;
     background-image: linear-gradient(to right, var(--padrao), var(--cianoClaro));
-    bottom:-5px;        /* move it vertically to the middle */
-    left: 0px;       /* move it horizontally to the middle */
-     /* start hidden, centered */
-
+    bottom:-5px;        
+    left: 0px;       
     transition: 600ms ease-in-out;
     transform-origin: left;
 }
 
-.linkLabel:hover::after{
+.linkPage:hover::after{
     width: 100%;
 }
-
 
 aside ul {
     list-style-type:none;
@@ -116,7 +119,7 @@ aside ul li i {
 }
 
 #sidebar:checked ~ aside ul li .menuIconContainer  {
-    transform: translateX(-86%); /* shift logo left when collapsed */
+    transform: translateX(-86%);
 
 }
 
@@ -130,8 +133,8 @@ input[type=radio]:checked ~ label {
 
 .geralSpan {
     transition: 600ms ease-in-out;
-     display: inline-block;   /* needed to animate width */
-    overflow: hidden;        /* hide text when width shrinks */
+     display: inline-block;  
+    overflow: hidden;       
     white-space: nowrap; 
 }
 
@@ -154,9 +157,7 @@ input[type=radio]:checked ~ label {
 
 .cards {
     display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(126px, 1fr));
-    /* justify-content: center; */
-    /* height:100vh; */
+    grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
     gap: 20px;
 }
 
@@ -178,15 +179,11 @@ input[type=radio]:checked ~ label {
     box-sizing: border-box;
     overflow: visible; 
     cursor: pointer;
-}
-
-
-section {
-    display:none;
+    font-size: 23px;
 }
 
 .toggle {
-    display:grid;
+    display:none;
 }
 
 #cards {
@@ -201,7 +198,7 @@ main {
 
 
 .cardContainer {
-    position: relative; /* cria contexto */
+    position: relative; 
 }
 
 @property --angle{
@@ -324,6 +321,10 @@ aside .acessibilidadeContainer {
     color:transparent;
 }
 
+aside .acessibilidadeContainer.termosPage {
+    justify-content:flex-start;
+}
+
 aside .acessibilidadeContainer * {
     background-color: transparent;
     color: transparent;
@@ -374,14 +375,40 @@ aside .acessibilidadeContainer * {
     font-size: 23px;
 }
 
-body.dark {
+html.dark {
     background-color: #000000;
     color:white;
 }
 
-body.dark .background, body.dark aside, body.dark #acessibilidadeLabel, body.dark .cardContainer, body.dark .cardContent{
+html.dark .background, html.dark aside, html.dark #acessibilidadeLabel, html.dark .cardContainer, html.dark .cardContent, html.dark .linkPage, html.dark .showMenuContainer label i, html.dark .dadosCadastraisContainer, html.dark .linksBar a,html.dark .dadosContainerContent button i {
     background-color: #000000;
     color:white;
+}
+
+html.dark .dadosCadastraisContainer:hover {
+    color:black;
+}
+
+html.dark .linksBar a::after {
+    background-color: white;
+}
+
+html.dark .linksBar a.selected::after {
+    background-color: var(--cianoClaro);
+}
+html.dark .linksBar a.selected {
+    color: var(--cianoClaro);
+}
+
+html.dark .dadosContainer  {
+    border: 1px solid white;
+}
+html.dark .dadosContainerContent {
+    border-bottom: 1px solid white;
+}
+
+html.dark .dadosContainerContent.noBorder {
+    border: none;
 }
 
 .margin {
@@ -390,6 +417,7 @@ body.dark .background, body.dark aside, body.dark #acessibilidadeLabel, body.dar
 }
 
 .twoGrid {
+    display:grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: "left right";
@@ -521,21 +549,21 @@ body.dark .background, body.dark aside, body.dark #acessibilidadeLabel, body.dar
     transition: 600ms ease-in-out;
 }
 
-body.dark .pacienteContainer {
+html.dark .pacienteContainer {
     background-color: #000;
     color: white;
 }
 
-body.dark .paciente {
-    background-color: #1588ca;
+html.dark .paciente {
+    background-color: var(--padrao);
 }
 
-body.dark .resultadosContainer {
+html.dark .resultadosContainer {
     border: 2px solid white;
 }
 
 .paciente {
-    background-color: rgba(109, 141, 255, 0.12);
+    background-color: rgba(207, 241, 227, 0.957);
     border-radius: 15px;
     padding: 15px 80px 15px 20px;
 }
@@ -543,13 +571,14 @@ body.dark .resultadosContainer {
 .dependenteBtn {
   display: block;
   margin: 0 auto;
-  color:blue;
-  font-weight: bold;
+  color: var(--padrao);
   font-size: 17px;
+  font-weight: bold;
   border:none;
   background-color: transparent;
   margin-top: 20px;
   cursor: pointer;
+  
 }
 
 button.showDropdown ~ .pacienteContainer {
@@ -617,9 +646,15 @@ button.showDropdown i {
     position: relative;
     padding: 20px;
     max-width: 60%;
+    background-color: white;
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 300px;
+    cursor:pointer;
 }
 
-.pacienteBox h2 {
+.pacienteBox h2, .pacienteBox h3 {
     font-size: 19px;
     margin: 0 0 10px 0;
     padding:0;
@@ -637,18 +672,25 @@ button.showDropdown i {
 }
 
 .addPacienteContainer {
-    max-width: 60%;
+    display: flex;
     align-items: center;
-    background-color: #1588ca;
+    background-color: rgba(207, 241, 227, 0.957);
     padding: 20px;
     border: none;
     border-radius: 15px;
     margin-top: 20px;
+    color: rgba(64, 138, 112, 0.957);
+    cursor: pointer;
+    font-size: 20px;
+   
+}
+
+.addPacienteContainer:hover {
+    background-color: var(--padrao);
+    color: var(--cianoClaro);
 }
 
 .addPacienteContainer i {
-    height:50px;
-    width:50px;
     padding: 10px 12px;
     border:none;
     border-radius: 25px;
@@ -659,29 +701,43 @@ button.showDropdown i {
     font-weight: bold;
 }
 
-#backToInicio {
+.addPacienteContainer:hover i {
+    background-color: white;
+}
+
+.backToInicio {
     background-color: transparent;
     border:none;
     cursor: pointer;
-    float:left;
 }
 
-#backToInicio i {
+.backToInicio i {
     font-size: 40px;
     font-weight: 900;
+}
+
+.topContent {
+    display:flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 35px;
+}
+
+.topContent * {
+    margin: 0;
 }
 
 .historyAcess {
     background-color: transparent;
     border: none;
-    color:blue;
+    color:var(--padrao);
     font-weight: bold;
     font-size: 18px;
 }
 
 .twoCards {
     display:grid;
-    grid-template-columns: repeat(auto-fit, minmax(126px, 126px));
+    grid-template-columns: repeat(auto-fit, minmax(166px, 126px));
     gap: 20px;
     margin-bottom: 40px;
 }
@@ -695,6 +751,243 @@ button.showDropdown i {
 
 }
 
+.agendarEspecialidadeContainer p {
+    font-size: 19px;
+    margin: 10px 0 50px 0;
+}
+
+.agendarEspecialidadeContainer h2 {
+    font-size: 22px;
+}
+
+.pedidosMedicosText h2{
+    font-size: 25px;
+}
+
+.pedidosMedicosText p{
+    font-size: 19px;
+}
+
+p.centralizado {
+    text-align: left;
+}
+
+.pagamentoParticularCards {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 180px;
+    width: 190px;
+    padding:10px 15px 0 15px;
+    font-size: 18px;
+    border-radius: 15px;
+    cursor: pointer !important;
+    border: 2px solid gainsboro;
+}
+
+.pagamentoParticularCards strong {
+    margin-bottom: 5px;
+}
+
+.styledSpan {
+    background-color: rgba(207, 241, 227, 0.957);
+    padding: 10px 15px;
+    border-radius: 25px;
+    margin-bottom: 25px;
+}
+.pagamentoPlanoCards {
+    background-color: rgb(246, 246, 246);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 180px;
+    width: 190px;
+    font-size: 18px;
+    border-radius: 15px;
+    padding:10px 15px 10px 15px;
+    cursor: pointer;
+    border: none;
+}
+
+.pagamentoPlanoCards span {
+    text-align: left;
+}
+
+.pagamentoPlanoCards i {
+    font-size: 35px;
+}
+
+.pagamentoCardsContainer {
+    display:flex;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+#consultaOnline h1 {
+    margin-bottom: 35px;
+}
+
+#consultaOnline .alterPacientContainer {
+    margin-top: 10px;
+}
+
+.backToInicioLink {
+   background-color: transparent;
+    border:none;
+    cursor: pointer;
+    text-decoration: none;
+    color:black;
+}
+
+.backToInicioLink i {
+    font-size: 40px;
+    font-weight: 900;
+}
+
+#dadosCadastrais div.topContent h1 {
+    font-size: 27px;
+}
+
+.dadosCadastraisContent {
+    display: grid;
+    grid-template-columns: 50px auto;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+        "icon content"
+        "icon content"
+    ;
+    margin-top: 50px;
+}
+
+.dadosCadastraisContent {
+    grid-area: "icon";
+    padding: 20px 10px 20px 20px;
+    box-sizing: border-box;
+    transition: 600ms ease;
+}
+
+.dadosCadastraisText {
+    grid-area: "content";
+}
+
+.dadosCadastraisText h2 {
+    margin:0;
+    padding:0;
+    font-size: 20px;
+}
+
+.dadosCadastraisText span {
+    font-size: 15px;
+}
+
+#dadosCadastrais .left hr {
+    margin:0;
+    padding:0;
+}
+
+.dadosCadastraisContainer {
+    text-decoration: none;
+    color:black;
+
+}
+
+.dadosCadastraisContainer:hover .dadosCadastraisContent {
+   background-color: rgb(246, 246, 246);
+}
+
+.backToDadosCadastrais {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    gap:20px;
+}
+
+.backToDadosCadastrais span {
+    font-size: 22px;
+}
+
+.dadosContainer {
+    border: solid 1px black;
+    border-radius: 15px;
+}
+
+.dadosContainerContent {
+    display:flex;
+    flex-direction: column;
+    font-size: 20px;
+    gap:5px;
+    border-bottom: 1px solid black;
+    position: relative;
+    padding: 15px 10px;
+}
+
+.dadosContainerContent button {
+    position:absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor:not-allowed;
+    font-size: 23px;
+    transition: 600ms ease;
+}
+
+.dadosContainerContent button:hover {
+    background-color: rgb(246, 246, 246);
+}
+
+.noBorder {
+    border: none;
+}
+
+.linksBar {
+    display: flex;
+    justify-content:center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.linksBar a {
+    text-decoration: none;
+    color:black;
+    position: relative;
+    padding: 0 40px 10px 40px;
+    font-size: 23px;
+}
+
+.linksBar a:after {
+    content: '';
+    width:100%;
+    height: 2px;
+    background-color: #000;
+    position: absolute;
+    bottom:0;
+    left:50%;
+    transform: translateX(-50%);
+}
+
+.linksBar a:hover {
+    font-weight: bold;
+}
+
+.linksBar a.selected {
+    color: var(--padrao);
+}
+
+.linksBar a.selected::after {
+    background-color: var(--padrao);
+}
+
+#termos {
+    margin-left: 40px;
+}
+
+.compartilharExames {
+    cursor:not-allowed;
+}
 
 @media(max-width: 980px) {
     .vacinasAlterPacientContainer{
@@ -740,15 +1033,6 @@ button.showDropdown i {
    } 
 
    aside ul {
-    /* display:grid;
-    grid-auto-columns: 1fr;
-    grid-auto-flow: column;
-    margin: 0;
-    padding:0;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    box-sizing: border-box; */
     display:flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -763,20 +1047,23 @@ button.showDropdown i {
     justify-content: center;
    }
 
-   aside ul li label, #sairLink {
+   aside ul li a, #sairLink, aside ul li label {
     display:flex;
     flex-direction: column;
     gap: 0;
     text-align: center;
-
    }
 
-   aside ul li label a, aside ul li label span, .sairContainer, #acessibilidadeLabel span{
+   aside ul li  a, .sairContainer, #acessibilidadeLabel span{
     font-size: smaller;
 
    }
 
-   .linkLabel::after {
+   aside ul li a span {
+    font-size: 20px;
+   }
+
+   .linkPage::after {
         left: 50%;
         transform: translateX(-50%);
         transform-origin: center ;
@@ -856,10 +1143,35 @@ button.showDropdown i {
     }
 
     .twoGrid {
-    grid-template-columns: 1fr ;
-    grid-template-rows: auto auto;
-    grid-template-areas: "left" "right";
-    gap:20px;
+        grid-template-columns: 1fr ;
+        grid-template-rows: auto auto;
+        grid-template-areas: "left" "right";
+        gap:20px;
+    }
 
-}
+    .alterPacientBtn {
+        display: block;
+        margin: 0 auto;
+    }
+
+    p.centralizado {
+        text-align: center;
+    }
+    
+    .naoCentralizado {
+        text-align: left;
+    }
+
+    #consultaOnline {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pacienteContainer {
+        left:50%;
+       transform: translateX(-50%); 
+       width: 250px;
+    }
 }
