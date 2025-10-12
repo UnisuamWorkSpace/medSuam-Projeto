@@ -992,9 +992,7 @@ p.centralizado {
     cursor:not-allowed;
 }
 
-#geral.twoGrid {
-    margin:0 10px 0 10px;
-}
+
 
 .linksBar {
   display: flex;
@@ -1013,10 +1011,9 @@ p.centralizado {
     .margin {
         margin: 20px 20px 20px 10px;
     }
-
-    #geral {
-        margin: 0 0 0 10px;
-
+    
+    #geral.twoGrid {
+    margin:0 10px 0 10px;
     }
 
     .vacinasAlterPacientContainer{
