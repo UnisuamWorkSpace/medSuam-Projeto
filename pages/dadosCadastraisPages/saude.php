@@ -1,3 +1,28 @@
+<?php
+    
+    include "../../dbMedsuam.php";
+    $error = "";
+    session_start();
+
+    $sql = "SELECT * FROM paciente WHERE id_paciente={$_SESSION['id']} LIMIT 1";
+    $result = mysqli_query($conn, $sql);
+    $account = mysqli_fetch_assoc($result);
+
+    if($_SERVER['REQUEST_METHOD'] === "POST") {
+
+        if(isset($_POST['editarUsuario'])){
+            $peso = mysqli_real_escape_string($conn, $_POST['peso']);
+            $altura = mysqli_real_escape_string($conn, $_POST['altura']);
+            $tipoSanguineo = mysqli_real_escape_string($conn, $_POST['tipoSanguineo']);
+            $sql = "UPDATE paciente SET peso = '$peso', altura = '$altura', tipo_sanguineo = '$tipoSanguineo' WHERE id_paciente ={$_SESSION['id']}";
+            $result = mysqli_query($conn, $sql);
+            header('location: saude.php');
+            exit;
+        }
+
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -35,7 +60,7 @@
         <ul>
             <li>
                 <div class="menuIconContainer">
-                <a href="../../userpage.html"><img class="logo" src="../../images/Logo_medsuam-removebg-preview (1).png" alt="logo"/></a>
+                <a href="../../userpage.php"><img class="logo" src="../../images/Logo_medsuam-removebg-preview (1).png" alt="logo"/></a>
                  <label for="sidebar" class="menuIcon">
                     <i class="fas fa-angle-double-left"></i>                                                                                                                    
                 </label>
@@ -47,7 +72,7 @@
                 </label>
             </li>
             <li>
-                <a href="../userpage.html" class="linkPage">
+                <a href="../userpage.php" class="linkPage">
                     <i class="fa-solid fa-house"></i>
                     <span>Início</span>
                 </a>
@@ -94,7 +119,7 @@
                 </label>
             </li>
             <li class="sairContainer">
-                <a id="sairLink" href="../../index.html">
+                <a id="sairLink" href="../../sair.php">
                     <i class="fas fa-door-open"></i>
                     <span>Sair</span>
                 </a>
@@ -117,38 +142,50 @@
                 <h1>Dados pessoais</h1>
 
                 <div class="linksBar">
-                    <a href="./geral.html">Geral</a>
-                    <a href="./saude.html" class="selected">Saúde</a>
-                    <a href="./seusContatos.html">Seus contatos</a>
+                    <a href="./geral.php">Geral</a>
+                    <a href="./saude.php" class="selected">Saúde</a>
+                    <a href="./seusContatos.php">Seus contatos</a>
 
                 </div>
 
-                <div class="dadosContainer">
+                <form action="saude.php" method="post" class="dadosContainer">
     
                     <div class="dadosContainerContent">
                         <strong>Peso</strong>
-                        <span>Peso</span>
-                        <button type="button">
+                        <span class="infoSpan"><?php echo $account['peso'] . 'Kg' ?></span>
+                        <div class="inputsContainer hide">
+                            <input type="text" name="peso" value="<?php echo $account['peso']?>">
+                            <input type="submit" name="editarUsuario" value="editar">
+                        </div>
+                        <button type="button" class="editBtn">
                             <i class="bi bi-pencil-square"></i>
                         </button>
                     </div>
                     <div class="dadosContainerContent">
                         <strong>Altura</strong>
-                        <span>Altura</span>
-                        <button type="button">
+                        <span class="infoSpan"><?php echo $account['altura'] . " cm"?></span>
+                        <div class="inputsContainer hide">
+                            <input type="text" name="altura" value="<?php echo $account['altura']?>">
+                            <input type="submit" name="editarUsuario" value="editar">
+                        </div>
+                        <button type="button" class="editBtn">
                             <i class="bi bi-pencil-square"></i>
                         </button>
                     </div>
                     <div class="dadosContainerContent noBorder">
                         <strong>Tipo sanguíneo</strong>
-                        <span>Tipo sanguíneo</span>
-                        <button type="button">
+                        <span class="infoSpan"><?php echo $account['tipo_sanguineo']?></span>
+                        <div class="inputsContainer hide">
+                            <input type="text" name="tipoSanguineo" value="<?php echo $account['tipo_sanguineo']?>">
+                            <input type="submit" name="editarUsuario" value="editar">
+                        </div>
+                        <button type="button" class="editBtn">
                             <i class="bi bi-pencil-square"></i>
                         </button>
                     </div>
                 
 
-                </div>
+                </form>
             </div>
         </section>
     

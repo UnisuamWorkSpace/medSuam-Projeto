@@ -2,7 +2,6 @@ function mostrarSenha (id, imagem)  {
 
     var inputType = $('#' + id)[0];
     var eye = $('#' + imagem)[0];
-    console.log(eye.src);
     if(inputType.type === "password") {
         inputType.type = "text";
         eye.src = "./images/eye.svg";
@@ -16,7 +15,6 @@ function mostrarSenha (id, imagem)  {
  function mimimoCaracter () {
     const senha = $("#senhaReset").val();
     const senhaConfirm = $("#senhaResetConfirm").val();
-    
      if(senha.length >= 8 && senhaConfirm.length >= 8) {
         $("#infoSpan").css("color", "green");
         $("#infoSpan").html('<i class="fas fa-check"></i> Pelo menos 8 caracteres');
@@ -26,6 +24,8 @@ function mostrarSenha (id, imagem)  {
     }
 
  }
+
+ 
 
 function senhaIgual() {
     const senha = $("#senhaReset").val();

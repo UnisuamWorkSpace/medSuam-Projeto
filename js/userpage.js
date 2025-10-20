@@ -1,3 +1,5 @@
+console.log('oi');
+
 $('.linkPage').on('click', (event) => {
     
   $(".hideableDiv").removeClass("hide");
@@ -270,5 +272,47 @@ function darkMode () {
     isDark = true;
   }
   localStorage.setItem("isDark", JSON.stringify(isDark));
+}
+
+$(".editBtn").on('click', function() {
+  const container = $(this).closest('.dadosContainerContent');
+
+  container.find('.inputsContainer').toggleClass('hide');
+  container.find('.infoSpan').toggleClass('hide');
+
+});
+
+function consultarCep() {
+    return new Promise((resolve) => {
+        const cep = document.getElementById('cepcliente').value.replace(/\D/g, '');
+
+        if (cep.length !== 8) {
+            $("#cepSpan").text("CEP deve conter 8 dígitos !");
+            resolve(false);
+            return;
+        }
+
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(response => response.json())
+            .then(data => {
+                if (!data.erro) {
+                    document.getElementById('ruacliente').value = data.logradouro;
+                    document.getElementById('bairrocliente').value = data.bairro;
+                    document.getElementById('cidadecliente').value = data.localidade;
+                    document.getElementById('estadocliente').value = data.uf;
+                    document.getElementById('complementocliente').value = data.complemento;
+                    $("#cepSpan").text("");
+                    resolve(true);
+                } else {
+                    $("#cepSpan").text('CEP não encontrado.');
+                    resolve(false);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao consultar o CEP:', error);
+                alert('Erro ao consultar o CEP.');
+                resolve(false);
+            });
+    });
 }
 

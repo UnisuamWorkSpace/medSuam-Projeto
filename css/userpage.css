@@ -938,7 +938,7 @@ p.centralizado {
     transform: translateY(-50%);
     background-color: transparent;
     border: none;
-    cursor:not-allowed;
+    cursor:pointer;
     font-size: 23px;
     transition: 600ms ease;
 }
@@ -951,6 +951,13 @@ p.centralizado {
     color:black;
 }
 
+.dadosContainerContent input, .dadosContainerContent select  {
+    font-size: 21px;
+    max-width: 300px;
+}
+.dadosContainerContent span {
+    max-width: 500px;
+}
 .noBorder {
     border: none;
 }

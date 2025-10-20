@@ -1,17 +1,26 @@
+<?php
+
+    session_start();
+
+    $parts = explode(" ", $_SESSION['paciente']); // splits by space
+    $primeiroNome = $parts[0];           // take the first part
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedSuam</title>
+    <title>MedSuamt</title>
     <script>
         if(JSON.parse(localStorage.getItem("isDark"))) {
             console.log(JSON.parse(localStorage.getItem("isDark")));
-            document.documentElement.classList.add("dark");
+              document.documentElement.classList.add("dark");
         }
     </script>
-    <link rel="icon" href="../../images/ChatGPT Image 11 de out. de 2025, 20_18_05 (1).png">
-    <link rel="stylesheet" href="../../css/userpage.css"/>  
+    <link rel="icon" href="./images/ChatGPT Image 11 de out. de 2025, 20_18_05 (1).png">
+    <link rel="stylesheet" href="./css/userpage.css"/>  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-…(hash)…" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,11 +44,14 @@
         <ul>
             <li>
                 <div class="menuIconContainer">
-                <a href="../../userpage.html"><img class="logo" src="../../images/Logo_medsuam-removebg-preview (1).png" alt="logo"/></a>
+                <a href="#"><img class="logo" src="./images/Logo_medsuam-removebg-preview (1).png" alt="logo"/></a>
                  <label for="sidebar" class="menuIcon">
                     <i class="fas fa-angle-double-left"></i>                                                                                                                    
                 </label>
                 </div>
+            </li>
+            <li>
+                <span>Olá <?php echo $primeiroNome . ' !'?> </span>
             </li>
             <li class="showMenuContainer">
                 <label for="showMenu">
@@ -47,26 +59,26 @@
                 </label>
             </li>
             <li>
-                <a href="../userpage.html" class="linkPage">
+                <a href="#" class="linkPage currentPage">
                     <i class="fa-solid fa-house"></i>
                     <span>Início</span>
                 </a>
             </li>
             <li>
-                <a href="../exames.html" class="linkPage">
+                <a href="./pages/exames.html" class="linkPage">
                     <i class="fa-solid fa-flask"></i>
                     <span>Exames</span>
                 </a>
             </li>
             <li>
-                <a href="../vacinas.html" class="linkPage">
+                <a href="./pages/vacinas.html" class="linkPage">
                     <i class="fas fa-syringe"></i>
                     <span>Vacinas</span>
                 </a>
             </li>
             
             <li>
-                <a href="../consultas.html" class="linkPage currentPage">
+                <a href="./pages/consultas.html" class="linkPage">
                     <i class="fa fa-stethoscope"></i>
                     <span>Consultas</span>
                 </a>
@@ -76,13 +88,13 @@
                 <span class="geralSpan">Geral</span>
             </li>
             <li>
-                <a href="../dadosCadastrais.html" class="linkPage">
+                <a href="./pages/dadosCadastrais.html" class="linkPage">
                     <i class="fas fa-gear"></i>
                     <span>Dados Cadastrais</span>
                 </a>
             </li>
             <li>
-                <a class="linkPage">
+                <a href="./pages/termos.html" class="linkPage">
                 <i class="fas fa-book"></i>
                 <span>Termos</span>
                 </a>
@@ -94,7 +106,7 @@
                 </label>
             </li>
             <li class="sairContainer">
-                <a id="sairLink" href="../../index.html">
+                <a id="sairLink" href="./sair.php">
                     <i class="fas fa-door-open"></i>
                     <span>Sair</span>
                 </a>
@@ -106,55 +118,65 @@
         
     </aside>
     <main>
-
-        <section id="seusContatos" class="twoGrid margin">
-            <div class="left">
-                <a href="../dadosCadastrais.html" class="backToInicioLink backToDadosCadastrais">
-                    <i class="bi bi-arrow-left-circle"></i>
-                    <span>Voltar para dados cadastrais</span>
-                </a>
-
-                <h1>Dados pessoais</h1>
-
-                <div class="linksBar">
-                    <a href="./geral.html">Geral</a>
-                    <a href="./saude.html">Saúde</a>
-                    <a href="./seusContatos.html" class="selected">Seus contatos</a>
-
-                </div>
-
-                <div class="dadosContainer">
-    
-                    <div class="dadosContainerContent">
-                        <strong>E-mail</strong>
-                        <span>E-mail</span>
-                        <button type="button">
-                            <i class="bi bi-pencil-square"></i>
-                        </button>
-                    </div>
-                    <div class="dadosContainerContent">
-                        <strong>Telefone</strong>
-                        <span>Telefone</span>
-                        <button type="button">
-                            <i class="bi bi-pencil-square"></i>
-                        </button>
-                    </div>
-                    <div class="dadosContainerContent noBorder">
-                        <strong>Endereço</strong>
-                        <span>Endereço</span>
-                        <button type="button">
-                            <i class="bi bi-pencil-square"></i>
-                        </button>
-                    </div>
+        <section id="cards" class="hideableDiv">
+            
+            <h1>Seus 
+                Atalhos</h1>
+            <div class="cards">
                 
-                </div>
+                <button type="button" class="cardContainer pedidosMedicos">
+                    <div class="cardContent ">
+                        <i class="bi bi-file-text"></i>
+                        <span>Pedidos Médicos</span>
+                    </div>
+                </button>
+            
+                <button type="button"  class="cardContainer consultas_prescricoes_atestados">
+                     <div class="cardContent">
+                        <i class="bi bi-file-earmark-medical"></i>
+                        <span class="menor">Consultas, Prescrições, Atestados</span>
+                    </div>
+                </button>
+                <button type="button" class="cardContainer agendarExames">
+                    <div class="cardContent">
+                    <i class="bi bi-calendar2-week"></i>
+                        <span>Agendar Exames</span>
+                    </div>
+                </button>
+                <button type="button" class="cardContainer agendarConsultas">
+                    <div class="cardContent ">
+                        <i class="bi bi-calendar-plus"></i>
+                        <span>Agendar Consultas</span>
+                    </div>
+                </button>
+                <button type="button" class="cardContainer resultado_de_exames">
+                    <div class="cardContent">
+                        <i class="fa-solid fa-flask"></i>
+                        <span>Resultados de exames</span>
+                    </div>
+                </button>
+                <button type="button"  class="cardContainer agendarVacina">
+                    <div class="cardContent">
+                        <i class="fas fa-syringe"></i>
+                        <span>Agendar Vacinas</span>
+                    </div>
+                </button>
+                <button type="button" class="cardContainer consultaOnline">
+                    <div class="cardContent">
+                        <i class="bi bi-camera-video"></i>
+                        <span>Consulta online 24h</span>
+                    </div>
+                </button>
             </div>
         </section>
-    
+
+        <section class="dynamicSection twoGrid margin">
+            
+        </section>
     </main>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="../../js/userpage.js"></script>
+    <script src="./js/userpage.js"></script>
 
 </body>
 </html>

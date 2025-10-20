@@ -61,15 +61,12 @@ function validaCPF(cpf) {
   function cpfMask (event) {
      let value = event.target.value;
 
-    // Remove everything that is not a number
     value = value.replace(/\D/g, "");
 
-    // Apply the CPF mask
     if (value.length > 3) value = value.replace(/(\d{3})(\d)/, "$1.$2");
     if (value.length > 6) value = value.replace(/(\d{3})\.(\d{3})(\d)/, "$1.$2.$3");
     if (value.length > 9) value = value.replace(/(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
 
-    // Update the input value
     event.target.value = value;
   } 
 
@@ -87,15 +84,12 @@ function validaCPF(cpf) {
   function phoneMask(event) {
     let value = event.target.value;
 
-    // Remove everything that is not a number
     value = value.replace(/\D/g, "");
 
-    // Apply the mask
     if (value.length > 0) value = value.replace(/^(\d{0,2})/, "($1");
     if (value.length > 2) value = value.replace(/\((\d{2})/, "($1) ");
     if (value.length > 7) value = value.replace(/(\d{4,5})(\d{4})$/, "$1-$2");
 
-    // Update input value
     event.target.value = value;
 }
 
@@ -103,7 +97,6 @@ function validarEmail() {
     const emailInput = document.getElementById('emailProfissional');
     const email = emailInput.value.trim();
 
-    // Regex simples para validar e-mail
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!regex.test(email)) {

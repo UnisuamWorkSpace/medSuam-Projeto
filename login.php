@@ -1,3 +1,39 @@
+<?php
+    include "dbMedsuam.php";
+    $error = "";
+    session_start();
+
+    if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+        header('location: userpage.php');
+    }
+
+    if($_SERVER["REQUEST_METHOD"] === "POST") {
+        $email = mysqli_real_escape_string($conn, $_POST["email"]);
+        $senha = mysqli_real_escape_string($conn, $_POST["senha"]); 
+        $sql = "SELECT * FROM paciente WHERE email_paciente='$email' LIMIT 1";
+        $result = mysqli_query($conn, $sql);
+
+        if(mysqli_num_rows($result) === 1) {
+            $account = mysqli_fetch_assoc($result);
+            var_dump($account);
+
+            if(password_verify($senha, $account['senha_paciente'])) {
+                $_SESSION['logged_in'] = true;
+                $_SESSION['paciente'] = $account['nome_paciente'];
+                $_SESSION['id'] = $account['id_paciente'];
+                header('location: userpage.php');
+                exit;
+            }else {
+                echo "senhas nao coincidem";
+            }
+        }else {
+            echo "usuário nao encontrado";
+        }
+    }
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -15,7 +51,7 @@
             <a href="./index.html"><img class="logoForm" src="./images/logo_branco.png"/></a>
             <h1>Login</h1>
         
-            <form id="loginForm" action="teste.php" method="post" >  
+            <form id="loginForm" action="login.php" method="post" >  
                 <div class="inputContainer">
                     
                         <input class="inputStyle noMarginBot " type="text"  id="emaillogin" name="email" placeholder="Email" onblur="validarEmail()" required>
@@ -31,7 +67,7 @@
                         <input id="enviarBtn" class="buttonStyle" type="submit" value="Enviar">
                         <div class="criarConta">
                             <span>Não tem Conta ?</span>
-                            <a href="./cadastroCliente.html">Criar conta</a>
+                            <a href="./cadastroCliente.php">Criar conta</a>
                         </div>
                 </div>
             </form>

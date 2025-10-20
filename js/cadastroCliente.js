@@ -75,15 +75,12 @@ function validaCPF(cpf) {
   function cpfMask (event) {
      let value = event.target.value;
 
-    // Remove everything that is not a number
     value = value.replace(/\D/g, "");
 
-    // Apply the CPF mask
     if (value.length > 3) value = value.replace(/(\d{3})(\d)/, "$1.$2");
     if (value.length > 6) value = value.replace(/(\d{3})\.(\d{3})(\d)/, "$1.$2.$3");
     if (value.length > 9) value = value.replace(/(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
 
-    // Update the input value
     event.target.value = value;
   } 
 
@@ -101,28 +98,22 @@ function validaCPF(cpf) {
   function phoneMask(event) {
     let value = event.target.value;
 
-    // Remove everything that is not a number
     value = value.replace(/\D/g, "");
 
-    // Apply the mask
     if (value.length > 0) value = value.replace(/^(\d{0,2})/, "($1");
     if (value.length > 2) value = value.replace(/\((\d{2})/, "($1) ");
     if (value.length > 7) value = value.replace(/(\d{4,5})(\d{4})$/, "$1-$2");
 
-    // Update input value
     event.target.value = value;
 }
 
 function cepMask(event) {
     let value = event.target.value;
 
-    // Remove everything that is not a number
     value = value.replace(/\D/g, "");
 
-    // Apply the CEP mask
     if (value.length > 5) value = value.replace(/^(\d{5})(\d)/, "$1-$2");
 
-    // Update the input value
     event.target.value = value;
 }
 
@@ -165,7 +156,6 @@ function validarEmail() {
     const emailInput = document.getElementById('emailcadastro');
     const email = emailInput.value.trim();
 
-    // Regex simples para validar e-mail
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!regex.test(email)) {
@@ -191,7 +181,6 @@ function validarDataNascimento() {
     const hoje = new Date();
     const nascimento = new Date(dataValor);
 
-    // Verifica se a data é válida
     if (isNaN(nascimento.getTime())) {
         $("#dateSpan").text('Data inválida.');
      
@@ -201,12 +190,10 @@ function validarDataNascimento() {
         return false;
     }
 
-    // Calcula a idade
     let idade = hoje.getFullYear() - nascimento.getFullYear();
     const mesDiff = hoje.getMonth() - nascimento.getMonth();
     const diaDiff = hoje.getDate() - nascimento.getDate();
 
-    // Ajusta idade se ainda não fez aniversário este ano
     if (mesDiff < 0 || (mesDiff === 0 && diaDiff < 0)) {
         idade--;
     }
@@ -250,7 +237,7 @@ const form = $('#clienteForm').on("submit", async (event) => {
         return false;
     }
 
-    const cepValido = await consultarCep(); // await para esperar o fetch
+    const cepValido = await consultarCep(); 
     if (!cepValido) {
         return false;
     }
@@ -263,24 +250,30 @@ const form = $('#clienteForm').on("submit", async (event) => {
         return false;
      } 
 
-
-    
+    let nomeCompleto = $("#nomecliente")[0].value;
+    let cpf = $("#cpfcliente")[0].value;
+    let celular = $("#celularcliente")[0].value;
+    let sexo = $("#generocliente")[0].value;
+    let nascimento = $("#aniversariocliente")[0].value;
+    let cep = $("#cepcliente")[0].value;
+    let rua = $("#ruacliente")[0].value;
+    let numeroRua = $("#numeroruacliente")[0].value;
+    let complemento = $("#complementocliente")[0].value;     
+    let bairro = $("#bairrocliente")[0].value;
+    let cidade = $("#cidadecliente")[0].value;
+    let estado = $("#cidadecliente")[0].value;
+    let email = $("#emailcadastro")[0].value;
+    let senha = $("#senhaCadastro")[0].value;
+     
     const btn = $('#enviarBtn');
         
-        btn.addClass("enviarClick")
-        
-        $(".enviarClick").css({
-               
-            });
+    btn.addClass("enviarClick")
 
-        setTimeout ( () => {
-            btn.removeClass("enviarClick");
-            window.location.replace('./login.html');
-
-        }, 500); 
-
-    
-
-    
+    setTimeout ( () => {
+        btn.removeClass("enviarClick");
+        document.getElementById("clienteForm").submit();
+        //window.location.replace('./login.html');
+    }, 500); 
+   
 });
 

@@ -1,3 +1,4 @@
+
 function mostrarSenha (id, imagem)  {   
 
     var inputType = $('#' + id)[0];
@@ -37,17 +38,17 @@ const form = $('#loginForm').on("submit", (event) => {
         event.preventDefault();
         return false; 
     }
+
+    let email = $("#emaillogin")[0].value; 
+    let senha = $("#senhalogin")[0].value;
    
     const btn = $('#enviarBtn');
         
-        btn.addClass("enviarClick")
+    btn.addClass("enviarClick")
     
-        setTimeout ( () => {
-            btn.removeClass("enviarClick");
-            window.location.replace('./autenticacao.html');
-        }, 500); 
-
-    
-    
-    
+    setTimeout ( () => {
+        btn.removeClass("enviarClick");
+        document.getElementById("loginForm").submit();
+        /* window.location.replace('./autenticacao.html'); */
+    }, 500);   
 });
