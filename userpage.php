@@ -5,6 +5,11 @@
     $parts = explode(" ", $_SESSION['paciente']); // splits by space
     $primeiroNome = $parts[0];           // take the first part
 
+    if(!isset($_SESSION['logged_in'])) {
+        header('location: login.php');
+        exit;
+    }
+
 ?>
 
 <!DOCTYPE html>

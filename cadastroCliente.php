@@ -1,8 +1,13 @@
 <?php
 
     include 'dbMedsuam.php';
-    
-    if($_SERVER["REQUEST_METHOD"] === "POST" ) {
+    session_start();
+    if(isset($_SESSION['id'])) {
+        header('location: userpage.php');
+        exit;
+    }
+
+    if($_SERVER["REQUEST_METHOD"] === "POST") {
         $nomeCliente = mysqli_real_escape_string($conn, $_POST["nomecliente"]);
         $cpfCliente = mysqli_real_escape_string($conn, $_POST["cpfcliente"]);
         $celularCliente = mysqli_real_escape_string($conn, $_POST["celularcliente"]);
@@ -25,67 +30,66 @@
         $senhaConfirmaCliente = mysqli_real_escape_string($conn, $_POST["senhaconfirm"]);
 
         if($senhaCliente === $senhaConfirmaCliente) {     
-            $sql = "SELECT * FROM paciente WHERE nome_paciente='$nomeCliente' LIMIT 1";
-            $result = mysqli_query($conn, $sql);
+                $sql = "SELECT * FROM paciente WHERE nome_paciente='$nomeCliente' LIMIT 1";
+                $result = mysqli_query($conn, $sql);
 
-            if(mysqli_num_rows($result) === 1) {
-                $error = "Usuário já existe !";
-                echo $error;
-            }else {
-                $password_hash = password_hash($senhaCliente, PASSWORD_DEFAULT);
+                if(mysqli_num_rows($result) === 1) {
+                    $error = "Usuário já existe !";
+                    echo $error;
+                }else {
+                    $password_hash = password_hash($senhaCliente, PASSWORD_DEFAULT);
                 
-                $sql = "INSERT INTO paciente (nome_paciente, cpf_paciente, data_nasc_paciente, 	email_paciente, senha_paciente, sexo_paciente ) VALUES('$nomeCliente', '$cpfCliente', '$aniversarioCliente', '$emailCliente', '$password_hash', '$generoCliente')";
+                    $sql = "INSERT INTO paciente (nome_paciente, cpf_paciente, data_nasc_paciente, 	email_paciente, senha_paciente, sexo_paciente ) VALUES('$nomeCliente', '$cpfCliente', '$aniversarioCliente', '$emailCliente', '$password_hash', '$generoCliente')";
         
-                if(mysqli_query($conn, $sql)) {
-                    echo "paciente INSERTED";
-                }else {
-                    echo 'paciente deu erro';
-                }
-
-                $sql = "SELECT * FROM paciente WHERE email_paciente='$emailCliente' LIMIT 1";
-                $result = mysqli_query($conn, $sql);
-
-                if(mysqli_num_rows($result) === 1) {
-                    $account = mysqli_fetch_assoc($result);
-                    $sql = "INSERT INTO endereco (cep, rua, numero, complemento, bairro, cidade, uf_endereco, paciente_id_paciente) VALUES('$cepCliente', '$ruaCliente', '$numeroCliente', '$complementoCliente', '$bairroCliente', '$cidadeCliente', '$estadoCliente', '{$account['id_paciente']}')";
                     if(mysqli_query($conn, $sql)) {
-                        echo "endereco INSERTED";
+                        echo "paciente INSERTED";
                     }else {
-                        echo 'endereco deu erro';
+                        echo 'paciente deu erro';
                     }
-                }   
 
-                $sql = "SELECT * FROM paciente WHERE email_paciente='$emailCliente' LIMIT 1";
-                $result = mysqli_query($conn, $sql);
+                    $sql = "SELECT * FROM paciente WHERE email_paciente='$emailCliente' LIMIT 1";
+                    $result = mysqli_query($conn, $sql);
 
-                if(mysqli_num_rows($result) === 1) {
-                    $account = mysqli_fetch_assoc($result);
+                    if(mysqli_num_rows($result) === 1) {
+                        $account = mysqli_fetch_assoc($result);
+                        $sql = "INSERT INTO endereco (cep, rua, numero, complemento, bairro, cidade, uf_endereco, paciente_id_paciente) VALUES('$cepCliente', '$ruaCliente', '$numeroCliente', '$complementoCliente', '$bairroCliente', '$cidadeCliente', '$estadoCliente', '{$account['id_paciente']}')";
+                        if(mysqli_query($conn, $sql)) {
+                            echo "endereco INSERTED";
+                        }else {
+                            echo 'endereco deu erro';
+                        }
+                    }   
 
-                $sql = "INSERT INTO telefone (dd, telefone, paciente_id_paciente) VALUES('$ddd', '$numero', '{$account['id_paciente']}')";
-                if(mysqli_query($conn, $sql)) {
-                    echo "telefone INSERTED";
-                }else {
-                    echo 'telefone deu erro';
-                }
-                }
+                    $sql = "SELECT * FROM paciente WHERE email_paciente='$emailCliente' LIMIT 1";
+                    $result = mysqli_query($conn, $sql);
 
-                $sql = "SELECT * FROM paciente WHERE email_paciente='$emailCliente' LIMIT 1";
-                $result = mysqli_query($conn, $sql);
+                    if(mysqli_num_rows($result) === 1) {
+                        $account = mysqli_fetch_assoc($result);
 
-                if(mysqli_num_rows($result) === 1) {
-                    $account = mysqli_fetch_assoc($result);
+                        $sql = "INSERT INTO telefone (dd, telefone, paciente_id_paciente) VALUES('$ddd', '$numero', '{$account['id_paciente']}')";
+                        if(mysqli_query($conn, $sql)) {
+                            echo "telefone INSERTED";
+                        }else {
+                            echo 'telefone deu erro';
+                        }
+                    }
 
-                $sql = "INSERT INTO rg ( paciente_id_paciente) VALUES('{$account['id_paciente']}')";
-                if(mysqli_query($conn, $sql)) {
-                    echo "rg INSERTED";
-                }else {
-                    echo 'rg deu erro';
-                }
-                }
+                    $sql = "SELECT * FROM paciente WHERE email_paciente='$emailCliente' LIMIT 1";
+                    $result = mysqli_query($conn, $sql);
+
+                    if(mysqli_num_rows($result) === 1) {
+                        $account = mysqli_fetch_assoc($result);
+
+                    $sql = "INSERT INTO rg ( paciente_id_paciente) VALUES('{$account['id_paciente']}')";
+                    if(mysqli_query($conn, $sql)) {
+                        echo "rg INSERTED";
+                    }else {
+                        echo 'rg deu erro';
+                    }
+                    }
                 
-                header('location: login.php');
-            }
-
+                    header('location: login.php');
+                }
         }
     }
 
@@ -128,7 +132,7 @@
                         <input class="inputStyle" type="text"  id="complementocliente" name="complementocliente" placeholder="Complemento (opicional)">
                         <input class="inputStyle" type="text"  id="bairrocliente" name="bairrocliente" placeholder="Bairro" required>
                         <input class="inputStyle" type="text"  id="cidadecliente" name="cidadecliente" placeholder="Cidade" onkeyup="soLetras(event)" required>
-                        <select id="estadocliente" class="inputStyle" name="estado" required>
+                        <select id="estadocliente" class="inputStyle" name="estado">
                             <option value="" disabled selected>UF</option>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>

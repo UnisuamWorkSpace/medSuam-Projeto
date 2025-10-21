@@ -194,8 +194,8 @@
                             <input type="text" name="numeroRg" placeholder="numero no Rg" value="<?php echo $rgTable['numero_rg']?>">
                             <input type="date" name="dataEmissao" placeholder="data de emissão" value="<?php echo $rgTable['data_emissao']?>">
                             <input type="text" name="orgaoEmissor" placeholder="orgão emissor" value="<?php echo $rgTable['orgao_emissor']?>">
-                            <select id="estadocliente" class="inputStyle" name="ufRg" required>
-                            <option value="<?php echo $rgTable['uf_rg'] ?>" selected><?php echo $rgTable['uf_rg'] ?></option>
+                            <select id="estadocliente" class="inputStyle" name="ufRg" value="<?php echo $rgTable['uf_rg'] ?>">
+                            <option value="<?php echo $rgTable['uf_rg'] ?>"><?php echo $rgTable['uf_rg'] ?></option>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
                             <option value="AP">Amapá</option>
