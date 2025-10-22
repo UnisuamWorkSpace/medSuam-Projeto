@@ -30,7 +30,7 @@
         $senhaConfirmaCliente = mysqli_real_escape_string($conn, $_POST["senhaconfirm"]);
 
         if($senhaCliente === $senhaConfirmaCliente) {     
-                $sql = "SELECT * FROM paciente WHERE nome_paciente='$nomeCliente' LIMIT 1";
+                $sql = "SELECT * FROM paciente WHERE email_paciente='$emailCliente' LIMIT 1";
                 $result = mysqli_query($conn, $sql);
 
                 if(mysqli_num_rows($result) === 1) {
@@ -79,7 +79,7 @@
 
                     if(mysqli_num_rows($result) === 1) {
                         $account = mysqli_fetch_assoc($result);
-
+                        var_dump($account);
                     $sql = "INSERT INTO rg ( paciente_id_paciente) VALUES('{$account['id_paciente']}')";
                     if(mysqli_query($conn, $sql)) {
                         echo "rg INSERTED";
