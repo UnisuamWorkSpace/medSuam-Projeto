@@ -316,3 +316,37 @@ function consultarCep() {
     });
 }
 
+  function phoneMask(event) {
+    let value = event.target.value;
+
+    value = value.replace(/\D/g, "");
+
+    if (value.length > 0) value = value.replace(/^(\d{0,2})/, "($1");
+    if (value.length > 2) value = value.replace(/\((\d{2})/, "($1) ");
+    if (value.length > 7) value = value.replace(/(\d{4,5})(\d{4})$/, "$1-$2");
+
+    event.target.value = value;
+}
+
+function soLetras (event) {
+    var value = event.target.value;
+
+    value = value.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ ]/g, "");
+    
+    event.target.value = value;
+
+}
+
+function cepMask(event) {
+    let value = event.target.value;
+
+    value = value.replace(/\D/g, "");
+
+    if (value.length > 5) value = value.replace(/^(\d{5})(\d)/, "$1-$2");
+
+    event.target.value = value;
+}
+
+$(document).ready(function(){
+  $("#rg").inputmask("99.999.999-9");
+});

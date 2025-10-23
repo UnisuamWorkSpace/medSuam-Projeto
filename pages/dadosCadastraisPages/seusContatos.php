@@ -183,7 +183,7 @@
                         
                         <span class="infoSpan"><?php echo '(' . $telefoneTable['dd'] . ') ' . $telefoneTable['telefone']?></span>
                         <div class="inputsContainer hide">
-                            <input type="text" name="telefone" value="<?php echo $telefoneTable['dd'] . ' ' . $telefoneTable['telefone']?>">
+                            <input type="text" name="telefone" value="<?php echo $telefoneTable['dd'] . ' ' . $telefoneTable['telefone']?>" maxlength="15" onkeyup="phoneMask(event)">
                             <input type="submit" name="editarUsuario" value="editar">
                         </div>
                             <button type="button" class="editBtn">
@@ -197,14 +197,21 @@
                             <?php echo $endereco['cep'] . ' ' . $endereco['rua'] . ' ' . $endereco['numero'] . ' ' . $endereco['complemento'] . ' ' . $endereco['bairro'] . ' ' . $endereco['cidade'] . ' ' . $endereco['uf_endereco']   ?> 
                             
                         </span>
-                        <div class="inputsContainer hide">
-                        <input class="inputStyle" type="text"  id="cepcliente" name="cepcliente" value="<?php echo $endereco['cep'] ?>" maxlength="9" onblur="consultarCep()" required>
+                        <div class="inputsContainer column hide">
+                        <label>CEP</label>
+                        <input class="inputStyle" type="text"  id="cepcliente" name="cepcliente" value="<?php echo $endereco['cep'] ?>" maxlength="9" onkeyup="cepMask(event)" onblur="consultarCep()" required>
                         <span  id="cepSpan" class="spanStyle"></span>
+                        <label>Rua</label>
                         <input class="inputStyle" type="text"  id="ruacliente" name="ruacliente" value="<?php echo $endereco['rua'] ?>" required>
+                        <label>Numero</label>
                         <input class="inputStyle" type="number"  id="numeroruacliente" name="numeroruacliente" value="<?php echo $endereco['numero'] ?>" required>
+                        <label>Complemento</label>
                         <input class="inputStyle" type="text"  id="complementocliente" name="complementocliente" value="<?php echo $endereco['complemento'] ?>">
+                        <label>Bairro</label>
                         <input class="inputStyle" type="text"  id="bairrocliente" name="bairrocliente" value="<?php echo $endereco['bairro'] ?>"required>
-                        <input class="inputStyle" type="text"  id="cidadecliente" name="cidadecliente" value="<?php echo $endereco['cidade'] ?>" required>
+                        <label>Cidade</label>
+                        <input class="inputStyle" type="text"  id="cidadecliente" name="cidadecliente" value="<?php echo $endereco['cidade'] ?>" onkeyup="soLetras(event)" required>
+                        <label>Estado</label>
                         <select id="estadocliente" class="inputStyle" name="estado" required>
                             <option value="<?php echo $endereco['uf_endereco'] ?>" selected><?php echo $endereco['uf_endereco'] ?></option>
                             <option value="AC">Acre</option>

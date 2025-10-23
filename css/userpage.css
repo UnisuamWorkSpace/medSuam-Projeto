@@ -1021,6 +1021,35 @@ p.centralizado {
   text-align: center;
 }
 
+.inputsContainer.column {
+    display:flex;
+    flex-direction: column;
+}
+
+.inputsContainer.column input, .inputsContainer.column label {
+    cursor: pointer;
+}
+
+.inputsContainer.column label {
+    margin-top: 5px;
+}
+
+.inputsContainer.column input[type="submit"] {
+    margin-top: 10px;
+}
+
+.inputsContainer.column.hide {
+    display:none;
+    max-width: 300px;
+}
+
+.inputsContainer input[type="radio"] {
+    display:inline-block;
+}
+
+.spanStyle {
+    color:red;
+}
 
 @media(max-width: 980px) {
     .margin {

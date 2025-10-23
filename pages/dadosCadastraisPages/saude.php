@@ -154,7 +154,7 @@
                         <strong>Peso</strong>
                         <span class="infoSpan"><?php echo $account['peso'] . 'Kg' ?></span>
                         <div class="inputsContainer hide">
-                            <input type="text" name="peso" value="<?php echo $account['peso']?>">
+                            <input type="number" name="peso" step="0.01" value="<?php echo $account['peso']?>">
                             <input type="submit" name="editarUsuario" value="editar">
                         </div>
                         <button type="button" class="editBtn">
@@ -165,7 +165,7 @@
                         <strong>Altura</strong>
                         <span class="infoSpan"><?php echo $account['altura'] . " cm"?></span>
                         <div class="inputsContainer hide">
-                            <input type="text" name="altura" value="<?php echo $account['altura']?>">
+                            <input type="number" name="altura" step="0.01" value="<?php echo $account['altura']?>">
                             <input type="submit" name="editarUsuario" value="editar">
                         </div>
                         <button type="button" class="editBtn">
@@ -175,8 +175,40 @@
                     <div class="dadosContainerContent noBorder">
                         <strong>Tipo sanguíneo</strong>
                         <span class="infoSpan"><?php echo $account['tipo_sanguineo']?></span>
-                        <div class="inputsContainer hide">
-                            <input type="text" name="tipoSanguineo" value="<?php echo $account['tipo_sanguineo']?>">
+                        <div class="inputsContainer column hide">
+                            
+                            <label>
+                                <input type="radio" name="tipoSanguineo" value="A+">
+                                A+
+                            </label>
+                            <label>
+                                <input type="radio" name="tipoSanguineo" value="A-">
+                                A-
+                            </label>
+                            <label>
+                                <input type="radio" name="tipoSanguineo" value="B-">
+                                B-
+                            </label>
+                            <label>
+                                <input type="radio" name="tipoSanguineo" value="B+">
+                                B+
+                            </label>
+                            <label>
+                                <input type="radio" name="tipoSanguineo" value="AB-">
+                                AB-
+                            </label>
+                            <label>
+                                <input type="radio" name="tipoSanguineo" value="AB+">
+                                AB+
+                            </label>
+                            <label>
+                                <input type="radio" name="tipoSanguineo" value="O-">
+                                O-
+                            </label>
+                            <label>
+                                <input type="radio" name="tipoSanguineo" value="O+">
+                                O+
+                            </label>
                             <input type="submit" name="editarUsuario" value="editar">
                         </div>
                         <button type="button" class="editBtn">

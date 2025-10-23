@@ -220,11 +220,46 @@ function senhaIgual () {
     
 }
 
+$(".cantBeEmpty").on("blur", (event) => {
+    const input = $(event.target);
+    const value = input.val().trim();
+
+    if (value === "") {
+        input.next(".spanStyle").text("Este campo não pode estar vazio.");
+        
+    }else {
+        input.next(".spanStyle").text("");
+    }
+});
+
+function checarInputVazio() {
+    let tudoPreenchido = true;
+
+    $(".cantBeEmpty").each(function() {
+        const input = $(this);
+        if (input.val().trim() === "") {
+            tudoPreenchido = false;
+            return false; 
+        }
+    });
+
+    if (!tudoPreenchido) {
+        alert("Preencha todos os campos obrigatórios corretamente!");
+        return false;
+    }
+
+    return true;
+}
+
 
 const form = $('#clienteForm').on("submit", async (event) => {
  
     event.preventDefault();
 
+    if(!checarInputVazio()) {
+        return false;
+    }
+ 
     if(validaCPF($("#cpfcliente")[0].value)){
         $("#cpfSpan").text("");
        

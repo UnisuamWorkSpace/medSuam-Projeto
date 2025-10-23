@@ -9,7 +9,8 @@
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
         $nomeCliente = mysqli_real_escape_string($conn, $_POST["nomecliente"]);
-        $cpfCliente = mysqli_real_escape_string($conn, $_POST["cpfcliente"]);
+        $nomeCliente = ucwords(strtolower($nomeCliente));
+        $cpfCliente = mysqli_real_escape_string($conn, $_POST["cpfcliente"]);            
         $celularCliente = mysqli_real_escape_string($conn, $_POST["celularcliente"]);
         
         $numeroLimpo = preg_replace('/\D/', '', $celularCliente);
@@ -25,7 +26,10 @@
         $bairroCliente = mysqli_real_escape_string($conn, $_POST["bairrocliente"]);
         $cidadeCliente = mysqli_real_escape_string($conn, $_POST["cidadecliente"]);
         $estadoCliente = mysqli_real_escape_string($conn, $_POST["estado"]);
-        $emailCliente = mysqli_real_escape_string($conn, $_POST["email"]);
+        /* Faz o email ficar em lowercase */
+        $emailCliente = trim($_POST["email"]);                    // remove leading/trailing spaces
+        $emailCliente = strtolower($emailCliente);               // normalize to lowercase
+        $emailCliente = mysqli_real_escape_string($conn, $emailCliente); // escape for SQL
         $senhaCliente = mysqli_real_escape_string($conn, $_POST["senha"]);
         $senhaConfirmaCliente = mysqli_real_escape_string($conn, $_POST["senhaconfirm"]);
 
@@ -33,9 +37,33 @@
                 $sql = "SELECT * FROM paciente WHERE email_paciente='$emailCliente' LIMIT 1";
                 $result = mysqli_query($conn, $sql);
 
-                if(mysqli_num_rows($result) === 1) {
-                    $error = "Usuário já existe !";
-                    echo $error;
+                $sql2 = "SELECT * FROM paciente WHERE cpf_paciente='$cpfCliente' LIMIT 1";
+                $result2 = mysqli_query($conn, $sql2);
+
+                /* Verifica se os campos de cpf ou email já estão cadastrados */
+                if(mysqli_num_rows($result) === 1 || mysqli_num_rows($result2) === 1) {
+                    $status = (mysqli_num_rows($result) === 1 ? '1' : '0') . (mysqli_num_rows($result2) === 1 ? '1' : '0');
+
+                    switch ($status) {
+                    case '11':
+                        $errorCpf = "CPF já cadastrado !";
+                        $errorEmail = "Email já cadastrado !";
+                    
+                    break;
+                    case '10':
+                        $errorEmail = "Email já cadastrado !";
+                    
+                    break;
+                    case '01':
+                        $errorCpf = "CPF já cadastrado !";
+                    
+                    break;
+                    case '00':
+                        $errorEmail = '';
+                        $errorCpf = '';
+                    
+                    break;
+                    }
                 }else {
                     $password_hash = password_hash($senhaCliente, PASSWORD_DEFAULT);
                 
@@ -80,7 +108,7 @@
                     if(mysqli_num_rows($result) === 1) {
                         $account = mysqli_fetch_assoc($result);
                         var_dump($account);
-                    $sql = "INSERT INTO rg ( paciente_id_paciente) VALUES('{$account['id_paciente']}')";
+                        $sql = "INSERT INTO rg ( paciente_id_paciente) VALUES('{$account['id_paciente']}')";
                     if(mysqli_query($conn, $sql)) {
                         echo "rg INSERTED";
                     }else {
@@ -89,8 +117,11 @@
                     }
                 
                     header('location: login.php');
+                    exit;
                 }
-        }
+    
+    
+            }
     }
 
 ?>
@@ -111,9 +142,14 @@
             <label class="labelStyle mainLabel">Informações pessoais - Necessário para Prescrição Digital</label>
             <form id="clienteForm" action="cadastroCliente.php" method="post">  
                 <div class="inputContainer">
-                        <input class="inputStyle" type="text"  id="nomecliente" name="nomecliente" maxlength="70" placeholder="Nome Completo" onkeyup="soLetras(event)" required>
+                        <input class="inputStyle cantBeEmpty" type="text"  id="nomecliente" name="nomecliente" maxlength="70" placeholder="Nome Completo" onkeyup="soLetras(event)" required>
+                        <span id="nomeSpan" class="spanStyle"></span>
                         <input class="inputStyle noMarginBot" type="text"  id="cpfcliente" name="cpfcliente" placeholder="CPF" maxlength="14"  onkeyup="cpfMask(event)" required>
-                        <span  id="cpfSpan" class="spanStyle"></span>
+                        <span  id="cpfSpan" class="spanStyle">
+                            <?php if(isset($errorCpf)): ?>
+                            <?php echo $errorCpf?>
+                            <?php endif;?>
+                        </span>
                         <input class="inputStyle" type="text"  id="celularcliente" name="celularcliente" placeholder="Celular" maxlength="15" onkeyup="phoneMask(event)" required>
                         <select class="inputStyle" id="generocliente" name="generocliente" required>
                             <option value="" disabled selected>Sexo</option>
@@ -127,11 +163,14 @@
                         <label class="labelStyle">Endereço</label>
                         <input class="inputStyle" type="text"  id="cepcliente" name="cepcliente" placeholder="CEP" maxlength="9" onkeyup="cepMask(event)" onblur="consultarCep()" required>
                         <span  id="cepSpan" class="spanStyle"></span>
-                        <input class="inputStyle" type="text"  id="ruacliente" name="ruacliente" placeholder="Rua" required>
+                        <input class="inputStyle cantBeEmpty" type="text"  id="ruacliente" name="ruacliente" placeholder="Rua" required>
+                        <span class="spanStyle"></span>
                         <input class="inputStyle" type="number"  id="numeroruacliente" name="numeroruacliente" placeholder="Número" required>
                         <input class="inputStyle" type="text"  id="complementocliente" name="complementocliente" placeholder="Complemento (opicional)">
-                        <input class="inputStyle" type="text"  id="bairrocliente" name="bairrocliente" placeholder="Bairro" required>
-                        <input class="inputStyle" type="text"  id="cidadecliente" name="cidadecliente" placeholder="Cidade" onkeyup="soLetras(event)" required>
+                        <input class="inputStyle cantBeEmpty" type="text"  id="bairrocliente" name="bairrocliente" placeholder="Bairro" required>
+                        <span class="spanStyle"></span>
+                        <input class="inputStyle cantBeEmpty" type="text"  id="cidadecliente" name="cidadecliente" placeholder="Cidade" onkeyup="soLetras(event)" required>
+                        <span class="spanStyle"></span>
                         <select id="estadocliente" class="inputStyle" name="estado">
                             <option value="" disabled selected>UF</option>
                             <option value="AC">Acre</option>
@@ -164,11 +203,16 @@
                         </select>
                         <label class="labelStyle">Dados da conta</label>
                         <input class="inputStyle" type="text"  id="emailcadastro" name="email" placeholder="Email" onblur="validarEmail()" required>
-                        <span  id="emailSpan" class="spanStyle"></span>
+                        <span  id="emailSpan" class="spanStyle">
+                            <?php if(isset($errorEmail)): ?>
+                            <?php echo $errorEmail?>
+                            <?php endif;?>
+                        </span>
                         <div class="senhaContainer">
-                            <input class="inputStyle" type="password" minlength="8" maxlength="12" id="senhaCadastro" name="senha" placeholder="Senha" required>
+                            <input class="inputStyle cantBeEmpty" type="password" minlength="8" maxlength="12" id="senhaCadastro" name="senha" placeholder="Senha" required>
                             <img id="eyeSenhaCadastro" class="eye-slash" onclick="mostrarSenha('senhaCadastro', 'eyeSenhaCadastro')" src="./images/eye-slash.svg"/>
                         </div>
+                        <span class="spanStyle"></span>
                         <div class="senhaContainer">
                             <input class="inputStyle" type="password" minlength="8" maxlength="12" id="senhaConfirmCadastro" name="senhaconfirm" placeholder="Confirmar Senha" onblur="senhaIgual()" required>
                             <img id="eyeSenhaConfirmCadastro" class="eye-slash" onclick="mostrarSenha('senhaConfirmCadastro', 'eyeSenhaConfirmCadastro')" src="./images/eye-slash.svg"/>

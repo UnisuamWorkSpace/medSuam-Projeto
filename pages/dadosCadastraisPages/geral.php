@@ -175,7 +175,7 @@
                         <span class="infoSpan"><?php echo $account['nome_social_paciente']?></span>
                         
                         <div class="inputsContainer hide">
-                            <input type="text" name="nomeSocial" value="<?php echo $account['nome_social_paciente']?>">
+                            <input type="text" name="nomeSocial" placeholder="Nome Social" value="<?php echo $account['nome_social_paciente']?>" onkeyup="soLetras(event)">
                             <input type="submit" name="editarUsuario" value="editar">
                         </div>
                        
@@ -190,10 +190,14 @@
                     <div class="dadosContainerContent">
                         <strong>Rg</strong>
                         <span><?php echo $rgTable['numero_rg']?></span>
-                        <div class="inputsContainer hide">
-                            <input type="text" name="numeroRg" placeholder="numero no Rg" value="<?php echo $rgTable['numero_rg']?>">
-                            <input type="date" name="dataEmissao" placeholder="data de emissão" value="<?php echo $rgTable['data_emissao']?>">
-                            <input type="text" name="orgaoEmissor" placeholder="orgão emissor" value="<?php echo $rgTable['orgao_emissor']?>">
+                        <div class="inputsContainer column hide">
+                            <label>Número do RG</label>
+                            <input id="rg" type="text" name="numeroRg" placeholder="Número do RG" value="<?php echo $rgTable['numero_rg']?>">
+                            <label>Data de emissão</label>
+                            <input type="date" name="dataEmissao" placeholder="Data de emissão" value="<?php echo $rgTable['data_emissao']?>">
+                            <label>Orgão emissor</label>
+                            <input type="text" name="orgaoEmissor" placeholder="Orgão emissor" value="<?php echo $rgTable['orgao_emissor']?>">
+                            <label>Estado de emissão</label>
                             <select id="estadocliente" class="inputStyle" name="ufRg" value="<?php echo $rgTable['uf_rg'] ?>">
                             <option value="<?php echo $rgTable['uf_rg'] ?>"><?php echo $rgTable['uf_rg'] ?></option>
                             <option value="AC">Acre</option>
@@ -224,8 +228,9 @@
                             <option value="SE">Sergipe</option>
                             <option value="TO">Tocantins</option>
                         </select>
+                        <label>Data de validade</label>
                         <input type="date" name="dataValidade" placeholder="data de validade" value="<?php echo $rgTable['data_validade']?>">
-                            <input type="submit" name="editarUsuario" value="editar">
+                        <input type="submit" name="editarUsuario" value="editar">
                         </div>
                        
                         <button type="button" class="editBtn">
@@ -260,9 +265,16 @@
                         <span class="infoSpan"><?php echo $account['estado_civil']?></span>
                         <div class="inputsContainer hide">
                                
-                            <input type="text" name="estadoCivil" value="<?php echo $account['estado_civil']?>">
+                            <label>
+                                <input type="radio" name="estadoCivil" value="solteiro">
+                                 Solteiro(a)
+                            </label>
+
+                            <label>
+                                <input type="radio" name="estadoCivil" value="casado">
+                                Casado(a)
+                            </label>
                             <input type="submit" name="editarUsuario" value="editar">
-                           
                         </div>
                         <button type="button" class="editBtn">
                             <i class="bi bi-pencil-square"></i>
@@ -283,7 +295,9 @@
     
     </main>
 
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
     <script src="../../js/userpage.js"></script>
 
 </body>
