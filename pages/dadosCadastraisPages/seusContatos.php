@@ -183,7 +183,7 @@
                         
                         <span class="infoSpan"><?php echo '(' . $telefoneTable['dd'] . ') ' . $telefoneTable['telefone']?></span>
                         <div class="inputsContainer hide">
-                            <input type="text" name="telefone" value="<?php echo $telefoneTable['dd'] . ' ' . $telefoneTable['telefone']?>" maxlength="15" onkeyup="phoneMask(event)">
+                            <input type="text" name="telefone" id="telefone" value="<?php echo $telefoneTable['dd'] . ' ' . $telefoneTable['telefone']?>" maxlength="15" >
                             <input type="submit" name="editarUsuario" value="editar">
                         </div>
                             <button type="button" class="editBtn">
@@ -256,6 +256,7 @@
     </main>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
     <script src="../../js/userpage.js"></script>
 
 </body>

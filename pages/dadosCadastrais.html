@@ -106,6 +106,13 @@
         
     </aside>
     <main>
+        <div class="deletarContaDiv">
+            <span>Tem certeza que deseja deletar sua conta ?</span>
+            <div class="opcoesDeletarConta">
+                <a href="../deletarConta.php">Sim</a>
+                <button type="button" class="naoDeletarContaBtn">Não</button>
+            </div>
+        </div>
         <section id="dadosCadastrais" class="twoGrid margin">
             <div class="left">
                 <div class="topContent">
@@ -127,7 +134,17 @@
                 </a>
                 
                 <hr>
-                <a href="../deletarConta.php">Quero deletar minha Conta</a>
+                <button type="button" class="dadosCadastraisContainer deletarContaBtn">
+                    <div class="dadosCadastraisContent">
+
+                        <i class="bi bi-trash"></i>
+                        <div class="dadosCadastraisText">
+                            <h2>Quero deletar minha Conta</h2>
+                            <span>Ao clicar aqui você deleta a sua conta atual</span>
+                        </div>
+                    </div>
+                </button>
+                <hr>
             </div>
             
         </section>

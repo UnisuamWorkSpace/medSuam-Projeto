@@ -10,6 +10,8 @@
 
     $cpf = $account['cpf_paciente'];
     $aniversario = $account['data_nasc_paciente'];
+    $dataDoBD = $aniversario;
+    $brData = date("d/m/Y", strtotime($dataDoBD));
     $genero = $account['sexo_paciente'];
 
     $sql2 = "SELECT * FROM rg WHERE paciente_id_paciente={$_SESSION['id']} LIMIT 1";
@@ -247,7 +249,7 @@
                     <div class="dadosContainerContent">
                         <strong>Data de nascimento</strong>
                         
-                        <span><?php echo $aniversario ?></span>
+                        <span><?php echo $brData ?></span>
                     </div>
                     <div class="dadosContainerContent">
                         <strong>Sexo biológico</strong>

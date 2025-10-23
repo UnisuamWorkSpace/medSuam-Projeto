@@ -8,6 +8,10 @@
     $result = mysqli_query($conn, $sql);
     $account = mysqli_fetch_assoc($result);
 
+    $altura = number_format(floatVal(str_replace(',', '.', $account['altura'])) / 100, 2, ".", ".");
+
+
+
     if($_SERVER['REQUEST_METHOD'] === "POST") {
 
         if(isset($_POST['editarUsuario'])){
@@ -152,7 +156,7 @@
     
                     <div class="dadosContainerContent">
                         <strong>Peso</strong>
-                        <span class="infoSpan"><?php echo $account['peso'] . 'Kg' ?></span>
+                        <span class="infoSpan"><?php echo number_format($account['peso'], 2, ",", ".") . 'Kg' ?></span>
                         <div class="inputsContainer hide">
                             <input type="number" name="peso" step="0.01" value="<?php echo $account['peso']?>">
                             <input type="submit" name="editarUsuario" value="editar">
@@ -163,9 +167,9 @@
                     </div>
                     <div class="dadosContainerContent">
                         <strong>Altura</strong>
-                        <span class="infoSpan"><?php echo $account['altura'] . " cm"?></span>
+                        <span class="infoSpan"><?php echo number_format(floatVal(str_replace(',', '.', $account['altura'])) / 100, 2, ".", ".") . " M"?></span>
                         <div class="inputsContainer hide">
-                            <input type="number" name="altura" step="0.01" value="<?php echo $account['altura']?>">
+                            <input type="number" name="altura" max="999" placeholder="Digite sua altura em cm" value="<?php echo str_replace( '.', "", $altura)?>">
                             <input type="submit" name="editarUsuario" value="editar">
                         </div>
                         <button type="button" class="editBtn">

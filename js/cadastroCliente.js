@@ -223,12 +223,16 @@ function senhaIgual () {
 $(".cantBeEmpty").on("blur", (event) => {
     const input = $(event.target);
     const value = input.val().trim();
+    const inputId = input[0].id;
+    console.log(inputId);
 
-    if (value === "") {
+    if (value === "" && inputId === "senhaCadastro") {
+        $("#senhaSpan").text("Este campo não pode estar vazio.");
+    }else if (value === "") {
         input.next(".spanStyle").text("Este campo não pode estar vazio.");
-        
     }else {
         input.next(".spanStyle").text("");
+        $("#senhaSpan").text("");
     }
 });
 
@@ -244,7 +248,10 @@ function checarInputVazio() {
     });
 
     if (!tudoPreenchido) {
-        alert("Preencha todos os campos obrigatórios corretamente!");
+        $(".errorMsgDiv").addClass("showErrorMsg");
+        setTimeout(() => {
+            $(".errorMsgDiv").removeClass("showErrorMsg");
+        }, 3000);
         return false;
     }
 

@@ -136,6 +136,7 @@
 </head>
 <body>
     <main>
+        <div class="errorMsgDiv">Preencha todos os campos obrigatórios corretamente!</div>
         <div class="formContainer">
             <a href="./index.html"><img class="logoForm" src="./images/logo_branco.png"/></a>
             <h1>Crie sua conta</h1>
@@ -212,7 +213,7 @@
                             <input class="inputStyle cantBeEmpty" type="password" minlength="8" maxlength="12" id="senhaCadastro" name="senha" placeholder="Senha" required>
                             <img id="eyeSenhaCadastro" class="eye-slash" onclick="mostrarSenha('senhaCadastro', 'eyeSenhaCadastro')" src="./images/eye-slash.svg"/>
                         </div>
-                        <span class="spanStyle"></span>
+                        <span id="senhaSpan" class="spanStyle"></span>
                         <div class="senhaContainer">
                             <input class="inputStyle" type="password" minlength="8" maxlength="12" id="senhaConfirmCadastro" name="senhaconfirm" placeholder="Confirmar Senha" onblur="senhaIgual()" required>
                             <img id="eyeSenhaConfirmCadastro" class="eye-slash" onclick="mostrarSenha('senhaConfirmCadastro', 'eyeSenhaConfirmCadastro')" src="./images/eye-slash.svg"/>

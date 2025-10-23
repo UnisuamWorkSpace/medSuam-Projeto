@@ -349,4 +349,14 @@ function cepMask(event) {
 
 $(document).ready(function(){
   $("#rg").inputmask("99.999.999-9");
+  $("#telefone").inputmask("(99) 9999-99999");
+});
+
+
+$(".deletarContaBtn").on("click", () => {
+  $(".deletarContaDiv").addClass("showDeletarDiv");
+});
+
+$(".naoDeletarContaBtn").on("click", () => {
+  $(".deletarContaDiv").removeClass("showDeletarDiv");
 });
