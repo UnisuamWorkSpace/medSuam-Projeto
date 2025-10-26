@@ -81,7 +81,7 @@ function validaCPF(cpf) {
 
   });
 
-  function phoneMask(event) {
+/*   function phoneMask(event) {
     let value = event.target.value;
 
     value = value.replace(/\D/g, "");
@@ -92,7 +92,7 @@ function validaCPF(cpf) {
 
     event.target.value = value;
 }
-
+ */
 function validarEmail() {
     const emailInput = document.getElementById('emailProfissional');
     const email = emailInput.value.trim();
@@ -132,8 +132,9 @@ const form = $('#profissionalForm').on("submit", async (event) => {
 
         setTimeout ( () => {
             btn.removeClass("enviarClick");
-            window.location.replace("./login.html");
+            document.getElementById("profissionalForm").submit();
         }, 500); 
 
 });
 
+$("#celularProfissional").inputmask("(99) 9999-99999");

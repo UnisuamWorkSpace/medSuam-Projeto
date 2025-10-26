@@ -1,3 +1,127 @@
+<?php
+    include 'dbMedsuam.php';
+
+    if($_SERVER['REQUEST_METHOD'] === "POST") {
+        $nomeMedico = mysqli_real_escape_string($conn, $_POST['nomeProfissional']);
+        $nomeMedico = ucwords(strtolower($nomeMedico));
+        
+        /* Faz o email ficar em lowercase */
+        $emailMedico = trim($_POST['emailProfissional']);                    // remove leading/trailing spaces
+        $emailMedico = strtolower($emailMedico);               // normalize to lowercase
+        $emailMedico = mysqli_real_escape_string($conn, $emailMedico); // escape for SQL
+
+        $cpfMedico = mysqli_real_escape_string($conn, $_POST['cpfProfissional']);
+
+        $digitsOnly = preg_replace('/\D/', '', $cpfMedico);
+        $senhaMedico = substr($digitsOnly, 0, 8);
+        $password_hash = password_hash($senhaMedico, PASSWORD_DEFAULT);
+
+        $aniversarioMedico = mysqli_real_escape_string($conn, $_POST['aniversarioMedico']); 
+        $generoMedico =  mysqli_real_escape_string($conn, $_POST['generoMedico']); 
+        $celularMedico = mysqli_real_escape_string($conn, $_POST['celularProfissional']);
+
+        $numeroLimpo = preg_replace('/\D/', '', $celularMedico);
+        $ddd = substr($numeroLimpo, 0, 2);
+        $numero = substr($numeroLimpo, 2);
+
+        $crmMedico = mysqli_real_escape_string($conn, $_POST['documentoProfissional']);
+        $estadoCrmMedico = mysqli_real_escape_string($conn, $_POST['estadoprofissional']); 
+        $especialidadeMedico = mysqli_real_escape_string($conn, $_POST['especialidadeProfissional']); 
+
+        $sql = "SELECT * FROM medico WHERE email_medico ='$emailMedico' LIMIT 1";
+        $result = mysqli_query($conn, $sql);
+
+        $sql2 = "SELECT * FROM medico WHERE cpf_medico ='$cpfMedico' LIMIT 1";
+        $result2 = mysqli_query($conn, $sql2);
+
+        $sql3 = "SELECT * FROM paciente WHERE email_paciente ='$emailMedico' LIMIT 1";
+        $result3 = mysqli_query($conn, $sql3);
+
+        if(mysqli_num_rows($result) === 1 || mysqli_num_rows($result2) === 1 || mysqli_num_rows($result3) === 1) {
+            $status = (mysqli_num_rows($result) === 1 ? '1' : '0') . (mysqli_num_rows($result2) === 1 ? '1' : '0') . (mysqli_num_rows($result3) === 1 ? '1' : '0');
+
+                 switch ($status) {
+    case '000': // nothing found
+        $errorEmail = '';
+        $errorCpf = '';
+        break;
+
+    case '100': // only medico email exists
+        $errorEmail = "Email já cadastrado !";
+        $errorCpf = '';
+        break;
+
+    case '010': // only medico CPF exists
+        $errorCpf = "CPF já cadastrado !";
+        $errorEmail = '';
+        break;
+
+    case '001': // only paciente email exists
+        $errorEmail = "Email já cadastrado !";
+        $errorCpf = '';
+        break;
+
+    case '110': // medico email + medico CPF exist
+        $errorEmail = "Email já cadastrado !";
+        $errorCpf = "CPF já cadastrado !";
+        break;
+
+    case '101': // medico email + paciente email exist
+        $errorEmail = "Email já cadastrado !";
+        $errorCpf = '';
+        break;
+
+    case '011': // medico CPF + paciente email exist
+        $errorEmail = "Email já cadastrado !";
+        $errorCpf = "CPF já cadastrado !";
+        break;
+
+    case '111': // everything exists
+        $errorEmail = "Email já cadastrado !";
+        $errorCpf = "CPF já cadastrado !";
+        break;
+}
+        }else {
+            $sql = "INSERT INTO medico (nome_medico, crm, senha_medico, email_medico, sexo_medico, data_nasc_medico, cpf_medico, status_medico, crm_estado ) VALUES ('$nomeMedico','$crmMedico', '$password_hash', '$emailMedico','$generoMedico','$aniversarioMedico', '$cpfMedico', 'inativo', '$estadoCrmMedico' )" ;
+            if(mysqli_query($conn, $sql)) {
+                 echo "paciente INSERTED";
+            }else {
+                echo 'paciente deu erro';
+            }
+
+            $sql = "SELECT * FROM medico WHERE email_medico='$emailMedico' LIMIT 1";
+                    $result = mysqli_query($conn, $sql);
+
+                    if(mysqli_num_rows($result) === 1) {
+                        $account = mysqli_fetch_assoc($result);
+
+                        $sql = "INSERT INTO telefone (dd, telefone, medico_id_medico) VALUES('$ddd', '$numero', '{$account['id_medico']}')";
+                        if(mysqli_query($conn, $sql)) {
+                            echo "telefone INSERTED";
+                        }else {
+                            echo 'telefone deu erro';
+                        }
+                    }
+
+             $sql = "SELECT * FROM medico WHERE email_medico='$emailMedico' LIMIT 1";
+                    $result = mysqli_query($conn, $sql);
+
+                    if(mysqli_num_rows($result) === 1) {
+                        $account = mysqli_fetch_assoc($result);
+
+                        $sql = "INSERT INTO especialidade (id_medico, nome) VALUES('{$account['id_medico']}', '$especialidadeMedico' )";
+                        if(mysqli_query($conn, $sql)) {
+                            echo "especialidade INSERTED";
+                        }else {
+                            echo 'especialidade deu erro';
+                        }
+                    }
+        
+        }
+    }
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,15 +139,30 @@
 
             <label class="labelStyle mainLabel">Preencha o formulário abaixo para nós entrarmos em contato com instruções.</label>
         
-            <form id="profissionalForm" >  
+            <form id="profissionalForm" action="./cadastroProfissional.php" method="post">  
                 <div class="inputContainer">
-                    <input class="inputStyle" type="text"  id="nomeProfissional" name="nomeProfissonal" maxlength="70" placeholder="Nome Completo" onkeyup="soLetras(event)" required>
-                    <input class="inputStyle noMarginBot " type="text"  id="emailProfissional" name="emailProfissinal" placeholder="Email" onblur="validarEmail()" required>
-                    <span  id="emailProfissionalSpan" class="spanStyle"></span>
+                    <input class="inputStyle" type="text"  id="nomeProfissional" name="nomeProfissional" maxlength="70" placeholder="Nome Completo" onkeyup="soLetras(event)" required>
+                    <input class="inputStyle noMarginBot " type="text"  id="emailProfissional" name="emailProfissional" placeholder="Email" onblur="validarEmail()" required>
+                    <span  id="emailProfissionalSpan" class="spanStyle">
+                        <?php if(isset($errorEmail)): ?>
+                            <?php echo $errorEmail?>
+                            <?php endif;?>
+                    </span>
                     <input class="inputStyle noMarginBot" type="text"  id="cpfProfissional" name="cpfProfissional" placeholder="CPF" maxlength="14"  onkeyup="cpfMask(event)" required>
-                    <span  id="cpfProfissionalSpan" class="spanStyle"></span>
-                    <input class="inputStyle" type="text"  id="celularcliente" name="celularcliente" placeholder="Celular" maxlength="15" onkeyup="phoneMask(event)" required>
-                    <input id="documentoprofissional" class="inputStyle" type="text" placeholder="CRM / CRP / CRN ou CRMV" required>
+                    <span  id="cpfProfissionalSpan" class="spanStyle">
+                        <?php if(isset($errorCpf)): ?>
+                            <?php echo $errorCpf?>
+                            <?php endif;?>
+                    </span>
+                     <input class="inputStyle birthday" type="date"  id="aniversariocliente" name="aniversarioMedico"  onblur="validarDataNascimento()" required>
+                     <span  id="dateSpan" class="spanStyle"></span>
+                    <select class="inputStyle" id="generocliente" name="generoMedico" required>
+                            <option value="" disabled selected>Sexo</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                        </select>
+                    <input class="inputStyle" type="text"  id="celularProfissional" name="celularProfissional" placeholder="Celular" maxlength="15" required>
+                    <input id="documentoprofissional" class="inputStyle" type="text" name="documentoProfissional" placeholder="CRM / CRP / CRN ou CRMV" required>
                     
                     <select id="estadoprofissional" class="inputStyle" name="estadoprofissional" required>
                         <option value="" disabled selected>Estado do Conselho Emissor</option>
@@ -141,6 +280,7 @@
     </main>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.8/jquery.inputmask.min.js"></script>
     <script src="./js/cadastroProfissional.js"></script>
 
 </body>

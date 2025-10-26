@@ -34,37 +34,60 @@
         $senhaConfirmaCliente = mysqli_real_escape_string($conn, $_POST["senhaconfirm"]);
 
         if($senhaCliente === $senhaConfirmaCliente) {     
-                $sql = "SELECT * FROM paciente WHERE email_paciente='$emailCliente' LIMIT 1";
-                $result = mysqli_query($conn, $sql);
+                      $sql = "SELECT * FROM paciente WHERE email_paciente ='$emailCliente' LIMIT 1";
+        $result = mysqli_query($conn, $sql);
 
-                $sql2 = "SELECT * FROM paciente WHERE cpf_paciente='$cpfCliente' LIMIT 1";
-                $result2 = mysqli_query($conn, $sql2);
+        $sql2 = "SELECT * FROM paciente WHERE cpf_paciente ='$cpfCliente' LIMIT 1";
+        $result2 = mysqli_query($conn, $sql2);
 
-                /* Verifica se os campos de cpf ou email já estão cadastrados */
-                if(mysqli_num_rows($result) === 1 || mysqli_num_rows($result2) === 1) {
-                    $status = (mysqli_num_rows($result) === 1 ? '1' : '0') . (mysqli_num_rows($result2) === 1 ? '1' : '0');
+        $sql3 = "SELECT * FROM Medico WHERE email_medico ='$emailCliente' LIMIT 1";
+        $result3 = mysqli_query($conn, $sql3);
 
-                    switch ($status) {
-                    case '11':
-                        $errorCpf = "CPF já cadastrado !";
-                        $errorEmail = "Email já cadastrado !";
-                    
-                    break;
-                    case '10':
-                        $errorEmail = "Email já cadastrado !";
-                    
-                    break;
-                    case '01':
-                        $errorCpf = "CPF já cadastrado !";
-                    
-                    break;
-                    case '00':
-                        $errorEmail = '';
-                        $errorCpf = '';
-                    
-                    break;
-                    }
-                }else {
+        if(mysqli_num_rows($result) === 1 || mysqli_num_rows($result2) === 1 || mysqli_num_rows($result3) === 1) {
+            $status = (mysqli_num_rows($result) === 1 ? '1' : '0') . (mysqli_num_rows($result2) === 1 ? '1' : '0') . (mysqli_num_rows($result3) === 1 ? '1' : '0');
+
+            switch ($status) {
+                case '000': // nothing found
+                    $errorEmail = '';
+                    $errorCpf = '';
+                break;
+
+                case '100': // only medico email exists
+                    $errorEmail = "Email já cadastrado !";
+                    $errorCpf = '';
+                break;
+
+                case '010': // only medico CPF exists
+                    $errorCpf = "CPF já cadastrado !";
+                    $errorEmail = '';
+                break;
+
+                case '001': // only paciente email exists
+                    $errorEmail = "Email já cadastrado !";
+                    $errorCpf = '';
+                break;
+
+                case '110': // medico email + medico CPF exist
+                    $errorEmail = "Email já cadastrado !";
+                    $errorCpf = "CPF já cadastrado !";
+                break;
+
+                case '101': // medico email + paciente email exist
+                    $errorEmail = "Email já cadastrado !";
+                    $errorCpf = '';
+                break;
+
+                case '011': // medico CPF + paciente email exist
+                    $errorEmail = "Email já cadastrado !";
+                    $errorCpf = "CPF já cadastrado !";
+                break;
+
+                case '111': // everything exists
+                    $errorEmail = "Email já cadastrado !";
+                    $errorCpf = "CPF já cadastrado !";
+                break;
+            }
+        }else {
                     $password_hash = password_hash($senhaCliente, PASSWORD_DEFAULT);
                 
                     $sql = "INSERT INTO paciente (nome_paciente, cpf_paciente, data_nasc_paciente, 	email_paciente, senha_paciente, sexo_paciente ) VALUES('$nomeCliente', '$cpfCliente', '$aniversarioCliente', '$emailCliente', '$password_hash', '$generoCliente')";

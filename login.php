@@ -7,25 +7,60 @@
         header('location: userpage.php');
     }
 
+    if(isset($_SESSION['logged_in_medico']) && $_SESSION['logged_in_medico'] === true) {
+        echo "sessão aberta";
+    }
+
     if($_SERVER["REQUEST_METHOD"] === "POST") {
         $email = mysqli_real_escape_string($conn, $_POST["email"]);
         $senha = mysqli_real_escape_string($conn, $_POST["senha"]); 
         $sql = "SELECT * FROM paciente WHERE email_paciente='$email' LIMIT 1";
         $result = mysqli_query($conn, $sql);
 
-        if(mysqli_num_rows($result) === 1) {
-            $account = mysqli_fetch_assoc($result);
-            var_dump($account);
+        $sql2 = "SELECT * FROM medico WHERE email_medico='$email' LIMIT 1";
+        $result2 = mysqli_query($conn, $sql2);
 
-            if(password_verify($senha, $account['senha_paciente'])) {
-                $_SESSION['logged_in'] = true;
-                $_SESSION['paciente'] = $account['nome_paciente'];
-                $_SESSION['id'] = $account['id_paciente'];
-                header('location: userpage.php');
-                exit;
-            }else {
-                echo "senhas nao coincidem";
+        if(mysqli_num_rows($result) === 1 || mysqli_num_rows($result2) === 1) {
+            $status = (mysqli_num_rows($result) === 1 ? '1' : '0') . (mysqli_num_rows($result2) === 1 ? '1' : '0');
+            
+            switch ($status) {
+                case '10':
+                    $account = mysqli_fetch_assoc($result);
+
+                    if(password_verify($senha, $account['senha_paciente'])) {
+                        $_SESSION['logged_in'] = true;
+                        $_SESSION['paciente'] = $account['nome_paciente'];
+                        $_SESSION['id'] = $account['id_paciente'];
+                        header('location: userpage.php');
+                        exit;
+                        }else {
+                            echo "senhas nao coincidem";
+                        }
+                    break;
+                case '01':
+                    $account = mysqli_fetch_assoc($result2);
+
+                    if(password_verify($senha, $account['senha_medico']) && $account['status_medico'] === 'ativo') {
+                        $_SESSION['logged_in_medico'] = true;
+                        $_SESSION['medico'] = $account['nome_medico'];
+                        $_SESSION['id'] = $account['id_medico'];
+                        header('location: index.php');
+                        exit;
+                        }else {
+                            echo "senhas nao coincidem ou usuário não tem permissão";
+                        }
+                break;
+
+                case '11':
+                    echo "erro de login";
+                break;
+                
+                default:
+                    # code...
+                    break;
             }
+
+            
         }else {
             echo "usuário nao encontrado";
         }
