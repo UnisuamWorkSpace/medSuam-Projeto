@@ -29,23 +29,23 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
         
         <div class="landing-content">
             <div class="features">
-                <div class="feature">
+                <!-- <div class="feature">
                     <i class="fas fa-users-cog"></i>
                     <div class="feature-content">
                         <h3>Gerenciamento Completo</h3>
                         <p>Controle total sobre médicos, pacientes, consultas e administradores do sistema.</p>
                     </div>
-                </div>
+                </div> -->
                 
-                <div class="feature">
+                <!-- <div class="feature">
                     <i class="fas fa-chart-line"></i>
                     <div class="feature-content">
                         <h3>Dashboard Interativo</h3>
                         <p>Visualize estatísticas e métricas importantes em tempo real.</p>
                     </div>
                 </div>
-                
-                <div class="feature">
+                 -->
+                <!-- <div class="feature">
                     <i class="fas fa-shield-alt"></i>
                     <div class="feature-content">
                         <h3>Segurança Total</h3>
@@ -59,7 +59,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
                         <h3>Responsivo</h3>
                         <p>Interface adaptável para desktop, tablet e smartphones.</p>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="admin-info">
                     <h4>Recursos do Administrador:</h4>
@@ -85,7 +85,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
                     Fazer Login
                 </a>
                 
-                <div class="stats">
+                <!-- <div class="stats">
                     <div class="stat">
                         <span class="stat-number">
                             <i class="fas fa-user-md"></i>
@@ -104,7 +104,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
                         </span>
                         <span class="stat-label">Consultas</span>
                     </div>
-                </div>
+                </div> -->
                 
                 <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 6px; border-left: 4px solid #ffc107;">
                     <h4 style="color: #856404; margin-bottom: 8px;">
