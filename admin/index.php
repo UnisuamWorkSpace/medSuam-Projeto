@@ -121,8 +121,9 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
         
         <div style="background: #f8f9fa; padding: 20px; text-align: center; border-top: 1px solid #e9ecef;">
             <p style="color: #666; margin: 0;">
-                <i class="fas fa-heart"></i>
-                MedSuam - Sistema de Saúde &copy; 2025
+                <img src="images/logo_medsuam_sem_fundo.png" alt="MedSuam" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+                <!-- <i class="fas fa-heart"></i> -->
+                 &copy; 2025
             </p>
         </div>
     </div>
