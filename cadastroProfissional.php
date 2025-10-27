@@ -82,7 +82,7 @@
         break;
 }
         }else {
-            $sql = "INSERT INTO medico (nome_medico, crm, senha_medico, email_medico, sexo_medico, data_nasc_medico, cpf_medico, status_medico, crm_estado ) VALUES ('$nomeMedico','$crmMedico', '$password_hash', '$emailMedico','$generoMedico','$aniversarioMedico', '$cpfMedico', 'inativo', '$estadoCrmMedico' )" ;
+            $sql = "INSERT INTO medico (nome_medico, crm, senha_medico, email_medico, sexo_medico, data_nasc_medico, cpf_medico, crm_estado ) VALUES ('$nomeMedico','$crmMedico', '$password_hash', '$emailMedico','$generoMedico','$aniversarioMedico', '$cpfMedico', '$estadoCrmMedico' )" ;
             if(mysqli_query($conn, $sql)) {
                  echo "paciente INSERTED";
             }else {

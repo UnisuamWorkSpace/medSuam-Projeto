@@ -14,349 +14,350 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema bd_medsuam
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `bd_medsuam` DEFAULT CHARACTER SET utf8 ;
-USE `bd_medsuam` ;
+CREATE SCHEMA IF NOT EXISTS bd_medsuam DEFAULT CHARACTER SET utf8 ;
+USE bd_medsuam ;
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`paciente`
+-- Table bd_medsuam.paciente
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`paciente` (
-  `id_paciente` INT NOT NULL AUTO_INCREMENT,
-  `nome_paciente` VARCHAR(255) NOT NULL,
-  `cpf_paciente` VARCHAR(14) NOT NULL,
-  `data_nasc_paciente` DATE NOT NULL,
-  `email_paciente` VARCHAR(100) NOT NULL,
-  `senha_paciente` VARCHAR(100) NOT NULL,
-  `sexo_paciente` VARCHAR(20) NOT NULL,
-  `status_paciente` ENUM('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
-  `peso` DECIMAL(6,2) NULL,
-  `altura` DECIMAL(5,2) NULL,
-  `tipo_sanguineo` VARCHAR(10) NULL,
-  `nome_social_paciente` VARCHAR(100) NULL,
-  `estado_civil` VARCHAR(20) NULL,
-  PRIMARY KEY (`id_paciente`),
-  UNIQUE INDEX `email_UNIQUE` (`email_paciente` ASC),
-  UNIQUE INDEX `cpf_UNIQUE` (`cpf_paciente` ASC)
+CREATE TABLE IF NOT EXISTS bd_medsuam.paciente (
+  id_paciente INT NOT NULL AUTO_INCREMENT,
+  nome_paciente VARCHAR(255) NOT NULL,
+  cpf_paciente VARCHAR(14) NOT NULL,
+  data_nasc_paciente DATE NOT NULL,
+  email_paciente VARCHAR(100) NOT NULL,
+  senha_paciente VARCHAR(100) NOT NULL,
+  sexo_paciente VARCHAR(20) NOT NULL,
+  status_paciente ENUM('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
+  peso DECIMAL(6,2) NULL,
+  altura DECIMAL(5,2) NULL,
+  tipo_sanguineo VARCHAR(10) NULL,
+  nome_social_paciente VARCHAR(100) NULL,
+  estado_civil VARCHAR(20) NULL,
+  PRIMARY KEY (id_paciente),
+  UNIQUE INDEX email_UNIQUE (email_paciente ASC),
+  UNIQUE INDEX cpf_UNIQUE (cpf_paciente ASC)
 )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`medico`
+-- Table bd_medsuam.medico
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`medico` (
-  `id_medico` INT NOT NULL AUTO_INCREMENT,
-  `nome_medico` VARCHAR(100) NOT NULL,
-  `crm` VARCHAR(20) NOT NULL,
-  `senha_medico` VARCHAR(255) NOT NULL,
-  `email_medico` VARCHAR(100) NOT NULL,
-  `sexo_medico` VARCHAR(45) NOT NULL,
-  `data_nasc_medico` DATE NOT NULL,
-  `cpf_medico` VARCHAR(20) NOT NULL,
-  `status_medico` ENUM('ativo', 'inativo') NOT NULL DEFAULT 'ativo',
-  `nome_social_medico` VARCHAR(100) NULL,
-  PRIMARY KEY (`id_medico`),
-  UNIQUE INDEX `crm_UNIQUE` (`crm` ASC),
-  UNIQUE INDEX `email_medico_UNIQUE` (`email_medico` ASC)
+CREATE TABLE IF NOT EXISTS bd_medsuam.medico (
+  id_medico INT NOT NULL AUTO_INCREMENT,
+  nome_medico VARCHAR(100) NOT NULL,
+  crm VARCHAR(20) NOT NULL,
+  senha_medico VARCHAR(255) NOT NULL,
+  email_medico VARCHAR(100) NOT NULL,
+  sexo_medico VARCHAR(45) NOT NULL,
+  data_nasc_medico DATE NOT NULL,
+  cpf_medico VARCHAR(20) NOT NULL,
+  status_medico ENUM('ativo', 'inativo') NOT NULL DEFAULT 'inativo',
+  nome_social_medico VARCHAR(100) NULL,
+  crm_estado VARCHAR(2) NOT NULL,
+  PRIMARY KEY (id_medico),
+  UNIQUE INDEX crm_UNIQUE (crm ASC),
+  UNIQUE INDEX email_medico_UNIQUE (email_medico ASC)
 )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`especialidade`
+-- Table bd_medsuam.especialidade
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`especialidade` (
-  `id_especialidade` INT NOT NULL AUTO_INCREMENT,
-  `id_medico` INT NOT NULL,
-  `nome` VARCHAR(100) NOT NULL,
-  `descricao` VARCHAR(255) NOT NULL,
-  PRIMARY KEY (`id_especialidade`, `id_medico`),
-  INDEX `fk_ESPECIALIDADE_MEDICO1_idx` (`id_medico` ASC) ,
-  CONSTRAINT `fk_ESPECIALIDADE_MEDICO1`
-    FOREIGN KEY (`id_medico`)
-    REFERENCES `bd_medsuam`.`medico` (`id_medico`)
+CREATE TABLE IF NOT EXISTS bd_medsuam.especialidade (
+  id_especialidade INT NOT NULL AUTO_INCREMENT,
+  id_medico INT NOT NULL,
+  nome VARCHAR(100) NOT NULL,
+  descricao VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id_especialidade, id_medico),
+  INDEX fk_ESPECIALIDADE_MEDICO1_idx (id_medico ASC) ,
+  CONSTRAINT fk_ESPECIALIDADE_MEDICO1
+    FOREIGN KEY (id_medico)
+    REFERENCES bd_medsuam.medico (id_medico)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`consulta`
+-- Table bd_medsuam.consulta
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`consulta` (
-  `id_consulta` INT NOT NULL AUTO_INCREMENT,
-  `id_paciente` INT NOT NULL,
-  `id_medico` INT NOT NULL,
-  `data_consulta` DATE NOT NULL,
-  `hora_consulta` DATETIME NOT NULL,
-  `status` VARCHAR(255) NOT NULL,
-  `gravacao_link` VARCHAR(45) NOT NULL,
-  `link_videochamada` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_consulta`, `id_paciente`, `id_medico`),
-  INDEX `fk_CONSULTA_PACIENTE1_idx` (`id_paciente` ASC) ,
-  INDEX `fk_CONSULTA_MEDICO1_idx` (`id_medico` ASC) ,
-  CONSTRAINT `fk_CONSULTA_PACIENTE1`
-    FOREIGN KEY (`id_paciente`)
-    REFERENCES `bd_medsuam`.`paciente` (`id_paciente`)
+CREATE TABLE IF NOT EXISTS bd_medsuam.consulta (
+  id_consulta INT NOT NULL AUTO_INCREMENT,
+  id_paciente INT NOT NULL,
+  id_medico INT NOT NULL,
+  data_consulta DATE NOT NULL,
+  hora_consulta DATETIME NOT NULL,
+  status VARCHAR(255) NOT NULL,
+  gravacao_link VARCHAR(45) NOT NULL,
+  link_videochamada VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id_consulta, id_paciente, id_medico),
+  INDEX fk_CONSULTA_PACIENTE1_idx (id_paciente ASC) ,
+  INDEX fk_CONSULTA_MEDICO1_idx (id_medico ASC) ,
+  CONSTRAINT fk_CONSULTA_PACIENTE1
+    FOREIGN KEY (id_paciente)
+    REFERENCES bd_medsuam.paciente (id_paciente)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_CONSULTA_MEDICO1`
-    FOREIGN KEY (`id_medico`)
-    REFERENCES `bd_medsuam`.`medico` (`id_medico`)
+  CONSTRAINT fk_CONSULTA_MEDICO1
+    FOREIGN KEY (id_medico)
+    REFERENCES bd_medsuam.medico (id_medico)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`condicao_saude`
+-- Table bd_medsuam.condicao_saude
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`condicao_saude` (
-  `id_condicao` INT NOT NULL AUTO_INCREMENT,
-  `nome_condicao` VARCHAR(80) NOT NULL,
-  `descricao` VARCHAR(255) NOT NULL,
-  `nivel_risco` INT(10) NOT NULL,
-  PRIMARY KEY (`id_condicao`))
+CREATE TABLE IF NOT EXISTS bd_medsuam.condicao_saude (
+  id_condicao INT NOT NULL AUTO_INCREMENT,
+  nome_condicao VARCHAR(80) NOT NULL,
+  descricao VARCHAR(255) NOT NULL,
+  nivel_risco INT(10) NOT NULL,
+  PRIMARY KEY (id_condicao))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`paciente_condicao`
+-- Table bd_medsuam.paciente_condicao
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`paciente_condicao` (
-  `id_paciente` INT NOT NULL,
-  `id_condicao` INT NOT NULL,
-  `data_inicio` DATE NOT NULL,
-  `status` VARCHAR(255) NOT NULL,
-  INDEX `fk_PACIENTE_CONDICAO_CONDICAO_SAUDE1_idx` (`id_condicao` ASC) ,
-  INDEX `fk_PACIENTE_CONDICAO_PACIENTE1_idx` (`id_paciente` ASC) ,
-  PRIMARY KEY (`id_condicao`, `id_paciente`),
-  CONSTRAINT `fk_PACIENTE_CONDICAO_CONDICAO_SAUDE1`
-    FOREIGN KEY (`id_condicao`)
-    REFERENCES `bd_medsuam`.`condicao_saude` (`id_condicao`)
+CREATE TABLE IF NOT EXISTS bd_medsuam.paciente_condicao (
+  id_paciente INT NOT NULL,
+  id_condicao INT NOT NULL,
+  data_inicio DATE NOT NULL,
+  status VARCHAR(255) NOT NULL,
+  INDEX fk_PACIENTE_CONDICAO_CONDICAO_SAUDE1_idx (id_condicao ASC) ,
+  INDEX fk_PACIENTE_CONDICAO_PACIENTE1_idx (id_paciente ASC) ,
+  PRIMARY KEY (id_condicao, id_paciente),
+  CONSTRAINT fk_PACIENTE_CONDICAO_CONDICAO_SAUDE1
+    FOREIGN KEY (id_condicao)
+    REFERENCES bd_medsuam.condicao_saude (id_condicao)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_PACIENTE_CONDICAO_PACIENTE1`
-    FOREIGN KEY (`id_paciente`)
-    REFERENCES `bd_medsuam`.`paciente` (`id_paciente`)
+  CONSTRAINT fk_PACIENTE_CONDICAO_PACIENTE1
+    FOREIGN KEY (id_paciente)
+    REFERENCES bd_medsuam.paciente (id_paciente)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`assistente_medico`
+-- Table bd_medsuam.assistente_medico
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`assistente_medico` (
-  `id_monitoramento` INT NOT NULL AUTO_INCREMENT,
-  `id_paciente` INT NOT NULL,
-  `status_monitoramento` VARCHAR(255) NOT NULL,
-  `nivel_risco` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_monitoramento`, `id_paciente`),
-  INDEX `fk_MEDICO_FANTASMA_PACIENTE1_idx` (`id_paciente` ASC) ,
-  CONSTRAINT `fk_MEDICO_FANTASMA_PACIENTE1`
-    FOREIGN KEY (`id_paciente`)
-    REFERENCES `bd_medsuam`.`paciente` (`id_paciente`)
+CREATE TABLE IF NOT EXISTS bd_medsuam.assistente_medico (
+  id_monitoramento INT NOT NULL AUTO_INCREMENT,
+  id_paciente INT NOT NULL,
+  status_monitoramento VARCHAR(255) NOT NULL,
+  nivel_risco VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id_monitoramento, id_paciente),
+  INDEX fk_MEDICO_FANTASMA_PACIENTE1_idx (id_paciente ASC) ,
+  CONSTRAINT fk_MEDICO_FANTASMA_PACIENTE1
+    FOREIGN KEY (id_paciente)
+    REFERENCES bd_medsuam.paciente (id_paciente)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`laudo`
+-- Table bd_medsuam.laudo
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`laudo` (
-  `id_laudo` INT NOT NULL AUTO_INCREMENT,
-  `id_consulta` INT NOT NULL,
-  `id_paciente` INT NOT NULL,
-  `id_medico` INT NOT NULL,
-  `data_emissao` DATE NOT NULL,
-  `descricao` VARCHAR(500) NOT NULL,
-  `arquivo_pdf` LONGBLOB NOT NULL,
-  PRIMARY KEY (`id_laudo`, `id_consulta`, `id_paciente`, `id_medico`),
-  INDEX `fk_LAUDO_CONSULTA1_idx` (`id_consulta` ASC, `id_paciente` ASC, `id_medico` ASC) ,
-  CONSTRAINT `fk_LAUDO_CONSULTA1`
-    FOREIGN KEY (`id_consulta` , `id_paciente` , `id_medico`)
-    REFERENCES `bd_medsuam`.`consulta` (`id_consulta` , `id_paciente` , `id_medico`)
+CREATE TABLE IF NOT EXISTS bd_medsuam.laudo (
+  id_laudo INT NOT NULL AUTO_INCREMENT,
+  id_consulta INT NOT NULL,
+  id_paciente INT NOT NULL,
+  id_medico INT NOT NULL,
+  data_emissao DATE NOT NULL,
+  descricao VARCHAR(500) NOT NULL,
+  arquivo_pdf LONGBLOB NOT NULL,
+  PRIMARY KEY (id_laudo, id_consulta, id_paciente, id_medico),
+  INDEX fk_LAUDO_CONSULTA1_idx (id_consulta ASC, id_paciente ASC, id_medico ASC) ,
+  CONSTRAINT fk_LAUDO_CONSULTA1
+    FOREIGN KEY (id_consulta , id_paciente , id_medico)
+    REFERENCES bd_medsuam.consulta (id_consulta , id_paciente , id_medico)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`perfil_gamificado`
+-- Table bd_medsuam.perfil_gamificado
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`perfil_gamificado` (
-  `id_perfil` INT NOT NULL AUTO_INCREMENT,
-  `id_condicao` INT NOT NULL,
-  `id_paciente` INT NOT NULL,
-  `pontos` INT NOT NULL,
-  `medalhas` INT NOT NULL,
-  `nivel_atual` INT NOT NULL,
-  PRIMARY KEY (`id_perfil`, `id_condicao`, `id_paciente`),
-  INDEX `fk_PERFIL_GAMIFICADO_PACIENTE_CONDICAO1_idx` (`id_paciente` ASC, `id_condicao` ASC) ,
-  CONSTRAINT `fk_PERFIL_GAMIFICADO_PACIENTE_CONDICAO1`
-    FOREIGN KEY (`id_paciente` , `id_condicao`)
-    REFERENCES `bd_medsuam`.`paciente_condicao` (`id_paciente` , `id_condicao`)
+CREATE TABLE IF NOT EXISTS bd_medsuam.perfil_gamificado (
+  id_perfil INT NOT NULL AUTO_INCREMENT,
+  id_condicao INT NOT NULL,
+  id_paciente INT NOT NULL,
+  pontos INT NOT NULL,
+  medalhas INT NOT NULL,
+  nivel_atual INT NOT NULL,
+  PRIMARY KEY (id_perfil, id_condicao, id_paciente),
+  INDEX fk_PERFIL_GAMIFICADO_PACIENTE_CONDICAO1_idx (id_paciente ASC, id_condicao ASC) ,
+  CONSTRAINT fk_PERFIL_GAMIFICADO_PACIENTE_CONDICAO1
+    FOREIGN KEY (id_paciente , id_condicao)
+    REFERENCES bd_medsuam.paciente_condicao (id_paciente , id_condicao)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`missao_gamificada`
+-- Table bd_medsuam.missao_gamificada
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`missao_gamificada` (
-  `id_missao` INT NOT NULL AUTO_INCREMENT,
-  `id_perfil` INT NOT NULL,
-  `id_paciente` INT NOT NULL,
-  `id_condicao` INT NOT NULL,
-  `id_monitoramento` INT NOT NULL,
-  `descricao` VARCHAR(255) NOT NULL,
-  `status` VARCHAR(255) NOT NULL,
-  `pontos` INT NOT NULL,
-  PRIMARY KEY (`id_missao`, `id_perfil`, `id_condicao`, `id_paciente`, `id_monitoramento`),
-  INDEX `fk_MISSAO_GAMIFICADA_PERFIL_GAMIFICADO1_idx` (`id_perfil` ASC, `id_condicao` ASC, `id_paciente` ASC) ,
-  INDEX `fk_MISSAO_GAMIFICADA_MEDICO_FANTASMA1_idx` (`id_monitoramento` ASC) ,
-  CONSTRAINT `fk_MISSAO_GAMIFICADA_PERFIL_GAMIFICADO1`
-    FOREIGN KEY (`id_perfil` , `id_condicao` , `id_paciente`)
-    REFERENCES `bd_medsuam`.`perfil_gamificado` (`id_perfil` , `id_condicao` , `id_paciente`)
+CREATE TABLE IF NOT EXISTS bd_medsuam.missao_gamificada (
+  id_missao INT NOT NULL AUTO_INCREMENT,
+  id_perfil INT NOT NULL,
+  id_paciente INT NOT NULL,
+  id_condicao INT NOT NULL,
+  id_monitoramento INT NOT NULL,
+  descricao VARCHAR(255) NOT NULL,
+  status VARCHAR(255) NOT NULL,
+  pontos INT NOT NULL,
+  PRIMARY KEY (id_missao, id_perfil, id_condicao, id_paciente, id_monitoramento),
+  INDEX fk_MISSAO_GAMIFICADA_PERFIL_GAMIFICADO1_idx (id_perfil ASC, id_condicao ASC, id_paciente ASC) ,
+  INDEX fk_MISSAO_GAMIFICADA_MEDICO_FANTASMA1_idx (id_monitoramento ASC) ,
+  CONSTRAINT fk_MISSAO_GAMIFICADA_PERFIL_GAMIFICADO1
+    FOREIGN KEY (id_perfil , id_condicao , id_paciente)
+    REFERENCES bd_medsuam.perfil_gamificado (id_perfil , id_condicao , id_paciente)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_MISSAO_GAMIFICADA_MEDICO_FANTASMA1`
-    FOREIGN KEY (`id_monitoramento`)
-    REFERENCES `bd_medsuam`.`assistente_medico` (`id_monitoramento`)
+  CONSTRAINT fk_MISSAO_GAMIFICADA_MEDICO_FANTASMA1
+    FOREIGN KEY (id_monitoramento)
+    REFERENCES bd_medsuam.assistente_medico (id_monitoramento)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`telefone`
+-- Table bd_medsuam.telefone
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`telefone` (
-  `id_telefone` INT NOT NULL AUTO_INCREMENT,
-  `medico_id_medico` INT NULL,
-  `paciente_id_paciente` INT NULL,
-  `dd` VARCHAR(5) NOT NULL,
-  `telefone` VARCHAR(15) NOT NULL,
-  PRIMARY KEY (`id_telefone`),
-  INDEX `fk_telefone_medico1_idx` (`medico_id_medico` ASC) ,
-  INDEX `fk_telefone_paciente1_idx` (`paciente_id_paciente` ASC) ,
-  CONSTRAINT `fk_telefone_medico1`
-    FOREIGN KEY (`medico_id_medico`)
-    REFERENCES `bd_medsuam`.`medico` (`id_medico`)
+CREATE TABLE IF NOT EXISTS bd_medsuam.telefone (
+  id_telefone INT NOT NULL AUTO_INCREMENT,
+  medico_id_medico INT NULL,
+  paciente_id_paciente INT NULL,
+  dd VARCHAR(5) NOT NULL,
+  telefone VARCHAR(15) NOT NULL,
+  PRIMARY KEY (id_telefone),
+  INDEX fk_telefone_medico1_idx (medico_id_medico ASC) ,
+  INDEX fk_telefone_paciente1_idx (paciente_id_paciente ASC) ,
+  CONSTRAINT fk_telefone_medico1
+    FOREIGN KEY (medico_id_medico)
+    REFERENCES bd_medsuam.medico (id_medico)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_telefone_paciente1`
-    FOREIGN KEY (`paciente_id_paciente`)
-    REFERENCES `bd_medsuam`.`paciente` (`id_paciente`)
+  CONSTRAINT fk_telefone_paciente1
+    FOREIGN KEY (paciente_id_paciente)
+    REFERENCES bd_medsuam.paciente (id_paciente)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`endereco`
+-- Table bd_medsuam.endereco
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`endereco` (
-  `id_endereco` INT NOT NULL AUTO_INCREMENT,
-  `cep` VARCHAR(10) NOT NULL,
-  `rua` VARCHAR(50) NOT NULL,
-  `numero` INT NOT NULL,
-  `complemento` VARCHAR(45) NULL,
-  `bairro` VARCHAR(100) NOT NULL,
-  `cidade` VARCHAR(100) NOT NULL,
-  `uf_endereco` VARCHAR(2) NOT NULL,
-  `paciente_id_paciente` INT NULL,
-  `medico_id_medico` INT NULL,
-  PRIMARY KEY (`id_endereco`),
-  INDEX `fk_endereco_paciente1_idx` (`paciente_id_paciente` ASC) ,
-  INDEX `fk_endereco_medico1_idx` (`medico_id_medico` ASC) ,
-  CONSTRAINT `fk_endereco_paciente1`
-    FOREIGN KEY (`paciente_id_paciente`)
-    REFERENCES `bd_medsuam`.`paciente` (`id_paciente`)
+CREATE TABLE IF NOT EXISTS bd_medsuam.endereco (
+  id_endereco INT NOT NULL AUTO_INCREMENT,
+  cep VARCHAR(10) NOT NULL,
+  rua VARCHAR(50) NOT NULL,
+  numero INT NOT NULL,
+  complemento VARCHAR(45) NULL,
+  bairro VARCHAR(100) NOT NULL,
+  cidade VARCHAR(100) NOT NULL,
+  uf_endereco VARCHAR(2) NOT NULL,
+  paciente_id_paciente INT NULL,
+  medico_id_medico INT NULL,
+  PRIMARY KEY (id_endereco),
+  INDEX fk_endereco_paciente1_idx (paciente_id_paciente ASC) ,
+  INDEX fk_endereco_medico1_idx (medico_id_medico ASC) ,
+  CONSTRAINT fk_endereco_paciente1
+    FOREIGN KEY (paciente_id_paciente)
+    REFERENCES bd_medsuam.paciente (id_paciente)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_endereco_medico1`
-    FOREIGN KEY (`medico_id_medico`)
-    REFERENCES `bd_medsuam`.`medico` (`id_medico`)
+  CONSTRAINT fk_endereco_medico1
+    FOREIGN KEY (medico_id_medico)
+    REFERENCES bd_medsuam.medico (id_medico)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`rg`
+-- Table bd_medsuam.rg
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`rg` (
-  `id_rg` INT NOT NULL AUTO_INCREMENT,
-  `numero_rg` VARCHAR(10) NULL,
-  `data_emissao` DATE NULL,
-  `orgao_emissor` VARCHAR(45) NULL,
-  `uf_rg` VARCHAR(2) NULL,
-  `data_validade` DATE NULL,
-  `medico_id_medico` INT NULL,
-  `paciente_id_paciente` INT NULL,
-  PRIMARY KEY (`id_rg`),
-  UNIQUE INDEX `numero_rg_UNIQUE` (`numero_rg` ASC) ,
-  INDEX `fk_rg_medico1_idx` (`medico_id_medico` ASC) ,
-  INDEX `fk_rg_paciente1_idx` (`paciente_id_paciente` ASC) ,
-  CONSTRAINT `fk_rg_medico1`
-    FOREIGN KEY (`medico_id_medico`)
-    REFERENCES `bd_medsuam`.`medico` (`id_medico`)
+CREATE TABLE IF NOT EXISTS bd_medsuam.rg (
+  id_rg INT NOT NULL AUTO_INCREMENT,
+  numero_rg VARCHAR(20) NULL,
+  data_emissao DATE NULL,
+  orgao_emissor VARCHAR(45) NULL,
+  uf_rg VARCHAR(2) NULL,
+  data_validade DATE NULL,
+  medico_id_medico INT NULL,
+  paciente_id_paciente INT NULL,
+  PRIMARY KEY (id_rg),
+  UNIQUE INDEX numero_rg_UNIQUE (numero_rg ASC) ,
+  INDEX fk_rg_medico1_idx (medico_id_medico ASC) ,
+  INDEX fk_rg_paciente1_idx (paciente_id_paciente ASC) ,
+  CONSTRAINT fk_rg_medico1
+    FOREIGN KEY (medico_id_medico)
+    REFERENCES bd_medsuam.medico (id_medico)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_rg_paciente1`
-    FOREIGN KEY (`paciente_id_paciente`)
-    REFERENCES `bd_medsuam`.`paciente` (`id_paciente`)
+  CONSTRAINT fk_rg_paciente1
+    FOREIGN KEY (paciente_id_paciente)
+    REFERENCES bd_medsuam.paciente (id_paciente)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`adm`
+-- Table bd_medsuam.adm
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`adm` (
-  `id_adm` INT NOT NULL AUTO_INCREMENT,
-  `nome_adm` VARCHAR(255) NOT NULL,
-  `senha_adm` VARCHAR(100) NOT NULL,
-  `email_adm` VARCHAR(255) NOT NULL,
-  `cpf_adm` VARCHAR(20) NOT NULL,
-  `data_nasc_adm` DATE NOT NULL,
-  `nivel_acesso` ENUM('super', 'adm') NOT NULL,
-  `data_criacao` DATETIME NOT NULL,
-  `ultimo_login` DATETIME NULL,
-  PRIMARY KEY (`id_adm`))
+CREATE TABLE IF NOT EXISTS bd_medsuam.adm (
+  id_adm INT NOT NULL AUTO_INCREMENT,
+  nome_adm VARCHAR(255) NOT NULL,
+  senha_adm VARCHAR(100) NOT NULL,
+  email_adm VARCHAR(255) NOT NULL,
+  cpf_adm VARCHAR(20) NOT NULL,
+  data_nasc_adm DATE NOT NULL,
+  nivel_acesso ENUM('super', 'adm') NOT NULL,
+  data_criacao DATETIME NOT NULL,
+  ultimo_login DATETIME NULL,
+  PRIMARY KEY (id_adm))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `bd_medsuam`.`atualizacao_adm`
+-- Table bd_medsuam.atualizacao_adm
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `bd_medsuam`.`atualizacao_adm` (
-  `id_atualizacao` INT NOT NULL AUTO_INCREMENT,
-  `paciente_id_paciente` INT NULL,
-  `adm_id_adm` INT NULL,
-  `medico_id_medico` INT NULL,
-  `descricao_atualizacao` VARCHAR(255) NOT NULL,
-  `data_atualizacao` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  INDEX `fk_atualizacao_adm_adm1_idx` (`adm_id_adm` ASC) ,
-  INDEX `fk_atualizacao_adm_medico1_idx` (`medico_id_medico` ASC) ,
-  PRIMARY KEY (`id_atualizacao`),
-  CONSTRAINT `fk_atualizacao_adm_paciente1`
-    FOREIGN KEY (`paciente_id_paciente`)
-    REFERENCES `bd_medsuam`.`paciente` (`id_paciente`)
+CREATE TABLE IF NOT EXISTS bd_medsuam.atualizacao_adm (
+  id_atualizacao INT NOT NULL AUTO_INCREMENT,
+  paciente_id_paciente INT NULL,
+  adm_id_adm INT NULL,
+  medico_id_medico INT NULL,
+  descricao_atualizacao VARCHAR(255) NOT NULL,
+  data_atualizacao DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX fk_atualizacao_adm_adm1_idx (adm_id_adm ASC) ,
+  INDEX fk_atualizacao_adm_medico1_idx (medico_id_medico ASC) ,
+  PRIMARY KEY (id_atualizacao),
+  CONSTRAINT fk_atualizacao_adm_paciente1
+    FOREIGN KEY (paciente_id_paciente)
+    REFERENCES bd_medsuam.paciente (id_paciente)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_atualizacao_adm_adm1`
-    FOREIGN KEY (`adm_id_adm`)
-    REFERENCES `bd_medsuam`.`adm` (`id_adm`)
+  CONSTRAINT fk_atualizacao_adm_adm1
+    FOREIGN KEY (adm_id_adm)
+    REFERENCES bd_medsuam.adm (id_adm)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_atualizacao_adm_medico1`
-    FOREIGN KEY (`medico_id_medico`)
-    REFERENCES `bd_medsuam`.`medico` (`id_medico`)
+  CONSTRAINT fk_atualizacao_adm_medico1
+    FOREIGN KEY (medico_id_medico)
+    REFERENCES bd_medsuam.medico (id_medico)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
