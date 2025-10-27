@@ -42,7 +42,7 @@ CREATE TABLE `adm` (
 
 LOCK TABLES `adm` WRITE;
 /*!40000 ALTER TABLE `adm` DISABLE KEYS */;
-INSERT INTO `adm` VALUES (1,'Administrador Supremo','$2a$12$Odc6bp3kGVod5dyjzGjatuL36brYzWmCNNfR54utoHLSy167H2ou6','admin@medsuam.com','123.456.789-00','1990-01-01','super','2025-10-22 18:02:33','2025-10-22 21:24:00'),(2,'Ronivaldo Domingues de Andrade','$2y$10$m0ipkmrhTNBk4JKxFokWaeak20mx0vIfBGJoLegC70mJvqnz2WXP.','roni@gmail.com','12364012635','1996-06-06','adm','2025-10-22 18:16:06','2025-10-27 14:01:24'),(3,'Teste','$2y$10$lpGR9QFxqCS6n7IlhoOyKeazRAvwccudb81.fxThRhSkJyTWpF0uG','teste@gmail.com','12364012','1955-07-05','adm','2025-10-22 20:59:02','2025-10-25 06:01:24'),(4,'Teste','$2y$10$lP.vjGaxhAWT.uU514iRS.lVjNSKZrupkpyhSbD8eY1/Vq0I.H7Am','teste@teste.com','12545635865','1996-06-06','adm','2025-10-27 14:17:22',NULL);
+INSERT INTO `adm` VALUES (1,'SUPER01','$2a$12$Odc6bp3kGVod5dyjzGjatuL36brYzWmCNNfR54utoHLSy167H2ou6','admin@medsuam.com','123.456.789-00','1990-01-01','super','2025-10-22 18:02:33','2025-10-27 16:38:37'),(4,'ADM01','$2y$10$pCOcANSM.Ela/hx/f/kideIZaL.CG3P9XcshqW2G8MO/FX03zKUzS','ADM01@gmail.com','14785236912','1996-01-08','adm','2025-10-27 14:17:22','2025-10-27 15:29:30');
 /*!40000 ALTER TABLE `adm` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +94,7 @@ CREATE TABLE `atualizacao_adm` (
   CONSTRAINT `fk_atualizacao_adm_adm1` FOREIGN KEY (`adm_id_adm`) REFERENCES `adm` (`id_adm`),
   CONSTRAINT `fk_atualizacao_adm_medico1` FOREIGN KEY (`medico_id_medico`) REFERENCES `medico` (`id_medico`),
   CONSTRAINT `fk_atualizacao_adm_paciente1` FOREIGN KEY (`paciente_id_paciente`) REFERENCES `paciente` (`id_paciente`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +103,7 @@ CREATE TABLE `atualizacao_adm` (
 
 LOCK TABLES `atualizacao_adm` WRITE;
 /*!40000 ALTER TABLE `atualizacao_adm` DISABLE KEYS */;
-INSERT INTO `atualizacao_adm` VALUES (1,NULL,1,NULL,'Adicionou administrador: Ronivaldo Domingues de Andrade','2025-10-22 18:16:06'),(2,NULL,1,NULL,'Adicionou administrador: Teste','2025-10-22 20:59:02'),(3,1,1,NULL,'Alterou status do paciente para: inativo','2025-10-22 21:24:13'),(4,1,1,NULL,'Alterou status do paciente para: ativo','2025-10-22 21:24:17'),(5,1,1,NULL,'Alterou status do paciente para: inativo','2025-10-22 21:25:08'),(6,1,1,NULL,'Alterou status do paciente para: ativo','2025-10-22 21:25:09'),(7,NULL,3,NULL,'Fez login no sistema','2025-10-24 15:46:01'),(8,NULL,2,NULL,'Fez login no sistema','2025-10-24 15:49:35'),(9,1,2,NULL,'Alterou status do paciente para: inativo','2025-10-27 14:04:32'),(10,1,2,NULL,'Alterou status do paciente para: ativo','2025-10-27 14:04:33'),(11,1,2,NULL,'Alterou status do paciente para: ativo','2025-10-27 14:09:09'),(12,NULL,2,NULL,'Editou administrador: Ronivaldo Domingues de Andrade','2025-10-27 14:15:59'),(13,NULL,2,NULL,'Editou administrador: Ronivaldo Domingues de Andrade','2025-10-27 14:16:06'),(14,NULL,2,NULL,'Editou administrador: Ronivaldo Domingues de Andrade','2025-10-27 14:16:36'),(15,NULL,2,NULL,'Editou administrador: Ronivaldo Domingues de Andrade','2025-10-27 14:16:53'),(16,NULL,2,NULL,'Adicionou administrador: Teste','2025-10-27 14:17:22');
+INSERT INTO `atualizacao_adm` VALUES (1,NULL,1,NULL,'Adicionou administrador: Ronivaldo Domingues de Andrade','2025-10-22 18:16:06'),(2,NULL,1,NULL,'Adicionou administrador: Teste','2025-10-22 20:59:02'),(3,NULL,1,NULL,'Alterou status do paciente para: inativo','2025-10-22 21:24:13'),(4,NULL,1,NULL,'Alterou status do paciente para: ativo','2025-10-22 21:24:17'),(5,NULL,1,NULL,'Alterou status do paciente para: inativo','2025-10-22 21:25:08'),(6,NULL,1,NULL,'Alterou status do paciente para: ativo','2025-10-22 21:25:09'),(7,NULL,NULL,NULL,'Fez login no sistema','2025-10-24 15:46:01'),(8,NULL,NULL,NULL,'Fez login no sistema','2025-10-24 15:49:35'),(9,NULL,NULL,NULL,'Alterou status do paciente para: inativo','2025-10-27 14:04:32'),(10,NULL,NULL,NULL,'Alterou status do paciente para: ativo','2025-10-27 14:04:33'),(11,NULL,NULL,NULL,'Alterou status do paciente para: ativo','2025-10-27 14:09:09'),(12,NULL,NULL,NULL,'Editou administrador: Ronivaldo Domingues de Andrade','2025-10-27 14:15:59'),(13,NULL,NULL,NULL,'Editou administrador: Ronivaldo Domingues de Andrade','2025-10-27 14:16:06'),(14,NULL,NULL,NULL,'Editou administrador: Ronivaldo Domingues de Andrade','2025-10-27 14:16:36'),(15,NULL,NULL,NULL,'Editou administrador: Ronivaldo Domingues de Andrade','2025-10-27 14:16:53'),(16,NULL,NULL,NULL,'Adicionou administrador: Teste','2025-10-27 14:17:22'),(17,NULL,1,NULL,'Editou administrador: Ronivaldo Domingues de Andrade','2025-10-27 14:31:22'),(18,NULL,NULL,NULL,'Editou administrador: Teste','2025-10-27 14:33:35'),(19,NULL,NULL,NULL,'Editou administrador: Teste01','2025-10-27 14:33:47'),(20,NULL,NULL,NULL,'Editou administrador: Teste02','2025-10-27 14:33:53'),(21,NULL,NULL,NULL,'Excluiu administrador ID: 3','2025-10-27 14:33:56'),(22,NULL,NULL,NULL,'Excluiu paciente ID: 1','2025-10-27 14:37:02'),(23,16,NULL,NULL,'Adicionou paciente: Ronivaldo Domingues de Andrade','2025-10-27 14:37:47'),(24,16,NULL,NULL,'Alterou status do paciente para: inativo','2025-10-27 14:41:13'),(25,16,NULL,NULL,'Alterou status do paciente para: ativo','2025-10-27 14:41:21'),(26,16,NULL,NULL,'Alterou status do paciente para: ativo','2025-10-27 14:45:54'),(27,NULL,NULL,2,'Adicionou médico: Ronivaldo Domingues de Andrade','2025-10-27 14:46:19'),(28,16,NULL,NULL,'Editou paciente: Ronivaldo Domingues de Andrade','2025-10-27 15:02:20'),(29,16,NULL,NULL,'Editou paciente: Ronivaldo Domingues de Andrade','2025-10-27 15:06:07'),(30,16,NULL,NULL,'Editou paciente: Persona 01','2025-10-27 15:06:53'),(31,NULL,NULL,NULL,'Editou administrador: ADM01','2025-10-27 15:10:14'),(32,NULL,NULL,NULL,'Alterou senha do administrador ID: 4','2025-10-27 15:10:38'),(33,NULL,4,NULL,'Agendou consulta ID: 1','2025-10-27 15:12:39'),(34,NULL,4,NULL,'Alterou status da consulta ID: 1 para: realizada','2025-10-27 15:14:08'),(35,NULL,4,NULL,'Alterou status da consulta ID: 1 para: cancelada','2025-10-27 15:14:12'),(36,NULL,1,NULL,'Excluiu administrador ID: 2','2025-10-27 16:31:49'),(37,NULL,1,2,'Editou médico: Persona 01','2025-10-27 16:35:38'),(38,16,1,NULL,'Editou paciente: Persona 02','2025-10-27 16:36:45'),(39,NULL,1,NULL,'Alterou status da consulta ID: 1 para: agendada','2025-10-27 16:36:55'),(40,NULL,1,NULL,'Editou administrador: SUPER01','2025-10-27 16:37:40');
 /*!40000 ALTER TABLE `atualizacao_adm` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +153,7 @@ CREATE TABLE `consulta` (
   KEY `fk_CONSULTA_MEDICO1_idx` (`id_medico`),
   CONSTRAINT `fk_CONSULTA_MEDICO1` FOREIGN KEY (`id_medico`) REFERENCES `medico` (`id_medico`),
   CONSTRAINT `fk_CONSULTA_PACIENTE1` FOREIGN KEY (`id_paciente`) REFERENCES `paciente` (`id_paciente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,6 +162,7 @@ CREATE TABLE `consulta` (
 
 LOCK TABLES `consulta` WRITE;
 /*!40000 ALTER TABLE `consulta` DISABLE KEYS */;
+INSERT INTO `consulta` VALUES (1,16,2,'2025-12-12','2025-12-12 15:35:00','agendada','','');
 /*!40000 ALTER TABLE `consulta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +198,6 @@ CREATE TABLE `endereco` (
 
 LOCK TABLES `endereco` WRITE;
 /*!40000 ALTER TABLE `endereco` DISABLE KEYS */;
-INSERT INTO `endereco` VALUES (1,'21941-595','Largo Wanda de Oliveira',10,'','Cidade Universitária','Rio de Janeiro','RJ',1,NULL);
 /*!40000 ALTER TABLE `endereco` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -279,7 +279,7 @@ CREATE TABLE `medico` (
   PRIMARY KEY (`id_medico`),
   UNIQUE KEY `crm_UNIQUE` (`crm`),
   UNIQUE KEY `email_medico_UNIQUE` (`email_medico`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,6 +288,7 @@ CREATE TABLE `medico` (
 
 LOCK TABLES `medico` WRITE;
 /*!40000 ALTER TABLE `medico` DISABLE KEYS */;
+INSERT INTO `medico` VALUES (2,'Persona 01','37578000','$2y$10$74YGJnkAq.l3spkl8BXbLeVe1Tvz2ONKfkbIwTcube.jIih4PVYia','persona01@gmail.com','feminino','1965-12-06','12545635865','ativo','');
 /*!40000 ALTER TABLE `medico` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,7 +349,7 @@ CREATE TABLE `paciente` (
   PRIMARY KEY (`id_paciente`),
   UNIQUE KEY `email_UNIQUE` (`email_paciente`),
   UNIQUE KEY `cpf_UNIQUE` (`cpf_paciente`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -357,7 +358,7 @@ CREATE TABLE `paciente` (
 
 LOCK TABLES `paciente` WRITE;
 /*!40000 ALTER TABLE `paciente` DISABLE KEYS */;
-INSERT INTO `paciente` VALUES (1,'Teste','123.640.126-35','1996-06-06','teste@teste.com','$2y$10$Qv0V1jTkMrtoCdGgCDmlledzE3EdmKqyGiO12J7joPIwYJo5DkiEu','masculino','ativo',NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `paciente` VALUES (16,'Persona 02','15486394758','1967-06-06','persona02@gmail.com','$2y$10$XTqGq8H3lSjxVr5WjzDFQeC83/fBm3xXxFdo9qIWgecyJRLwAOGe6','masculino','ativo',90.00,170.00,'B+','','Solteiro');
 /*!40000 ALTER TABLE `paciente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -442,7 +443,7 @@ CREATE TABLE `rg` (
   KEY `fk_rg_paciente1_idx` (`paciente_id_paciente`),
   CONSTRAINT `fk_rg_medico1` FOREIGN KEY (`medico_id_medico`) REFERENCES `medico` (`id_medico`),
   CONSTRAINT `fk_rg_paciente1` FOREIGN KEY (`paciente_id_paciente`) REFERENCES `paciente` (`id_paciente`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -451,7 +452,7 @@ CREATE TABLE `rg` (
 
 LOCK TABLES `rg` WRITE;
 /*!40000 ALTER TABLE `rg` DISABLE KEYS */;
-INSERT INTO `rg` VALUES (1,NULL,NULL,NULL,NULL,NULL,NULL,1);
+INSERT INTO `rg` VALUES (2,'15457897','2024-01-01','DTRAN','RJ','0001-01-01',NULL,16),(3,'125456358','2023-12-08','DIT','RJ','2034-01-01',2,NULL);
 /*!40000 ALTER TABLE `rg` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -473,7 +474,7 @@ CREATE TABLE `telefone` (
   KEY `fk_telefone_paciente1_idx` (`paciente_id_paciente`),
   CONSTRAINT `fk_telefone_medico1` FOREIGN KEY (`medico_id_medico`) REFERENCES `medico` (`id_medico`),
   CONSTRAINT `fk_telefone_paciente1` FOREIGN KEY (`paciente_id_paciente`) REFERENCES `paciente` (`id_paciente`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -482,7 +483,7 @@ CREATE TABLE `telefone` (
 
 LOCK TABLES `telefone` WRITE;
 /*!40000 ALTER TABLE `telefone` DISABLE KEYS */;
-INSERT INTO `telefone` VALUES (1,NULL,1,'21','998412932');
+INSERT INTO `telefone` VALUES (2,NULL,16,'55','21978452358'),(3,2,NULL,'55','2199653529');
 /*!40000 ALTER TABLE `telefone` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -495,4 +496,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-10-27 14:27:43
+-- Dump completed on 2025-10-27 16:41:54
