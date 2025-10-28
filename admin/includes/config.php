@@ -4,7 +4,7 @@ session_start();
 
 $host = 'localhost';
 $dbname = 'bd_medsuam';
-$username = 'phpuser';//root
+$username = (PHP_OS_FAMILY === 'Windows') ? 'root' : 'phpuser';// $username = 'root';//'phpuser'
 $password = '';
 
 try {
