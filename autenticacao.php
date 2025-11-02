@@ -15,7 +15,7 @@
     if ($result['success']) {
         clear2FASession();
         is2FAVerified($maxAge = 300);
-        header('location: medicopage.php');
+        header('location: userpage.php');
         exit;
     } else {
         $result['message'];

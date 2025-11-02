@@ -13,9 +13,10 @@
     $inputCode = $_POST['senha'];
     $result = verify2FACode($inputCode);
     if ($result['success']) {
+        $_SESSION['2fa_verified'] = true;
+        $_SESSION['2fa_verified_time'] = time();
         clear2FASession();
-        is2FAVerified($maxAge = 300);
-        header('location: userpage.php');
+        header('location: medicopage.php');
         exit;
     } else {
         $result['message'];
@@ -47,7 +48,7 @@
                 <?php endif;?>
             </span>
         
-            <form id="autenticacaoForm" action="autenticacao.php" method="post" >          
+            <form id="autenticacaoForm" action="autenticacaomedico.php" method="post" >          
                 
                 <div class="senhaContainer">
                     <input class="inputStyle" type="password" minlength="6" maxlength="6" id="codigo" name="senha" placeholder="Insira o código aqui !"  required>

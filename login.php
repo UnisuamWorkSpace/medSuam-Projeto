@@ -49,7 +49,7 @@
                         $_SESSION['medico'] = $account['nome_medico'];
                         $_SESSION['email'] = $account['email_medico'];
                         $_SESSION['id_medico'] = $account['id_medico'];
-                        header('location: autenticacaoMedico.php');
+                        header('location: autenticacaomedico.php');
                         exit;
                     }else {
                         echo "usuário nao tem autorização";
