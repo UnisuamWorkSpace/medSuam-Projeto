@@ -1,33 +1,19 @@
 <?php
-// index.php - Página inicial do Painel Administrativo
+// index.php - Página inicial do Painel Administrativo;
 require_once 'includes/config.php';
 require_once 'includes/auth.php';
 
-// Se já está logado, redireciona para dashboard
-if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
-    header('Location: dashboard.php');
+// Processar logout;
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header('Location: index.php');
     exit;
 }
 
-// Processar login se o formulário foi submetido
-$error = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-    $email = $_POST['email'] ?? '';
-    $senha = $_POST['senha'] ?? '';
-    
-    if (empty($email) || empty($senha)) {
-        $error = 'Por favor, preencha todos os campos.';
-    } else {
-        // Verificar credenciais (substitua pela sua lógica de autenticação)
-        if ($email === 'admin@medsuam.com' && $senha === 'senha123') {
-            $_SESSION['admin_logged_in'] = true;
-            $_SESSION['admin_email'] = $email;
-            header('Location: dashboard.php');
-            exit;
-        } else {
-            $error = 'Credenciais inválidas. Tente novamente.';
-        }
-    }
+// Se já está logado, redireciona para dashboard;
+if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
+    header('Location: dashboard.php');
+    exit;
 }
 ?>
 <!DOCTYPE html>
