@@ -1,3 +1,35 @@
+<?php 
+
+    include '../dbMedsuam.php';
+    session_start();
+
+    $parts = explode(" ", $_SESSION['paciente']); // splits by space
+    $primeiroNome = $parts[0];           // take the first part
+
+    if(!isset($_SESSION['logged_in'])) {
+        header('location: login.php');
+        exit;
+    }
+
+    $sql = "SELECT nome FROM especialidade";
+    $result = mysqli_query($conn, $sql);
+
+    if($_SERVER['REQUEST_METHOD'] === "POST") {
+
+        if(isset($_POST['consulta'])){
+            $dataConsulta = mysqli_real_escape_string($conn, $_POST['dataConsulta']);
+            $horaConsulta = mysqli_real_escape_string($conn, $_POST['horaConsulta']);
+
+            $sql = "INSERT INTO consulta (id_paciente, id_medico, data_consulta, hora_consulta, status) VALUES('{$_SESSION['id']}', '1', '$dataConsulta', '$horaConsulta', 'aguardando')";
+            if(mysqli_query($conn, $sql)) {
+                            echo "telefone INSERTED";
+                        }else {
+                            echo 'telefone deu erro';
+                        }
+        }
+    }
+  
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -106,56 +138,23 @@
         
     </aside>
     <main>
-         <section id="consultas" class="margin twoGrid hideableDiv"> 
-            <div class="left">
-            <h1>Seus Atalhos</h1>
-            <div class="twoCards">
-                
-                <button type="button" class="cardContainer agendarEspecialidade">
-                    <div class="cardContent ">
-                        <i class="bi bi-heart-pulse"></i>
-                        <span>Agendar Especialidade</span>
-                    </div>
-                </button>
-            
-                
-                <a href="./consultaonline.php" class="cardContainer consultaOnline">
-                    <div class="cardContent">
-                        <i class="bi bi-camera-video"></i>
-                        <span>Consulta online 24h</span>
-                    </div>
-                </a>
-            </div>
-
-            <div class="alterPacientContainer vacinasAlterPacientContainer">
-                <button type="button" id="alterPacientBtn3" class="alterPacientBtn">
-                    <strong>Nome</strong>
-                    <span>• Alterar</span>
-                    <i class="fa-solid fa-angle-down"></i>
-                </button>
-                <div class="pacienteContainer">
-                    <h3>Selecione um paciente</h3>
-                    <div class="paciente">
-                        <strong>Nome Completo</strong>
-                        <span>Você, idade</span>
-                    </div>
-                    <button type="button" class="dependenteBtn">
-                        <span>+Cadastrar paciente</span>
-                    </button>
-                </div>
-            </div>
-
-            <p class="centralizado">Consultas realizadas</p>
-
-            <div class="centralizado">
-                <p>Não encontrei um histórico de consultas do paciente selecionado.</p>
-            </div>
-            </div>
-
-            <div class="right centralizado">
-                <p>Nenhuma consulta selecionada</p>
-            </div>
-
+         <section id="consultaOnline" class="margin hideableDiv"> 
+            <span>
+                <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                    <form action="consultaonline.php" method="get">
+                        <button type="submit"><?php echo  htmlspecialchars($row['nome']);?></button>
+                    </form>
+                <?php } ?>       
+            </span>
+            <span> <?php echo $_SESSION['id']?></span>
+            <button>
+                marcar consulta
+            </button>
+            <form action="consultaOnline.php" method="post">
+                <input type="date" name="dataConsulta" id="">
+                <input type="text" name="horaConsulta" id="">
+                <input type="submit" name="consulta" value="enviar">
+            </form>
         </section>
 
           <section class="dynamicSection twoGrid margin"></section>

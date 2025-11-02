@@ -3,13 +3,13 @@
     $error = "";
     session_start();
 
-    if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+   /*  if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         header('location: userpage.php');
     }
 
     if(isset($_SESSION['logged_in_medico']) && $_SESSION['logged_in_medico'] === true) {
-        echo "sessão aberta";
-    }
+        header('location: medicopage.php');
+    } */
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
         $email = mysqli_real_escape_string($conn, $_POST["email"]);
@@ -40,15 +40,20 @@
                 case '01':
                     $account = mysqli_fetch_assoc($result2);
 
-                    if(password_verify($senha, $account['senha_medico']) && $account['status_medico'] === 'ativo') {
+                    if(password_verify($senha, $account['senha_medico'])) {
+                    
+                    if ($account['status_medico'] === 'ativo') {
                         $_SESSION['logged_in_medico'] = true;
                         $_SESSION['medico'] = $account['nome_medico'];
-                        $_SESSION['id'] = $account['id_medico'];
-                        header('location: index.php');
+                        $_SESSION['id_medico'] = $account['id_medico'];
+                        header('location: medicopage.php');
                         exit;
-                        }else {
-                            echo "senhas nao coincidem ou usuário não tem permissão";
-                        }
+                    }else {
+                        echo "usuário nao tem autorização";
+                    }
+                    }else {
+                        echo "senhas nao coincidem";
+                    }
                 break;
 
                 case '11':
