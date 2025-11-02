@@ -20,10 +20,10 @@ form.on("submit", (event) => {
 
     const btn = $('#enviarBtn');
     btn.addClass("enviarClick");
-
+    
     setTimeout(() => {
         btn.removeClass("enviarClick");
-        window.location.replace('./userpage.html');
+        document.getElementById("autenticacaoForm").submit();
     }, 500);
 
 });

@@ -4,7 +4,9 @@ session_start();
 
 $host = 'localhost';
 $dbname = 'bd_medsuam';
-$username = 'root';//root
+
+$username = (PHP_OS_FAMILY === 'Windows') ? 'root' : 'phpuser';// $username = 'root';//'phpuser'
+
 $password = '';
 
 try {
@@ -18,6 +20,11 @@ try {
 function checkAuth() {
     if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== true) {
         header('Location: login.php');
+        exit;
+    }
+
+    if (!isset($_SESSION['2fa_verified']) || $_SESSION['2fa_verified'] !== true) {
+        header('Location: 2fa.php');
         exit;
     }
 }

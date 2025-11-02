@@ -1,8 +1,16 @@
 <?php
-// index.php - Página inicial do Painel Administrativo
+// index.php - Página inicial do Painel Administrativo;
 require_once 'includes/config.php';
+require_once 'includes/auth.php';
 
-// Se já está logado, redireciona para dashboard
+// Processar logout;
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header('Location: index.php');
+    exit;
+}
+
+// Se já está logado, redireciona para dashboard;
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
     header('Location: dashboard.php');
     exit;
@@ -29,38 +37,6 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
         
         <div class="landing-content">
             <div class="features">
-                <!-- <div class="feature">
-                    <i class="fas fa-users-cog"></i>
-                    <div class="feature-content">
-                        <h3>Gerenciamento Completo</h3>
-                        <p>Controle total sobre médicos, pacientes, consultas e administradores do sistema.</p>
-                    </div>
-                </div> -->
-                
-                <!-- <div class="feature">
-                    <i class="fas fa-chart-line"></i>
-                    <div class="feature-content">
-                        <h3>Dashboard Interativo</h3>
-                        <p>Visualize estatísticas e métricas importantes em tempo real.</p>
-                    </div>
-                </div>
-                 -->
-                <!-- <div class="feature">
-                    <i class="fas fa-shield-alt"></i>
-                    <div class="feature-content">
-                        <h3>Segurança Total</h3>
-                        <p>Sistema protegido com autenticação e níveis de acesso hierárquicos.</p>
-                    </div>
-                </div>
-                
-                <div class="feature">
-                    <i class="fas fa-mobile-alt"></i>
-                    <div class="feature-content">
-                        <h3>Responsivo</h3>
-                        <p>Interface adaptável para desktop, tablet e smartphones.</p>
-                    </div>
-                </div> -->
-
                 <div class="admin-info">
                     <h4>Recursos do Administrador:</h4>
                     <ul>
@@ -79,32 +55,29 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
                     Faça login para acessar o painel administrativo completo
                 </p>
                 
-                <!-- Vou ter que testar esse caminho no XAMPP, pois no php -S foi e no Apache também -->
-                <a href="login.php" class="btn">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Fazer Login
-                </a>
+                <?php if (!empty($error)): ?>
+                    <div class="alert alert-error" style="background-color: rgba(231, 76, 60, 0.2); color: #e74c3c; padding: 12px 15px; border-radius: 4px; margin-bottom: 20px; border: 1px solid #e74c3c;">
+                        <?php echo $error; ?>
+                    </div>
+                <?php endif; ?>
                 
-                <!-- <div class="stats">
-                    <div class="stat">
-                        <span class="stat-number">
-                            <i class="fas fa-user-md"></i>
-                        </span>
-                        <span class="stat-label">Médicos</span>
+                <form method="POST">
+                    <input type="hidden" name="login" value="1">
+                    
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label for="email" style="display: block; margin-bottom: 5px; font-weight: 500; color: #2c3e50;">Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;" required value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
                     </div>
-                    <div class="stat">
-                        <span class="stat-number">
-                            <i class="fas fa-user-injured"></i>
-                        </span>
-                        <span class="stat-label">Pacientes</span>
+                    
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="senha" style="display: block; margin-bottom: 5px; font-weight: 500; color: #2c3e50;">Senha:</label>
+                        <input type="password" id="senha" name="senha" class="form-control" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;" required>
                     </div>
-                    <div class="stat">
-                        <span class="stat-number">
-                            <i class="fas fa-calendar-check"></i>
-                        </span>
-                        <span class="stat-label">Consultas</span>
-                    </div>
-                </div> -->
+                    
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i> Entrar
+                    </button>
+                </form>
                 
                 <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 6px; border-left: 4px solid #ffc107;">
                     <h4 style="color: #856404; margin-bottom: 8px;">
@@ -122,8 +95,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
         <div style="background: #f8f9fa; padding: 20px; text-align: center; border-top: 1px solid #e9ecef;">
             <p style="color: #666; margin: 0;">
                 <img src="images/logo_medsuam_sem_fundo.png" alt="MedSuam" style="height: 40px; vertical-align: middle; margin-right: 10px;">
-                <!-- <i class="fas fa-heart"></i> -->
-                 &copy; 2025
+                &copy; 2025
             </p>
         </div>
     </div>

@@ -205,6 +205,35 @@ body {
     margin-bottom: 10px;
 }
 
+/* Adicione estas regras ao seu index.css existente */
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border 0.3s;
+}
+
+.form-control:focus {
+    border-color: #19628b;
+    outline: none;
+}
+
+.alert-error {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+    padding: 12px 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid #e74c3c;
+}
+
 @media (max-width: 768px) {
     .landing-content {
         grid-template-columns: 1fr;

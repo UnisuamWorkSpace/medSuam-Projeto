@@ -1,7 +1,8 @@
 <?php
+    session_start();
     include "dbMedsuam.php";
     $error = "";
-    session_start();
+    
 
    /*  if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         header('location: userpage.php');
@@ -30,8 +31,9 @@
                     if(password_verify($senha, $account['senha_paciente'])) {
                         $_SESSION['logged_in'] = true;
                         $_SESSION['paciente'] = $account['nome_paciente'];
+                        $_SESSION['email'] = $account['email_paciente'];
                         $_SESSION['id'] = $account['id_paciente'];
-                        header('location: userpage.php');
+                        header('location: autenticacao.php');
                         exit;
                         }else {
                             echo "senhas nao coincidem";
@@ -45,8 +47,9 @@
                     if ($account['status_medico'] === 'ativo') {
                         $_SESSION['logged_in_medico'] = true;
                         $_SESSION['medico'] = $account['nome_medico'];
+                        $_SESSION['email'] = $account['email_medico'];
                         $_SESSION['id_medico'] = $account['id_medico'];
-                        header('location: medicopage.php');
+                        header('location: autenticacaoMedico.php');
                         exit;
                     }else {
                         echo "usuário nao tem autorização";
