@@ -20,6 +20,11 @@ function checkAuth() {
         header('Location: login.php');
         exit;
     }
+
+    if (!isset($_SESSION['2fa_verified']) || $_SESSION['2fa_verified'] !== true) {
+        header('Location: 2fa.php');
+        exit;
+    }
 }
 
 // Verificar se é super admin
