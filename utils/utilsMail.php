@@ -103,35 +103,14 @@ function send2FACode($email, $sendCode = true) {
         $response = $sendgrid->send($email);
         $status = $response->statusCode();
         if ($status >= 200 && $status < 300) {
-            $_SESSION['2fa_code'] = $code;
-            $_SESSION['2fa_expires'] = time() + 600; // 10 minutos
-            return ['success' => true, 'status' => $status];
-        } else {
-            return ['success' => false, 'status' => $status, 'body' => $response->body()];
-        }
-    } catch (Exception $e) {
-        return ['success' => false, 'error' => $e->getMessage()];
-    }
-
-    
-    // Headers para o email HTML;
-    $headers = "MIME-Version: 1.0" . "\r\n";
-    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-    $headers .= "From: no-reply@" . $_SERVER['HTTP_HOST'] . "\r\n";
-    $headers .= "Reply-To: no-reply@" . $_SERVER['HTTP_HOST'] . "\r\n";
-    
-    try {
-        $sent = mail($to, $subject, $message, $headers);
-        
-        if ($sent) {
-            error_log("2FA: Código enviado para {$email}");
+            error_log("2FA: Código enviado para {$email} via SendGrid");
             return true;
         } else {
             error_log("2FA: Falha ao enviar código para {$email}");
             return false;
         }
     } catch (Exception $e) {
-        error_log("2FA: Erro ao enviar email - " . $e->getMessage());
+        error_log("2FA: Erro ao enviar código para {$email} - " . $e->getMessage());
         return false;
     }
 }
