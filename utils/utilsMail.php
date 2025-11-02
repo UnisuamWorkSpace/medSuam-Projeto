@@ -1,0 +1,170 @@
+<?php
+session_start();
+
+// Função para gerar um código 2FA;
+function generate2FACode($length = 6) {
+    // Gerando um código numérico aleatório de $length dígitos;
+    $code = '';
+    for ($i = 0; $i < $length; $i++) {
+        $code .= random_int(0, 9);
+    }
+    
+    // Armazenando o código gerado na sessão com timestamp de expiração;
+    $_SESSION['2fa_code'] = $code;
+    $_SESSION['2fa_code_time'] = time();
+    $_SESSION['2fa_attempts'] = 0; // Resetar tentativas;
+    
+    return $code;
+}
+
+// Função para enviar um email;
+function send2FACode($email, $sendCode = true) {
+    if ($sendCode) {
+        // Verificando se existe código na sessão;
+        if (!isset($_SESSION['2fa_code'])) {
+            error_log("2FA: Nenhum código gerado para enviar");
+            return false;
+        }
+
+        // Recuperando o código da sessão;
+        $code = $_SESSION['2fa_code'];
+    
+        // Configurações do email a ser enviado para o usuário com o código 2FA;
+        $to = $email;
+        $subject = "Seu código de verificação - " . $_SERVER['HTTP_HOST'];
+        $message = "
+        <html>
+        <head>
+            <title>Código de Verificação</title>
+            <style>
+                body { font-family: Arial, sans-serif; }
+                .code { 
+                    font-size: 24px; 
+                    font-weight: bold; 
+                    color: #2c3e50; 
+                    background: #f8f9fa; 
+                    padding: 10px 20px; 
+                    border-radius: 5px;
+                    display: inline-block;
+                    margin: 10px 0;
+                }
+                .warning { 
+                    color: #e74c3c; 
+                    font-size: 12px; 
+                    margin-top: 20px;
+                }
+            </style>
+        </head>
+        <body>
+            <h2>Verificação em Duas Etapas</h2>
+            <p>Use o código abaixo para completar seu login:</p>
+            <div class='code'>{$code}</div>
+            <p>Este código expirará em 10 minutos.</p>
+            <p class='warning'>Se você não solicitou este código, ignore este email.</p>
+        </body>
+        </html>
+        ";
+    } else {
+        // Preparei essa parte para quando for necessário enviarmos outros tipos de email usando a mesma função, como por exemplo o email de recuperação de senha.
+        error_log("2FA: Envio de código desativado por configuração");
+        return false;
+    }
+    
+    // Headers para o email HTML;
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $headers .= "From: no-reply@" . $_SERVER['HTTP_HOST'] . "\r\n";
+    $headers .= "Reply-To: no-reply@" . $_SERVER['HTTP_HOST'] . "\r\n";
+    
+    try {
+        $sent = mail($to, $subject, $message, $headers);
+        
+        if ($sent) {
+            error_log("2FA: Código enviado para {$email}");
+            return true;
+        } else {
+            error_log("2FA: Falha ao enviar código para {$email}");
+            return false;
+        }
+    } catch (Exception $e) {
+        error_log("2FA: Erro ao enviar email - " . $e->getMessage());
+        return false;
+    }
+}
+
+// Função para verificar o código 2FA fornecido pelo usuário;
+function verify2FACode($inputCode, $expiryTime = 600, $maxAttempts = 5) {
+    
+    // Inicializando o contador de tentativas se não existir;
+    if (!isset($_SESSION['2fa_attempts'])) {
+        $_SESSION['2fa_attempts'] = 0;
+    }
+    
+    // Verificando se o número de tentativas foi atingido e retornando uma mensagem de erro se tiver atingido o número máximo de tentativas;
+    if ($_SESSION['2fa_attempts'] >= $maxAttempts) {
+        return [
+            'success' => false,
+            'message' => 'Número máximo de tentativas excedido. Gere um novo código.'
+        ];
+    }
+
+    // Incrementando o contador de tentativas;
+    $_SESSION['2fa_attempts']++;
+
+    // Verificando se existe código na sessão;
+    if (!isset($_SESSION['2fa_code']) || !isset($_SESSION['2fa_code_time'])) {
+        return [
+            'success' => false,
+            'message' => 'Código não encontrado. Solicite um novo código.'
+        ];
+    }
+    
+    $storedCode = $_SESSION['2fa_code'];
+    $codeTime = $_SESSION['2fa_code_time'];
+
+    // Verificando se o código expirou e limpando a sessão se sim, retornando uma mensagem de erro com o motivo da expiração;
+    if ((time() - $codeTime) > $expiryTime) {
+        clear2FASession();
+        return [
+            'success' => false,
+            'message' => 'Código expirado. Solicite um novo código.'
+        ];
+    }
+    
+    // Comparando os códigos e removendo espaços e letras maiúsculas/minúsculas para evitar erros de digitação;
+    $cleanInput = preg_replace('/\s+/', '', $inputCode);
+    $cleanStored = preg_replace('/\s+/', '', $storedCode);
+    
+    if ($cleanStored === $cleanInput) {
+        // Código válidado - limpar sessão 2FA;
+        clear2FASession();
+        $_SESSION['2fa_verified'] = true;
+        $_SESSION['2fa_verified_time'] = time();
+        
+        return [
+            'success' => true,
+            'message' => 'Código verificado com sucesso!'
+        ];
+    } else {
+        return [
+            'success' => false,
+            'message' => 'Código inválido. Tentativas restantes: ' . ($maxAttempts - $_SESSION['2fa_attempts']),
+            'attempts_remaining' => $maxAttempts - $_SESSION['2fa_attempts']
+        ];
+    }
+}
+
+// Função para limpar os dados 2FA da sessão;
+function clear2FASession() {
+    unset($_SESSION['2fa_code']);
+    unset($_SESSION['2fa_code_time']);
+    unset($_SESSION['2fa_attempts']);
+}
+
+// Função para verificar se o usuário já passou pela verificação 2FA recentemente;
+function is2FAVerified($maxAge = 300) {
+    return isset($_SESSION['2fa_verified']) && 
+           $_SESSION['2fa_verified'] === true &&
+           (time() - $_SESSION['2fa_verified_time']) <= $maxAge;
+}
+?>
