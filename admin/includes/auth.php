@@ -15,12 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         $_SESSION['admin_id'] = $admin['id_adm'];
         $_SESSION['admin_nome'] = $admin['nome_adm'];
         $_SESSION['nivel_acesso'] = $admin['nivel_acesso'];
+        $_SESSION['admin_email'] = $email; // Armazenar email na sessão para facilitar o 2FA;
         
         // Atualizar último login
         $updateStmt = $pdo->prepare("UPDATE adm SET ultimo_login = NOW() WHERE id_adm = ?");
         $updateStmt->execute([$admin['id_adm']]);
         
-        header('Location: dashboard.php');
+        // header('Location: dashboard.php');
+         header('Location: 2fa.php');
         exit;
     } else {
         $error = "Email ou senha inválidos!";
