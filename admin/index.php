@@ -1,11 +1,33 @@
 <?php
 // index.php - Página inicial do Painel Administrativo
 require_once 'includes/config.php';
+require_once 'includes/auth.php';
 
 // Se já está logado, redireciona para dashboard
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
     header('Location: dashboard.php');
     exit;
+}
+
+// Processar login se o formulário foi submetido
+$error = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    $email = $_POST['email'] ?? '';
+    $senha = $_POST['senha'] ?? '';
+    
+    if (empty($email) || empty($senha)) {
+        $error = 'Por favor, preencha todos os campos.';
+    } else {
+        // Verificar credenciais (substitua pela sua lógica de autenticação)
+        if ($email === 'admin@medsuam.com' && $senha === 'senha123') {
+            $_SESSION['admin_logged_in'] = true;
+            $_SESSION['admin_email'] = $email;
+            header('Location: dashboard.php');
+            exit;
+        } else {
+            $error = 'Credenciais inválidas. Tente novamente.';
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -47,11 +69,30 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
                     Faça login para acessar o painel administrativo completo
                 </p>
                 
-                <!-- Vou ter que testar esse caminho no XAMPP, pois no php -S foi e no Apache também -->
-                <a href="login.php" class="btn">
-                    <i class="fas fa-sign-in-alt"></i>
-                    Fazer Login
-                </a>
+                <?php if (!empty($error)): ?>
+                    <div class="alert alert-error" style="background-color: rgba(231, 76, 60, 0.2); color: #e74c3c; padding: 12px 15px; border-radius: 4px; margin-bottom: 20px; border: 1px solid #e74c3c;">
+                        <?php echo $error; ?>
+                    </div>
+                <?php endif; ?>
+                
+                <form method="POST">
+                    <input type="hidden" name="login" value="1">
+                    
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label for="email" style="display: block; margin-bottom: 5px; font-weight: 500; color: #2c3e50;">Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;" required value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="senha" style="display: block; margin-bottom: 5px; font-weight: 500; color: #2c3e50;">Senha:</label>
+                        <input type="password" id="senha" name="senha" class="form-control" style="width: 100%; padding: 10px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem;" required>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-sign-in-alt"></i> Entrar
+                    </button>
+                </form>
+                
                 <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 6px; border-left: 4px solid #ffc107;">
                     <h4 style="color: #856404; margin-bottom: 8px;">
                         <i class="fas fa-exclamation-triangle"></i>
@@ -68,8 +109,7 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
         <div style="background: #f8f9fa; padding: 20px; text-align: center; border-top: 1px solid #e9ecef;">
             <p style="color: #666; margin: 0;">
                 <img src="images/logo_medsuam_sem_fundo.png" alt="MedSuam" style="height: 40px; vertical-align: middle; margin-right: 10px;">
-                <!-- <i class="fas fa-heart"></i> -->
-                 &copy; 2025
+                &copy; 2025
             </p>
         </div>
     </div>
