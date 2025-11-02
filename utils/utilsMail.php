@@ -4,8 +4,8 @@ session_start();
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-// use Dotenv\Dotenv;
-// use SendGrid\Mail\Mail;
+use Dotenv\Dotenv;
+use SendGrid\Mail\Mail;
 
 // Carregando as váriáveis do arquivo .env;
 $dotenv = Dotenv::createImmutable(__DIR__);
