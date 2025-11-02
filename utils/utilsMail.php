@@ -5,6 +5,7 @@ session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use Dotenv\Dotenv;
+use SendGrid\Mail\Mail;
 
 // Carregando as váriáveis do arquivo .env;
 $dotenv = Dotenv::createImmutable(__DIR__);
@@ -87,6 +88,31 @@ function send2FACode($email, $sendCode = true) {
         error_log("2FA: Envio de código desativado por configuração");
         return false;
     }
+
+
+    $email = new Mail();
+    $email->setFrom("medsuam@gmail.com", "Código de Verificação");
+    $email->setSubject("Seu código de verificação - " . $_SERVER['HTTP_HOST']);
+    $email->addTo($email, $email);
+    $email->addContent("text/plain", "Seu código 2FA: $code (válido 10 minutos)");
+    $email->addContent("text/html", $message);
+
+    $sendgrid = new \SendGrid($SENDGRID_API_KEY);
+
+    try {
+        $response = $sendgrid->send($email);
+        $status = $response->statusCode();
+        if ($status >= 200 && $status < 300) {
+            $_SESSION['2fa_code'] = $code;
+            $_SESSION['2fa_expires'] = time() + 600; // 10 minutos
+            return ['success' => true, 'status' => $status];
+        } else {
+            return ['success' => false, 'status' => $status, 'body' => $response->body()];
+        }
+    } catch (Exception $e) {
+        return ['success' => false, 'error' => $e->getMessage()];
+    }
+
     
     // Headers para o email HTML;
     $headers = "MIME-Version: 1.0" . "\r\n";
