@@ -1,5 +1,18 @@
 <?php
+
 session_start();
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Dotenv\Dotenv;
+
+// Carregando as váriáveis do arquivo .env;
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
+// Pega as variáveis do ambiente do Dotenv diretamente;
+$env = $_ENV;
+
 
 // Função para gerar um código 2FA;
 function generate2FACode($length = 6) {
@@ -19,6 +32,11 @@ function generate2FACode($length = 6) {
 
 // Função para enviar um email;
 function send2FACode($email, $sendCode = true) {
+    $SENDGRID_API_KEY = $_ENV['SENDGRID_API_KEY'] ?? null;
+    if (!$SENDGRID_API_KEY) {
+        error_log("2FA: Chave API do SendGrid não configurada");
+        return false;
+    }
     if ($sendCode) {
         // Verificando se existe código na sessão;
         if (!isset($_SESSION['2fa_code'])) {
