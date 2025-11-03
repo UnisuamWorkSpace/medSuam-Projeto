@@ -90,29 +90,29 @@ function send2FACode($email, $sendCode = true) {
     }
 
 
-   $mail = new Mail();
-$mail->setFrom("medsuam@gmail.com", "Código de Verificação");
-$mail->setSubject("Seu código de verificação - " . $_SERVER['HTTP_HOST']);
-$mail->addTo($email, $email);
-$mail->addContent("text/plain", "Seu código 2FA: $code (válido 10 minutos)");
-$mail->addContent("text/html", $message);
+    $mail = new Mail();
+    $mail->setFrom("medsuam@gmail.com", "Código de Verificação");
+    $mail->setSubject("Seu código de verificação - MedSuam");
+    $mail->addTo($email, $email);
+    $mail->addContent("text/plain", "Seu código 2FA: $code (válido 10 minutos)");
+    $mail->addContent("text/html", $message);
 
-$sendgrid = new \SendGrid($SENDGRID_API_KEY);
+    $sendgrid = new \SendGrid($SENDGRID_API_KEY);
 
-try {
-    $response = $sendgrid->send($mail);
-    $status = $response->statusCode();
-    if ($status >= 200 && $status < 300) {
-        error_log("2FA: Código enviado para {$email} via SendGrid");
-        return true;
-    } else {
-        error_log("2FA: Falha ao enviar código para {$email}");
+    try {
+        $response = $sendgrid->send($mail);
+        $status = $response->statusCode();
+        if ($status >= 200 && $status < 300) {
+            error_log("2FA: Código enviado para {$email} via SendGrid");
+            return true;
+        } else {
+            error_log("2FA: Falha ao enviar código para {$email}");
+            return false;
+        }
+    } catch (Exception $e) {
+        error_log("2FA: Erro ao enviar código para {$email} - " . $e->getMessage());
         return false;
     }
-} catch (Exception $e) {
-    error_log("2FA: Erro ao enviar código para {$email} - " . $e->getMessage());
-    return false;
-}
 
 }
 
