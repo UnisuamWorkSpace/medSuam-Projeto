@@ -1,6 +1,6 @@
 <?php
 // 2fa.php - Página de verificação 2FA;
-session_start();
+// session_start();
 require_once 'includes/config.php';
 require_once 'includes/auth.php';
 require_once __DIR__ . '/../utils/utilsMail.php';
