@@ -74,7 +74,7 @@ if (!isset($_SESSION['2fa_code_sent']) && isset($_SESSION['admin_email'])) {
             <div class="logo-container">
                 <img src="images/logo_medsuam.png" alt="MedSuam Logo" class="logo-twofa">
             </div>
-            <h1><i class="fas fa-shield-alt"></i> Verificação em Duas Etapas</h1>
+            <h1>Verificação em Duas Etapas</h1>
             <p>Por segurança, verifique sua identidade</p>
         </div>
         
