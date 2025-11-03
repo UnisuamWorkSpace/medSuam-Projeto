@@ -152,14 +152,6 @@ if (!isset($_SESSION['2fa_code_sent']) && isset($_SESSION['admin_email'])) {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('code').focus();
-            
-            // // Auto-submit quando completar 6 dígitos;
-            // const codeInput = document.getElementById('code');
-            // codeInput.addEventListener('input', function() {
-            //     if (this.value.length === 6) {
-            //         this.form.submit();
-            //     }
-            // });
         });
     </script>
 </body>
