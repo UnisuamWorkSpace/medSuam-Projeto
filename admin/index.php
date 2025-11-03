@@ -36,6 +36,18 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
         </div>
         
         <div class="landing-content">
+            
+            <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 6px; border-left: 4px solid #ffc107;">
+                    <h4 style="color: #856404; margin-bottom: 8px;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Acesso Restrito
+                    </h4>
+                    <p style="color: #856404; font-size: 0.9rem;">
+                        Esta área é exclusiva para administradores autorizados. 
+                        Contate o super administrador para obter credenciais de acesso.
+                    </p>
+            </div>
+            
             <div class="features">
                 <div class="admin-info">
                     <h4>Recursos do Administrador:</h4>
