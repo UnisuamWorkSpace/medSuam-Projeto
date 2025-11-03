@@ -93,6 +93,7 @@ function send2FACode($email, $sendCode = true) {
     $mail = new Mail();
     $mail->setFrom("medsuam@gmail.com", "Código de Verificação");
     $mail->setSubject("Seu código de verificação - MedSuam");
+    $mail->addReplyTo("medsuam@gmail.com", "Suporte MedSuam");
     $mail->addTo($email, $email);
     $mail->addContent("text/plain", "Seu código 2FA: $code (válido 10 minutos)");
     $mail->addContent("text/html", $message);
