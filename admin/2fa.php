@@ -143,8 +143,8 @@ if (!isset($_SESSION['2fa_code_sent']) && isset($_SESSION['admin_email'])) {
         
         <div class="twofa-footer">
             <p>
-                <img src="images/logo_medsuam_sem_fundo.png" alt="MedSuam" class="footer-logo">
-                &copy; 2025 - Sistema Seguro
+                <img src="images/logo_medsuam_sem_fundo.png" alt="MedSuam" style="height: 40px; vertical-align: middle; margin-right: 10px;">
+                &copy; 2025
             </p>
         </div>
     </div>
@@ -153,13 +153,13 @@ if (!isset($_SESSION['2fa_code_sent']) && isset($_SESSION['admin_email'])) {
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('code').focus();
             
-            // Auto-submit quando completar 6 dígitos;
-            const codeInput = document.getElementById('code');
-            codeInput.addEventListener('input', function() {
-                if (this.value.length === 6) {
-                    this.form.submit();
-                }
-            });
+            // // Auto-submit quando completar 6 dígitos;
+            // const codeInput = document.getElementById('code');
+            // codeInput.addEventListener('input', function() {
+            //     if (this.value.length === 6) {
+            //         this.form.submit();
+            //     }
+            // });
         });
     </script>
 </body>
