@@ -34,7 +34,7 @@
         $senhaConfirmaCliente = mysqli_real_escape_string($conn, $_POST["senhaconfirm"]);
 
         if($senhaCliente === $senhaConfirmaCliente) {     
-                      $sql = "SELECT * FROM paciente WHERE email_paciente ='$emailCliente' LIMIT 1";
+        $sql = "SELECT * FROM paciente WHERE email_paciente ='$emailCliente' LIMIT 1";
         $result = mysqli_query($conn, $sql);
 
         $sql2 = "SELECT * FROM paciente WHERE cpf_paciente ='$cpfCliente' LIMIT 1";

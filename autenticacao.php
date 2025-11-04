@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include "./utils/utilsMail.php";
     
 
@@ -15,8 +16,14 @@
     if ($result['success']) {
         clear2FASession();
         is2FAVerified($maxAge = 300);
-        header('location: userpage.php');
-        exit;
+        if(!isset($_SESSION['mudarSenha'])) {
+            header('location: userpage.php');
+            exit;
+        }else {
+            header('location: reset.php');
+            exit;
+        }
+        
     } else {
         $result['message'];
     }

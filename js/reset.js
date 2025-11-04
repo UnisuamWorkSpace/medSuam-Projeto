@@ -62,7 +62,7 @@ const form = $('#resetForm').on("submit", async (event) => {
 
         setTimeout ( () => {
             btn.removeClass("enviarClick");
-            window.location.replace('./login.html');
+            document.getElementById("resetForm").submit();
         }, 500); 
 
     

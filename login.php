@@ -105,7 +105,7 @@
                         </div>
                         <div class="recuperarSenhaContainer">
 
-                            <a href="./emailCollect.html">Esqueceu a senha ?</a>
+                            <a href="./emailCollect.php">Esqueceu a senha ?</a>
                         </div>
                         <input id="enviarBtn" class="buttonStyle" type="submit" value="Enviar">
                         <div class="criarConta">

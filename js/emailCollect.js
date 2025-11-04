@@ -43,7 +43,7 @@ form.on("submit", (event) => {
 
     setTimeout(() => {
         btn.removeClass("enviarClick");
-        window.location.replace("./reset.html");
+        document.getElementById("emailCollectForm").submit();
     }, 500);
 
    

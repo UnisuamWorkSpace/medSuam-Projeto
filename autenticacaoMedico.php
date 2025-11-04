@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include "./utils/utilsMail.php";
     
 
@@ -13,11 +14,15 @@
     $inputCode = $_POST['senha'];
     $result = verify2FACode($inputCode);
     if ($result['success']) {
-        $_SESSION['2fa_verified'] = true;
-        $_SESSION['2fa_verified_time'] = time();
         clear2FASession();
-        header('location: medicopage.php');
-        exit;
+        is2FAVerified($maxAge = 300);
+        if(!isset($_SESSION['mudarSenha'])) {
+            header('location: medicopage.php');
+            exit;
+        }else {
+            header('location: reset.php');
+            exit;
+        }
     } else {
         $result['message'];
     }
